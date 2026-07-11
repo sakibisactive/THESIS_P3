@@ -545,6 +545,7 @@ class ACORouter(Router):
                 active_incidents,
                 tabu,
                 last_edge_id,
+                destination_node_id,
             )
             if not candidates:
                 return None
@@ -579,6 +580,7 @@ class ACORouter(Router):
         active_incidents: list[object],
         tabu: set[str],
         from_edge_id: str | None = None,
+        destination_node_id: str | None = None,
     ) -> list[_Candidate]:
         """Builds the list of feasible candidate edges from the current node."""
         candidates: list[_Candidate] = []
@@ -589,6 +591,14 @@ class ACORouter(Router):
                 continue
             tau = self.pheromones.get(edge.id, self.config.initial_pheromone)
             eta = self.scorer.heuristic(edge, vehicle, network, active_incidents)
+            if destination_node_id:
+                to_node_obj = network.nodes.get(edge.to_node)
+                dest_node_obj = network.nodes.get(destination_node_id)
+                if to_node_obj and dest_node_obj:
+                    dx = to_node_obj.x - dest_node_obj.x
+                    dy = to_node_obj.y - dest_node_obj.y
+                    dist_to_dest = (dx * dx + dy * dy) ** 0.5
+                    eta = eta * math.exp(-dist_to_dest / 80.0)
             attract = MultiObjectiveEdgeScorer.pheromone_heuristic(
                 tau, eta, self.config.alpha, self.config.beta
             )

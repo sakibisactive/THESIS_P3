@@ -200,6 +200,7 @@ class Network:
         self.nodes: dict[str, Node] = {}
         self.edges: dict[str, Edge] = {}
         self.stations: dict[str, ChargingStation] = {}
+        self._has_transitions = False
 
         # Fast lookup mapping node ID -> list of outgoing edges
         self._adjacency_map: dict[str, list[Edge]] = {}
@@ -231,6 +232,8 @@ class Network:
             raise NetworkError(f"Target node '{edge.to_node}' not in network.")
 
         self.edges[edge.id] = edge
+        if edge.allowed_transitions:
+            self._has_transitions = True
         self._adjacency_map[edge.from_node].append(edge)
         self._incoming_map[edge.to_node].append(edge)
 
@@ -260,10 +263,12 @@ class Network:
             list[Edge]: List of outgoing Edge instances.
         """
         edges = self._adjacency_map.get(node_id, [])
-        if from_edge_id is not None:
+        if from_edge_id is not None and self._has_transitions:
             from_edge = self.edges.get(from_edge_id)
-            if from_edge and from_edge.allowed_transitions:
-                return [e for e in edges if e.id in from_edge.allowed_transitions]
+            if from_edge:
+                return [
+                    e for e in edges if e.id in from_edge.allowed_transitions
+                ]
         return edges
 
     def get_incoming_edges(self, node_id: str) -> list[Edge]:

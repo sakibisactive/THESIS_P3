@@ -1,0 +1,55 @@
+{
+  "algorithms": [
+    "Dijkstra",
+    "AStar",
+    "ACO",
+    "BCO",
+    "PSO",
+    "E3-Hybrid"
+  ],
+  "scenarios": [
+    "normal_traffic",
+    "road_closure",
+    "progressive_closures",
+    "emergency_incident",
+    "infrastructure_failure",
+    "communication_blackout"
+  ],
+  "vehicle_counts": [
+    25,
+    50,
+    100,
+    200
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "timestamp": "2026-07-11T18:29:01Z",
+  "git_commit": "7dab4b3d7a2ed757ac799f038cfd33aa49954c5d",
+  "parameters": {
+    "aco": {
+      "num_ants": 5,
+      "max_iterations": 5
+    },
+    "bco": {
+      "colony_size": 5,
+      "max_iterations": 5
+    },
+    "pso": {
+      "swarm_size": 5,
+      "max_iterations": 5
+    },
+    "e3_hybrid": {
+      "max_iterations": 5
+    }
+  }
+}

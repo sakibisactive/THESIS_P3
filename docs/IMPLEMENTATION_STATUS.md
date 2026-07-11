@@ -18,6 +18,8 @@ This document tracks the progressive implementation milestones of the research s
 | **Phase 3: E³-Hybrid Algorithm** | **Completed** | Combined ACO+BCO+PSO hybrid using a centralized Information Blackboard and ablation-configurable information sharing. |
 | **Phase 4.1: Evaluation Framework** | **Completed** | Standalone evaluation framework, metrics collection, statistical analysis, scenario execution engine, plotting, and TraCI SUMO adapter layer. |
 | **Phase 4.2: SUMO Coupling & NY Map** | **Completed** | OSM network import pipeline, TraCI bidirectional state synchronization, dynamic traffic rerouting, and batch experiments on Manhattan topology. |
+| **Phase 4.3: Large-Scale Benchmark Preparation** | **Completed** | Scenario config matrix, dynamic TCP port allocation, TraCI recovery, intermediate checkpointing, statistics compiler, and grid-scale Exponential Goal Guidance swarm routing. |
+
 
 ---
 

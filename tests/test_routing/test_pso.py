@@ -95,8 +95,10 @@ def test_decoder_backtracking(grid_network: Network, pso_config: PSOConfig) -> N
     router = PSORouter(config=pso_config, seed=42)
     ctx = RoutingContext(network=grid_network, current_time=0.0)
     
-    # We force the priority vector to heavily favor the dead end (n6)
+    # We force the priority vector to heavily favor the path to the dead end (n6)
     X_i = {
+        "e_n1_n2": 1000.0,
+        "e_n2_n3": 1000.0,
         "e_n3_n6": 1000.0,  # Trap
     }
     

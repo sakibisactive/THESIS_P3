@@ -8,3 +8,11 @@ __pycache__/
 .idea/
 *.log
 .DS_Store
+
+# Benchmark execution outputs
+outputs/intermediate/
+outputs/benchmark_results.json
+outputs/benchmark_results.csv
+
+# Temporary scratch scripts
+scratch/

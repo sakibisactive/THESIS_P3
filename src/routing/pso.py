@@ -32,6 +32,7 @@ updates will naturally pull the swarm away from the now-invalid routes towards
 better alternatives.
 """
 
+import math
 import random
 import time
 from dataclasses import dataclass, field
@@ -434,6 +435,7 @@ class PSORouter(Router):
         path_nodes_set: set[str] = {origin}
         total_cost: float = 0.0
         nodes_expanded: int = 0
+        max_expansions: int = 2000
 
         def get_sorted_edges(node: str) -> list[Any]:
             edges = []
@@ -449,6 +451,14 @@ class PSORouter(Router):
             def get_priority(e: Any) -> float:
                 if e.id not in X_i:
                     base = self.scorer.heuristic(e, veh, net, incidents)
+                    if dest:
+                        to_node_obj = net.nodes.get(e.to_node)
+                        dest_node_obj = net.nodes.get(dest)
+                        if to_node_obj and dest_node_obj:
+                            dx = to_node_obj.x - dest_node_obj.x
+                            dy = to_node_obj.y - dest_node_obj.y
+                            dist_to_dest = (dx * dx + dy * dy) ** 0.5
+                            base = base * math.exp(-dist_to_dest / 80.0)
                     # Pheromone biasing
                     if getattr(self, "_injected_pheromones", None):
                         tau = self._injected_pheromones.get(e.id, 0.0)
@@ -464,6 +474,9 @@ class PSORouter(Router):
         stack.append((origin, get_sorted_edges(origin)))
 
         while stack:
+            if nodes_expanded > max_expansions:
+                break  # Safety cutoff to prevent infinite backtracking loops in DFS
+
             current_node, untried_edges = stack[-1]
 
             if current_node == dest:

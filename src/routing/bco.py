@@ -532,6 +532,14 @@ class BCORouter(Router):
                     continue
 
                 eta = self.scorer.heuristic(edge, veh, net, active_incidents)
+                if dest:
+                    to_node_obj = net.nodes.get(edge.to_node)
+                    dest_node_obj = net.nodes.get(dest)
+                    if to_node_obj and dest_node_obj:
+                        dx = to_node_obj.x - dest_node_obj.x
+                        dy = to_node_obj.y - dest_node_obj.y
+                        dist_to_dest = (dx * dx + dy * dy) ** 0.5
+                        eta = eta * math.exp(-dist_to_dest / 80.0)
                 # BCO primarily uses heuristic desirability directly
                 attract = eta
                 edge_cost = context.cost_function(edge, veh, net, context)
