@@ -2,39 +2,43 @@
 """
 run_thesis.py — One-command thesis experiment orchestrator.
 
-Presets
--------
-  smoke     2 algorithms × 1 scenario × 25 vehicles × 1 seed  (≈ 30 s)
-  light     All algorithms × 1 scenario × 25 vehicles × seeds 1-2  (≈ 5 min)
-  heavy     Full thesis matrix: all algorithms × all scenarios ×
-            all vehicle counts × seeds 1-10  (≈ 1-2 h on 4 cores)
-  extreme   Same as heavy but with research-mode parameters (no evaluation
-            overrides — significantly longer)
-
 Usage
 -----
-    python run_thesis.py smoke
-    python run_thesis.py light
-    python run_thesis.py heavy
-    python run_thesis.py heavy --no-resume
-    python run_thesis.py extreme --sequential
+    python run_thesis.py --preset smoke
+    python run_thesis.py --preset light
+    python run_thesis.py --preset heavy
+    python run_thesis.py --preset extreme
+    python run_thesis.py --preset heavy --no-resume
+    python run_thesis.py --preset heavy --sequential
+    python run_thesis.py --preset heavy --skip-preflight
 
-This script is a thin orchestration wrapper. All benchmark logic lives in
-scripts/run_benchmarks.py and scripts/profile_algorithms.py.
+This is a thin orchestration wrapper. All benchmark logic lives in:
+  • scripts/run_benchmarks.py    — benchmark execution engine
+  • scripts/profile_algorithms.py — routing latency profiler
+  • preflight.py                 — environment verification
 """
 
 import argparse
 import pathlib
 import subprocess
 import sys
+import textwrap
 import time
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent
 VENV_PYTHON = REPO_ROOT / ".venv" / "bin" / "python"
-
-# Fall back to the active interpreter if the venv hasn't been created yet
 PYTHON = str(VENV_PYTHON) if VENV_PYTHON.exists() else sys.executable
 
+_USE_COLOR = sys.stdout.isatty()
+BOLD   = "\033[1m"  if _USE_COLOR else ""
+CYAN   = "\033[96m" if _USE_COLOR else ""
+GREEN  = "\033[92m" if _USE_COLOR else ""
+YELLOW = "\033[93m" if _USE_COLOR else ""
+RED    = "\033[91m" if _USE_COLOR else ""
+DIM    = "\033[2m"  if _USE_COLOR else ""
+RESET  = "\033[0m"  if _USE_COLOR else ""
+
+WIDTH = 64
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Preset definitions
@@ -42,80 +46,71 @@ PYTHON = str(VENV_PYTHON) if VENV_PYTHON.exists() else sys.executable
 
 PRESETS: dict[str, dict] = {
     "smoke": {
-        "description": "Quick pipeline check (~30 s)",
+        "runtime":     "~30 seconds",
+        "description": "Quick pipeline sanity check — 2 runs",
+        "matrix":      "2 algorithms × 1 scenario × 25 vehicles × 1 seed",
         "benchmark_args": [
             "--algorithms", "Dijkstra,E3-Hybrid",
-            "--scenarios", "normal_traffic",
-            "--vehicles", "25",
-            "--seeds", "1",
+            "--scenarios",  "normal_traffic",
+            "--vehicles",   "25",
+            "--seeds",      "1",
             "--no-resume",
         ],
-        "profile": False,
-        "note": "2 algorithms × 1 scenario × 25 vehicles × 1 seed = 2 runs",
+        "run_profiler": False,
     },
     "light": {
-        "description": "Quick multi-seed sanity check (~5 min)",
+        "runtime":     "~5 minutes",
+        "description": "Multi-seed validation check — 12 runs",
+        "matrix":      "3 algorithms × 2 scenarios × 25 vehicles × 2 seeds",
         "benchmark_args": [
             "--algorithms", "Dijkstra,AStar,E3-Hybrid",
-            "--scenarios", "normal_traffic,road_closure",
-            "--vehicles", "25",
-            "--seeds", "1-2",
+            "--scenarios",  "normal_traffic,road_closure",
+            "--vehicles",   "25",
+            "--seeds",      "1-2",
         ],
-        "profile": False,
-        "note": "3 algorithms × 2 scenarios × 25 vehicles × 2 seeds = 12 runs",
+        "run_profiler": False,
     },
     "heavy": {
-        "description": "Full thesis benchmark matrix (~1-2 h on 4 cores)",
+        "runtime":     "~1–2 hours on 4 CPU cores",
+        "description": "Full thesis benchmark matrix — 1,440 runs",
+        "matrix":      "6 algorithms × 6 scenarios × 4 vehicle counts × 10 seeds",
         "benchmark_args": [
             "--use-multiprocessing",
         ],
-        "profile": True,
-        "note": "6 algorithms × 6 scenarios × 4 vehicle counts × 10 seeds = 1,440 runs",
+        "run_profiler": True,
     },
     "extreme": {
-        "description": "Full matrix with research-mode parameters (much longer)",
+        "runtime":     "~4–8 hours on 4 CPU cores",
+        "description": "Full matrix with research-mode swarm parameters",
+        "matrix":      "Same as heavy — ACO/BCO/PSO/E3 run at full iteration depth",
         "benchmark_args": [
             "--use-multiprocessing",
             "--research-mode",
         ],
-        "profile": True,
-        "note": "Same as heavy but with full swarm parameters (ACO 50 ants, etc.)",
+        "run_profiler": True,
     },
 }
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
-BOLD = "\033[1m"
-CYAN = "\033[96m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RED = "\033[91m"
-RESET = "\033[0m"
-
-
 def _banner(text: str) -> None:
-    width = 64
     print()
-    print(BOLD + CYAN + "═" * width + RESET)
+    print(BOLD + CYAN + "═" * WIDTH + RESET)
     print(BOLD + CYAN + f"  {text}" + RESET)
-    print(BOLD + CYAN + "═" * width + RESET)
+    print(BOLD + CYAN + "═" * WIDTH + RESET)
 
 
 def _run(cmd: list[str], label: str) -> int:
-    """Runs a subprocess, streaming output live. Returns exit code."""
     _banner(label)
-    print(f"  $ {' '.join(cmd)}\n")
-    result = subprocess.run(cmd, cwd=REPO_ROOT)
-    return result.returncode
+    print(f"  {DIM}$ {' '.join(cmd)}{RESET}\n")
+    return subprocess.run(cmd, cwd=REPO_ROOT).returncode
 
 
 def _elapsed(seconds: float) -> str:
-    h = int(seconds // 3600)
-    m = int((seconds % 3600) // 60)
-    s = int(seconds % 60)
+    h, rem = divmod(int(seconds), 3600)
+    m, s = divmod(rem, 60)
     if h:
         return f"{h}h {m}m {s}s"
     if m:
@@ -123,29 +118,62 @@ def _elapsed(seconds: float) -> str:
     return f"{s}s"
 
 
+def _preset_table() -> str:
+    lines = []
+    for name, meta in PRESETS.items():
+        lines.append(f"  --preset {name:<10}  {meta['runtime']}")
+        lines.append(f"             {meta['description']}")
+        lines.append(f"             {DIM}{meta['matrix']}{RESET}")
+        lines.append("")
+    return "\n".join(lines)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
-# Main
+# Argument parsing
 # ─────────────────────────────────────────────────────────────────────────────
 
-def main() -> int:
+def build_parser() -> argparse.ArgumentParser:
+    epilog = textwrap.dedent(f"""
+presets
+-------
+{_preset_table()}
+examples
+--------
+  python run_thesis.py --preset smoke              # quick 2-run pipeline check
+  python run_thesis.py --preset light              # 12-run validation run
+  python run_thesis.py --preset heavy              # full 1,440-run thesis matrix
+  python run_thesis.py --preset heavy --no-resume  # restart from scratch
+  python run_thesis.py --preset heavy --sequential # single-core execution
+
+resume from checkpoint
+----------------------
+  Interrupted runs are checkpointed after every completed seed.
+  Re-run the same command to pick up where you left off:
+    python run_thesis.py --preset heavy
+
+plot / report only (no benchmark)
+-----------------------------------
+  python scripts/run_benchmarks.py --use-multiprocessing  # run benchmarks
+  # Plots and tables are generated automatically at the end of every run.
+""")
+
     parser = argparse.ArgumentParser(
-        description="E³-Hybrid Thesis one-command experiment runner.",
+        prog="run_thesis.py",
+        description="E³-Hybrid Thesis — one-command experiment runner.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="\n".join(
-            f"  {name:<10} {meta['description']}\n"
-            f"             {YELLOW}{meta['note']}{RESET}"
-            for name, meta in PRESETS.items()
-        ),
+        epilog=epilog,
     )
     parser.add_argument(
-        "preset",
+        "--preset",
+        required=True,
         choices=list(PRESETS.keys()),
-        help="Experiment scale preset.",
+        metavar="PRESET",
+        help="Experiment scale: smoke | light | heavy | extreme",
     )
     parser.add_argument(
         "--skip-preflight",
         action="store_true",
-        help="Skip the system readiness check.",
+        help="Skip the environment check (not recommended).",
     )
     parser.add_argument(
         "--no-resume",
@@ -155,78 +183,85 @@ def main() -> int:
     parser.add_argument(
         "--sequential",
         action="store_true",
-        help="Force sequential execution (disables multiprocessing).",
+        help="Disable multiprocessing — run seeds one at a time.",
     )
-    args = parser.parse_args()
+    return parser
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Main
+# ─────────────────────────────────────────────────────────────────────────────
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
     preset = PRESETS[args.preset]
     wall_start = time.time()
 
     print(BOLD + "\n  E³-Hybrid Thesis Experiment Runner" + RESET)
-    print(f"  Preset : {BOLD}{args.preset}{RESET}  —  {preset['description']}")
-    print(f"  Matrix : {preset['note']}")
+    print(f"  Preset  : {BOLD}{args.preset}{RESET}  —  {preset['description']}")
+    print(f"  Matrix  : {preset['matrix']}")
+    print(f"  Runtime : {preset['runtime']}")
 
-    # ── 1. Preflight ──────────────────────────────────────────────────────────
+    total_steps = 3 if preset["run_profiler"] else 2
+    step = 1
+
+    # ── Step 1: Preflight ─────────────────────────────────────────────────────
     if not args.skip_preflight:
-        rc = _run([PYTHON, "preflight.py"], "Step 1 / 4 — Pre-flight System Check")
+        rc = _run([PYTHON, "preflight.py"], f"Step {step}/{total_steps} — Pre-flight System Check")
+        step += 1
         if rc != 0:
-            print(f"\n{RED}Preflight failed. Fix the issues above, then re-run.{RESET}")
-            print("To skip preflight: python run_thesis.py <preset> --skip-preflight\n")
+            print(f"\n{RED}Preflight failed. Fix the issues listed above, then re-run.{RESET}")
+            print(f"{DIM}To skip preflight: python run_thesis.py --preset {args.preset} --skip-preflight{RESET}\n")
             return 1
     else:
         print(f"\n  {YELLOW}⚠  Preflight skipped (--skip-preflight).{RESET}")
+        step += 1
 
-    # ── 2. Algorithm profiling (heavy / extreme only) ─────────────────────────
-    if preset["profile"]:
+    # ── Step 2: Algorithm profiler (heavy/extreme only) ───────────────────────
+    if preset["run_profiler"]:
         rc = _run(
             [PYTHON, "scripts/profile_algorithms.py"],
-            "Step 2 / 4 — Algorithm Performance Profile",
+            f"Step {step}/{total_steps} — Algorithm Performance Profile",
         )
+        step += 1
         if rc != 0:
-            print(f"\n{YELLOW}⚠  Profiling failed — continuing anyway.{RESET}")
-    else:
-        print(f"\n  Skipping profiling for '{args.preset}' preset.")
+            print(f"\n{YELLOW}⚠  Profiling failed — continuing to benchmark.{RESET}")
 
-    # ── 3. Benchmark ──────────────────────────────────────────────────────────
+    # ── Step 3: Benchmark ─────────────────────────────────────────────────────
     benchmark_cmd = [PYTHON, "scripts/run_benchmarks.py"]
-    extra_args = list(preset["benchmark_args"])
+    extra = list(preset["benchmark_args"])
 
-    if args.no_resume and "--no-resume" not in extra_args:
-        extra_args.append("--no-resume")
+    if args.no_resume and "--no-resume" not in extra:
+        extra.append("--no-resume")
     if args.sequential:
-        extra_args = [a for a in extra_args if a != "--use-multiprocessing"]
+        extra = [a for a in extra if a != "--use-multiprocessing"]
 
-    benchmark_cmd += extra_args
-
-    step_label = (
-        "Step 3 / 4 — Running Benchmark Suite"
-        if preset["profile"]
-        else "Step 2 / 3 — Running Benchmark Suite"
-    )
-    rc = _run(benchmark_cmd, step_label)
+    benchmark_cmd += extra
+    rc = _run(benchmark_cmd, f"Step {step}/{total_steps} — Benchmark Suite")
     if rc != 0:
-        print(f"\n{RED}Benchmark run exited with errors (code {rc}).{RESET}")
-        print("Intermediate checkpoints are preserved. Re-run to resume.\n")
+        print(f"\n{RED}Benchmark exited with errors (code {rc}).{RESET}")
+        print(f"Intermediate checkpoints are preserved. Re-run to resume.\n")
         return rc
 
-    # ── 4. Done ───────────────────────────────────────────────────────────────
+    # ── Done ──────────────────────────────────────────────────────────────────
     elapsed = _elapsed(time.time() - wall_start)
-    _banner("Complete")
-    print(f"  {GREEN}✔  All steps finished in {elapsed}.{RESET}")
-    print()
-    print("  Output artefacts:")
+    _banner("All Steps Complete")
+    print(f"  {GREEN}✔  Finished in {elapsed}.{RESET}\n")
+
     outputs = [
-        ("outputs/benchmark_manifest.json", "Benchmark manifest (parameters + git hash)"),
-        ("outputs/statistical_tables.md",   "Hypothesis tests (Welch t, Mann-Whitney U, Cohen d)"),
-        ("outputs/thesis_results/environment_snapshot.json",   "System environment snapshot"),
-        ("outputs/thesis_results/reproducibility_manifest.json", "Algorithm profiling results"),
-        ("outputs/",                         "Figures (PNG + PDF + SVG) and raw CSV"),
+        ("outputs/benchmark_manifest.json",                    "Benchmark manifest"),
+        ("outputs/statistical_tables.md",                      "Statistical hypothesis tables"),
+        ("outputs/energy_consumption_comparison.pdf",          "Energy comparison figure"),
+        ("outputs/thesis_results/environment_snapshot.json",   "Environment snapshot"),
+        ("outputs/thesis_results/reproducibility_manifest.json","Reproducibility manifest"),
     ]
-    for path, desc in outputs:
-        exists = (REPO_ROOT / path).exists()
-        mark = GREEN + "✔" + RESET if exists else YELLOW + "?" + RESET
-        print(f"    {mark}  {path}")
-        print(f"         {desc}")
+    print("  Generated artefacts:")
+    for rel, desc in outputs:
+        exists = (REPO_ROOT / rel).exists()
+        mark = f"{GREEN}✔{RESET}" if exists else f"{YELLOW}?{RESET}"
+        print(f"    {mark}  {rel}")
+        print(f"       {DIM}{desc}{RESET}")
     print()
     return 0
 
