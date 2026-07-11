@@ -1,0 +1,20 @@
+{
+  "timestamp": "ubuntu4sakib",
+  "os": "Linux-6.17.0-35-generic-x86_64-with-glibc2.39",
+  "python_version": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+  "sumo_version": "Eclipse SUMO sumo 1.27.1",
+  "git_commit": "4c4c3e4a37720756cc22d05cd073325bd3a25f9f",
+  "cores": 4,
+  "free_disk_space_gb": 14.370986938476562,
+  "network_file": "data/networks/midtown_manhattan.net.xml",
+  "network_sha256": "c2f5702163acf3377f74e03e4bce9598f17aeab54f245edc3daf12de8bf63275",
+  "dependencies": {
+    "numpy": "installed",
+    "scipy": "installed",
+    "matplotlib": "installed",
+    "pydantic": "installed",
+    "yaml": "installed",
+    "traci": "installed"
+  },
+  "all_checks_passed": true
+}
