@@ -39,7 +39,6 @@ class IncidentProtocol(Protocol):
         ...
 
 
-
 class MultiObjectiveEdgeScorer:
     """Computes a composite heuristic desirability score for a road edge.
 
@@ -63,10 +62,10 @@ class MultiObjectiveEdgeScorer:
     # dimensionless fractions before applying weights.  These constants are
     # chosen to keep the per-objective contribution in roughly the same
     # magnitude range for typical urban networks.
-    _TIME_REF_S: float = 60.0       # 60 s reference traversal time
-    _DIST_REF_M: float = 500.0      # 500 m reference edge length
-    _ENERGY_REF_KWH: float = 0.05   # 0.05 kWh reference energy per edge
-    _CONGESTION_REF: float = 1.0    # Maximum possible congestion score
+    _TIME_REF_S: float = 60.0  # 60 s reference traversal time
+    _DIST_REF_M: float = 500.0  # 500 m reference edge length
+    _ENERGY_REF_KWH: float = 0.05  # 0.05 kWh reference energy per edge
+    _CONGESTION_REF: float = 1.0  # Maximum possible congestion score
 
     def __init__(self, config: RoutingObjectivesConfig) -> None:
         """Initialises the scorer with objective weight configuration.
@@ -129,9 +128,7 @@ class MultiObjectiveEdgeScorer:
         s_congestion = congestion_penalty / self._DIST_REF_M
 
         # --- 5. Emergency Proximity Component ---
-        s_emergency = self._compute_emergency_score(
-            edge, network, active_incidents
-        )
+        s_emergency = self._compute_emergency_score(edge, network, active_incidents)
 
         # --- Weighted Combination ---
         score = (
@@ -185,7 +182,7 @@ class MultiObjectiveEdgeScorer:
         if vehicle is None or vehicle.battery is None:
             # No EV model: use travel-time proxy normalised to energy ref
             time_s = edge.length / speed
-            return (time_s / self._TIME_REF_S)
+            return time_s / self._TIME_REF_S
 
         raw_kwh = vehicle.battery.calculate_consumption(
             distance_m=edge.length,
@@ -273,7 +270,7 @@ class MultiObjectiveEdgeScorer:
         """
         if tau <= 0.0 or eta <= 0.0:
             return 0.0
-        return float((tau ** alpha) * (eta ** beta))
+        return float((tau**alpha) * (eta**beta))
 
 
 def build_scorer(config: RoutingObjectivesConfig) -> MultiObjectiveEdgeScorer:

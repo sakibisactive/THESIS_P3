@@ -17,7 +17,51 @@ class SimulationConfig(BaseModel):
         description="Simulation engine mode ('standalone' or 'sumo')",
     )
     network_file_path: str = Field(
-        ..., description="Path to network configuration file"
+        default="", description="Path to network configuration file"
+    )
+    
+    # Path configuration fields for file loading/compilation
+    osm_file: str | None = Field(
+        default=None, description="Path to raw OpenStreetMap (.osm) file"
+    )
+    network_file: str | None = Field(
+        default=None, description="Path to compiled SUMO (.net.xml) file"
+    )
+    route_file: str | None = Field(
+        default=None, description="Path to SUMO route or trip file"
+    )
+    scenario_file: str | None = Field(
+        default=None, description="Path to scenario definition file"
+    )
+    output_dir: str | None = Field(
+        default=None, description="Path to output directory"
+    )
+    
+    # SUMO integration configuration parameters
+    sumo_binary: str = Field(
+        default="sumo", description="Executable name or path for SUMO"
+    )
+    use_gui: bool = Field(
+        default=False, description="Whether to run SUMO with GUI interface"
+    )
+    step_length: float = Field(
+        default=1.0, description="Step length in seconds for SUMO"
+    )
+    seed: int = Field(
+        default=42, description="Random seed for SUMO and traffic generation"
+    )
+    traci_port: int = Field(
+        default=8813, description="Port for TraCI connection"
+    )
+    output_directory: str = Field(
+        default="outputs", description="Directory to save simulation outputs"
+    )
+    enable_subscriptions: bool = Field(
+        default=True, description="Whether to use TraCI subscription queries"
+    )
+    real_time_factor: float = Field(
+        default=-1.0,
+        description="Target real-time speed factor for SUMO, -1 for unlimited",
     )
 
     @model_validator(mode="after")
@@ -28,6 +72,25 @@ class SimulationConfig(BaseModel):
             raise ValueError("dt must be greater than zero")
         if self.max_steps <= 0:
             raise ValueError("max_steps must be greater than zero")
+        if self.step_length <= 0:
+            raise ValueError("step_length must be greater than zero")
+            
+        # Update output_directory if output_dir is specified
+        if self.output_dir:
+            self.output_directory = self.output_dir
+            
+        # Sync network_file_path if missing but network_file is provided
+        if not self.network_file_path and self.network_file:
+            self.network_file_path = self.network_file
+            
+        # If neither is specified but osm_file is, we will generate network_file later, 
+        # so we don't fail validation immediately if osm_file is present.
+        if not self.network_file_path and not self.network_file and not self.osm_file:
+            raise ValueError(
+                "At least one of network_file_path, network_file, or "
+                "osm_file must be specified."
+            )
+            
         return self
 
 
@@ -325,9 +388,7 @@ class RoutingObjectivesConfig(BaseModel):
             + self.w_emergency
         )
         if total <= 0.0:
-            raise ValueError(
-                "At least one routing objective weight must be positive."
-            )
+            raise ValueError("At least one routing objective weight must be positive.")
         return self
 
 
@@ -416,13 +477,9 @@ class ACOConfig(BaseModel):
         if self.max_iterations < 1:
             raise ValueError("max_iterations must be >= 1")
         if self.min_pheromone >= self.max_pheromone:
-            raise ValueError(
-                "min_pheromone must be strictly less than max_pheromone"
-            )
+            raise ValueError("min_pheromone must be strictly less than max_pheromone")
         if self.initial_pheromone < self.min_pheromone:
-            raise ValueError(
-                "initial_pheromone must be >= min_pheromone"
-            )
+            raise ValueError("initial_pheromone must be >= min_pheromone")
         return self
 
 
@@ -476,7 +533,6 @@ class BCOConfig(BaseModel):
         if not 0.0 <= self.abandonment_threshold <= 1.0:
             raise ValueError("abandonment_threshold must be in [0, 1]")
         return self
-
 
 
 class PSOConfig(BaseModel):
@@ -559,9 +615,7 @@ class E3HybridConfig(BaseModel):
 class AlgorithmConfig(BaseModel):
     """Global parameters for all comparison and hybrid routing algorithms."""
 
-    objectives: RoutingObjectivesConfig = Field(
-        default_factory=RoutingObjectivesConfig
-    )
+    objectives: RoutingObjectivesConfig = Field(default_factory=RoutingObjectivesConfig)
     aco: ACOConfig = Field(default_factory=ACOConfig)
     bco: BCOConfig = Field(default_factory=BCOConfig)
     pso: PSOConfig = Field(default_factory=PSOConfig)

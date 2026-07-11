@@ -12,9 +12,7 @@ from src.routing.routing_metrics import RoutingMetrics
 class RouteBenchmarkMetrics(BaseModel):
     """Performance metrics for a single route query execution."""
 
-    success: bool = Field(
-        ..., description="Indicates if a valid route was found."
-    )
+    success: bool = Field(..., description="Indicates if a valid route was found.")
     path_nodes: list[str] = Field(
         default_factory=list, description="Nodes along the computed path."
     )
@@ -142,9 +140,7 @@ class RoutingBenchmark:
 
                 result_list.append(metrics)
 
-            avg_time = (
-                (total_time / len(od_pairs)) if len(od_pairs) > 0 else 0.0
-            )
+            avg_time = (total_time / len(od_pairs)) if len(od_pairs) > 0 else 0.0
 
             reports[name] = RouterBenchmarkResult(
                 router_name=name,

@@ -16,7 +16,8 @@ This document tracks the progressive implementation milestones of the research s
 | **Phase 3: BCO (Bee Colony Optimization)** | **Completed** | BCO variant with Scout/Recruit search, Waggle Dance loyalty evaluation, roulette-wheel recruitment, Elite Route Seeding, and dynamic adaptation. |
 | **Phase 3: PSO (Particle Swarm)** | **Completed** | Discrete adaptation via Edge Priority-Based Encoding, priority-ordered DFS decoding, continuous velocity updates, and dynamic environment tracking. |
 | **Phase 3: E³-Hybrid Algorithm** | **Completed** | Combined ACO+BCO+PSO hybrid using a centralized Information Blackboard and ablation-configurable information sharing. |
-| **Phase 4: Evaluation & SUMO Coupling** | *Scheduled* | SUMO/TraCI adapter, Scenario execution loops, and real-time visualization export. |
+| **Phase 4.1: Evaluation Framework** | **Completed** | Standalone evaluation framework, metrics collection, statistical analysis, scenario execution engine, plotting, and TraCI SUMO adapter layer. |
+| **Phase 4.2: SUMO Coupling & NY Map** | **Completed** | OSM network import pipeline, TraCI bidirectional state synchronization, dynamic traffic rerouting, and batch experiments on Manhattan topology. |
 
 ---
 
@@ -57,3 +58,12 @@ This document tracks the progressive implementation milestones of the research s
 - [x] **BCO Router** (`bco.py`): Bee Colony Optimization based on Lučić & Teodorović, featuring independent Scout random walks, Recruit neighborhood exploitation, Waggle Dance path evaluations with dynamic Loyalty calculation, configurable abandonment, Elite Route Seeding across queries, and detailed convergence/diversity metrics.
 - [x] **PSO Router** (`pso.py`): Particle Swarm Optimization adapted to combinatorial routing via Edge Priority-Based Encoding (Ahn et al., 2004). Features priority-ordered DFS path decoding with backtracking, continuous position/velocity updates, sparse memory structures, and dynamic G_best/P_best re-evaluation to adapt to changing edge costs without full swarm resets.
 - [x] **E³-Hybrid Orchestrator** (`e3_hybrid.py`): The primary thesis contribution. Combines ACO, BCO, and PSO into a cooperative parallel ensemble via Composition. Features a centralized Information Blackboard, granular ablation toggles (`E3HybridConfig`) for controlled knowledge flow (e.g., ACO → PSO pheromone injection, Hybrid $G_{best}$ sharing), resilient dynamic event propagation, and unified subsystem telemetry.
+
+### 5. Evaluation Framework & SUMO Adapter (`src/evaluation/`, `src/sumo_adapter/`)
+- [x] **Metrics Collection** (`metrics_collector.py`): Fine-grained telemetry (travel time, energy consumption, charging events, queue wait times, V2X statistics, algorithm subsystem contributions).
+- [x] **Statistical Analyzer** (`statistics.py`): Implements t-tests (paired and independent), ANOVA, Wilcoxon sign-rank test, and Cohen's d effect sizes via scipy.
+- [x] **Scenario Executor** (`scenario_executor.py`): Standalone simulator-agnostic executor simulating V2X messages, battery models, emergency yielding, traffic congestion, and EV charging queues with automatic original destination restoration.
+- [x] **Result Export & Plotting** (`plot_generator.py`): Exports results in JSON and CSV formats and generates publication-grade performance comparison plots.
+- [x] **SUMO Adapter** (`src/sumo_adapter/adapter.py`): Maps junction/node networks between TraCI/SUMO and internal models and wraps SUMO execution commands.
+- [x] **Batch Runner & Benchmark Suite** (`benchmark_suite.py`, `experiment_runner.py`): Batch simulation execution and predefined scenario evaluation.
+- [x] **Phase 4.2: SUMO TraCI Coupling & NY Integration**: OSM network import pipeline, TraCI bidirectional state synchronization, dynamic traffic rerouting, and batch experiments on Manhattan topology.

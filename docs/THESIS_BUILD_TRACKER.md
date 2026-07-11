@@ -60,38 +60,45 @@ The goal of this thesis is to design, implement, and evaluate a swarm-intelligen
 
 ---
 
+### Phase 3: Particle Swarm Optimization (PSO) Routing
+*   **Objective**: Implement a PSO-based routing algorithm utilizing Ahn's Edge Priority-Based Encoding.
+*   **Implementation details**:
+    *   **PSO Router (`src/routing/pso.py`)**: Uses Ahn's continuous-to-discrete decoding framework, mapping particle dimensions to dynamic edge priorities. Evaluates paths via depth-first exploration with backtracking. Operates G_best/P_best updates to track changing dynamic edge costs.
+
+### Phase 3: E³-Hybrid Swarm Routing
+*   **Objective**: Orchestrate ACO, BCO, and PSO in a unified hybrid architecture using an Information Blackboard.
+*   **Implementation details**:
+    *   **E³-Hybrid Orchestrator (`src/routing/e3_hybrid.py`)**: Decoupled parallel ensemble executing search iterations on all three engines. Shares optimal path updates (G_best) and dynamically injects pheromones based on configurable ablation toggles.
+
+### Phase 4.1: Evaluation Framework & SUMO Adapter
+*   **Objective**: Build a modular metrics collection, statistical validation, scenario execution, and plotting system, alongside TraCI wrapper interfaces.
+*   **Implementation details**:
+    *   **Scenario Executor (`src/evaluation/scenario_executor.py`)**: Executes spatiotemporal simulations with battery models, routing context recalculations, emergency corridor speed overrides, and EV charging station queue management.
+    *   **Statistical Analysis (`src/evaluation/statistical_analyzer.py`)**: Computes t-tests, ANOVA, Wilcoxon sign-rank test, and effect sizes.
+    *   **Plots and Exporters (`src/evaluation/plots_exports.py`)**: Exports results to JSON/CSV and generates performance comparison graphs.
+    *   **SUMO Adapter (`src/evaluation/sumo_adapter.py`)**: Bridges junction graphs and manages TraCI launch configurations.
+
+---
+
 ## 3. Future Roadmap: Upcoming Steps
 
 ```mermaid
 graph TD
-    B[PSO Routing Implementation] --> C[E³-Hybrid Swarm Routing]
-    C --> D[SUMO Coupling & TraCI Adapter]
-    D --> E[Scenario Benchmarking & Analysis]
+    A[Manhattan OSM Map Import] --> B[SUMO TraCI Integration]
+    B --> C[Batch Simulation Comparisons]
 ```
 
-### Step 1: Particle Swarm Optimization (PSO) Routing (Next Up)
-*   **Goal**: Optimize edge-scoring weights or routing paths dynamically using PSO.
+### Step 1: Manhattan OSM Import & SUMO Coupling
+*   **Goal**: Load real Manhattan topology, generate realistic traffic demand, and link simulation execution directly to SUMO.
 *   **Key Design Aspects**:
-    *   Particles track personal best solutions (`pbest`) and the global best swarm solution (`gbest`).
-    *   Dynamic adaptation of routing priorities depending on network-wide conditions.
+    *   Map SUMO's lane structure and junction nodes to the core network representation.
+    *   Sync real-time coordinate updates and speed overrides between SUMO/TraCI and standard vehicle entities.
 
-### Step 2: E³-Hybrid Swarm Routing
-*   **Goal**: Design and implement the core novelty of the thesis: a hybrid swarm routing algorithm integrating ACO, BCO, and PSO.
+### Step 2: Batch Simulation and Evaluation
+*   **Goal**: Run comprehensive simulation scenarios comparing all algorithms.
 *   **Key Design Aspects**:
-    *   Shared memory structures (shared pheromones and swarm position updates).
-    *   Balancing the local search power of BCO with the global path convergence of ACO and dynamic parameter tuning of PSO.
-
-### Step 3: SUMO Integration & TraCI Adapter
-*   **Goal**: Couple the simulator with SUMO to enable real-world traffic flows, traffic lights, and realistic vehicle interactions.
-*   **Key Design Aspects**:
-    *   Map SUMO network elements (junctions, lanes) to core Python `Network` and `Edge` models.
-    *   Sync vehicle movements, speed overrides, and coordinates between TraCI and the V2X communication module.
-
-### Step 4: Comprehensive Scenario Benchmarking
-*   **Goal**: Run evaluation scenarios comparing Dijkstra, A*, ACO, BCO, PSO, and E³-Hybrid.
-*   **Key Design Aspects**:
-    *   Generate statistics on average travel time, total energy consumed, charging queue delay, and emergency response times.
-    *   Evaluate performance under blackout, blackout recovery, and extreme emergency incidents.
+    *   Compare travel times, energy consumption, charging waits, and emergency metrics.
+    *   Evaluate performance under blackout, blackout recovery, and emergency incident distributions.
 
 ---
 
@@ -100,4 +107,4 @@ To maintain research-grade software quality, the following checks are run before
 1.  **Syntax Checks**: Verification that all Python code compiles without syntax errors.
 2.  **Linting & Style Guidelines (`ruff`)**: Checks code complexity, unused imports, formatting, and standard PEP-8 style rules.
 3.  **Static Type Inspection (`mypy`)**: Ensures type correctness, catching bugs before runtime.
-4.  **Unit Tests (`pytest`)**: Runs a suite of 86 passing tests covering all system aspects (battery mechanics, broadcast TTL, incident expansion, routing reweighting, and ACS convergence).
+4.  **Unit Tests (`pytest`)**: Runs a suite of 130 passing tests covering all system aspects (battery mechanics, broadcast TTL, incident expansion, routing reweighting, and ACS/BCO/PSO/E3-Hybrid convergence).

@@ -59,6 +59,9 @@ class Edge:
         self.speed_limit = speed_limit
         self.gradient_rad = gradient_rad
 
+        # Allowed transitions to next edge IDs (populated by SUMO parser)
+        self.allowed_transitions: set[str] = set()
+
         # Dynamic state updated by simulation events
         self.speed_reduction_factor: float = 1.0  # 1.0 = normal, 0.0 = fully blocked
         self.is_closed: bool = False
@@ -244,16 +247,24 @@ class Network:
             raise NetworkError(f"Charging node '{station.node_id}' not in network.")
         self.stations[station.id] = station
 
-    def get_outgoing_edges(self, node_id: str) -> list[Edge]:
+    def get_outgoing_edges(
+        self, node_id: str, from_edge_id: str | None = None
+    ) -> list[Edge]:
         """Gets all outgoing edges starting from the specified node.
 
         Args:
             node_id: Unique identifier of the node.
+            from_edge_id: Optional ID of the edge we came from to filter transitions.
 
         Returns:
             list[Edge]: List of outgoing Edge instances.
         """
-        return self._adjacency_map.get(node_id, [])
+        edges = self._adjacency_map.get(node_id, [])
+        if from_edge_id is not None:
+            from_edge = self.edges.get(from_edge_id)
+            if from_edge and from_edge.allowed_transitions:
+                return [e for e in edges if e.id in from_edge.allowed_transitions]
+        return edges
 
     def get_incoming_edges(self, node_id: str) -> list[Edge]:
         """Gets all incoming edges ending at the specified node.

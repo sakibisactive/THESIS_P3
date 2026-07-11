@@ -77,9 +77,7 @@ class AStarRouter(Router):
             )
 
         dest_node = network.nodes[destination_node_id]
-        h_start = self.heuristic(
-            network.nodes[origin_node_id], dest_node, network
-        )
+        h_start = self.heuristic(network.nodes[origin_node_id], dest_node, network)
 
         # Priority queue holds tuples: (f_score, g_score, node_id)
         pq: list[tuple[float, float, str]] = [(h_start, 0.0, origin_node_id)]
@@ -99,7 +97,11 @@ class AStarRouter(Router):
             if u == destination_node_id:
                 break
 
-            for edge in network.get_outgoing_edges(u):
+            from_edge = None
+            if u != origin_node_id and u in parent:
+                from_edge = parent[u][1]
+
+            for edge in network.get_outgoing_edges(u, from_edge):
                 if edge.is_closed or edge.current_speed_limit <= 0.0:
                     continue
 

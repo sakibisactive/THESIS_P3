@@ -93,7 +93,6 @@ import math
 import random
 import time
 from dataclasses import dataclass, field
-from heapq import heappush, heappop
 from typing import Any
 
 from src.routing.base_swarm import SwarmIterationResult
@@ -194,9 +193,7 @@ class ACORouter(Router):
                 Using the same seed and config guarantees identical output.
         """
         self.config = config
-        self.scorer = scorer or MultiObjectiveEdgeScorer(
-            RoutingObjectivesConfig()
-        )
+        self.scorer = scorer or MultiObjectiveEdgeScorer(RoutingObjectivesConfig())
         self._rng = random.Random(seed)
 
         # Persistent pheromone state – keyed by edge.id
@@ -255,15 +252,12 @@ class ACORouter(Router):
         self.initialize_search(origin_node_id, destination_node_id, context)
 
         best_nodes, best_edges, best_cost, conv_iter, total_expanded = (
-            self._run_acs_iterations(
-                origin_node_id, destination_node_id, context
-            )
+            self._run_acs_iterations(origin_node_id, destination_node_id, context)
         )
 
         if not best_nodes:
             raise NoPathFoundError(
-                f"No ant path found from '{origin_node_id}' to "
-                f"'{destination_node_id}'."
+                f"No ant path found from '{origin_node_id}' to '{destination_node_id}'."
             )
 
         if best_cost < self._global_best_cost:
@@ -339,7 +333,8 @@ class ACORouter(Router):
             "total_search_time_s": self.total_search_time,
             "avg_search_time_s": (
                 self.total_search_time / self.search_count
-                if self.search_count > 0 else 0.0
+                if self.search_count > 0
+                else 0.0
             ),
             "total_expanded_nodes": self.total_expanded_nodes,
             "num_pheromone_edges": len(self.pheromones),
@@ -362,7 +357,9 @@ class ACORouter(Router):
         """
         return self.pheromones.get(edge_id, self.config.initial_pheromone)
 
-    def inject_global_best(self, path_nodes: list[str], path_edges: list[str], cost: float) -> None:
+    def inject_global_best(
+        self, path_nodes: list[str], path_edges: list[str], cost: float
+    ) -> None:
         """Injects a globally discovered best path into the engine.
         For ACO, this triggers a global pheromone deposit along the path.
         """
@@ -397,9 +394,7 @@ class ACORouter(Router):
                 f"Destination node '{destination_node_id}' not found."
             )
 
-    def _trivial_result(
-        self, node_id: str, start_wall: float
-    ) -> RoutingResult:
+    def _trivial_result(self, node_id: str, start_wall: float) -> RoutingResult:
         """Returns a zero-cost RoutingResult for origin == destination."""
         elapsed = time.perf_counter() - start_wall
         self.total_search_time += elapsed
@@ -443,13 +438,15 @@ class ACORouter(Router):
             iter_result = self.execute_iteration(
                 origin_node_id, destination_node_id, context
             )
-            
+
             # Extract the best path from the iteration
             iter_best_cost = float("inf")
             iter_best_nodes: list[str] = []
             iter_best_edges: list[str] = []
-            
-            for nodes, edges, cost in zip(iter_result.path_nodes, iter_result.path_edges, iter_result.costs):
+
+            for nodes, edges, cost in zip(
+                iter_result.path_nodes, iter_result.path_edges, iter_result.costs
+            ):
                 if cost < iter_best_cost:
                     iter_best_cost = cost
                     iter_best_nodes = nodes
@@ -473,13 +470,13 @@ class ACORouter(Router):
                 )
 
         if search_metrics is not None:
-            self._finalise_search_metrics(
-                search_metrics, convergence_iter, best_cost
-            )
+            self._finalise_search_metrics(search_metrics, convergence_iter, best_cost)
 
         return best_nodes, best_edges, best_cost, convergence_iter, total_expanded
 
-    def initialize_search(self, origin: str, dest: str, context: RoutingContext) -> None:
+    def initialize_search(
+        self, origin: str, dest: str, context: RoutingContext
+    ) -> None:
         """Initializes per-query state (applies lazy evaporation)."""
         self._apply_lazy_evaporation(context.current_time)
         self._initialise_pheromones(context.network)
@@ -491,7 +488,7 @@ class ACORouter(Router):
         context: RoutingContext,
     ) -> SwarmIterationResult:
         """Deploys all ants for one iteration and returns all discovered paths.
-        
+
         This satisfies the IterativeSwarmEngine protocol.
         """
         result = SwarmIterationResult()
@@ -507,7 +504,7 @@ class ACORouter(Router):
             result.costs.append(a_cost)
             result.nodes_expanded += expanded
             total_exploits += exploits
-            
+
         result.custom_metrics["total_exploits"] = float(total_exploits)
         return result
 
@@ -537,10 +534,17 @@ class ACORouter(Router):
         total_cost = 0.0
         exploit_count = 0
         nodes_visited = 0
+        last_edge_id = None
 
         while current != destination_node_id:
             candidates = self._build_candidates(
-                current, context, vehicle, network, active_incidents, tabu
+                current,
+                context,
+                vehicle,
+                network,
+                active_incidents,
+                tabu,
+                last_edge_id,
             )
             if not candidates:
                 return None
@@ -554,6 +558,7 @@ class ACORouter(Router):
             parent[chosen_node] = (current, chosen_edge_id)
             total_cost += chosen_cost
             tabu.add(chosen_node)
+            last_edge_id = chosen_edge_id
             current = chosen_node
             nodes_visited += 1
 
@@ -573,24 +578,21 @@ class ACORouter(Router):
         network: Any,
         active_incidents: list[object],
         tabu: set[str],
+        from_edge_id: str | None = None,
     ) -> list[_Candidate]:
         """Builds the list of feasible candidate edges from the current node."""
         candidates: list[_Candidate] = []
-        for edge in network.get_outgoing_edges(current):
+        for edge in network.get_outgoing_edges(current, from_edge_id):
             if edge.is_closed or edge.current_speed_limit <= 0.0:
                 continue
             if edge.to_node in tabu:
                 continue
             tau = self.pheromones.get(edge.id, self.config.initial_pheromone)
-            eta = self.scorer.heuristic(
-                edge, vehicle, network, active_incidents
-            )
+            eta = self.scorer.heuristic(edge, vehicle, network, active_incidents)
             attract = MultiObjectiveEdgeScorer.pheromone_heuristic(
                 tau, eta, self.config.alpha, self.config.beta
             )
-            edge_cost = context.cost_function(
-                edge, vehicle, network, context
-            )
+            edge_cost = context.cost_function(edge, vehicle, network, context)
             candidates.append((edge.to_node, edge.id, attract, edge_cost))
         return candidates
 
@@ -651,13 +653,9 @@ class ACORouter(Router):
         xi = self.config.local_evaporation_rate
         tau_0 = self.config.initial_pheromone
         tau_old = self.pheromones.get(edge_id, tau_0)
-        self.pheromones[edge_id] = self._clamp(
-            (1.0 - xi) * tau_old + xi * tau_0
-        )
+        self.pheromones[edge_id] = self._clamp((1.0 - xi) * tau_old + xi * tau_0)
 
-    def _global_pheromone_update(
-        self, best_edges: list[str], best_cost: float
-    ) -> None:
+    def _global_pheromone_update(self, best_edges: list[str], best_cost: float) -> None:
         """Applies the ACS global pheromone update (Eq. 3 in Dorigo 1997).
 
         Global update rule applied to edges on the best path::
@@ -673,9 +671,7 @@ class ACORouter(Router):
         delta = self.config.q / best_cost
         for eid in best_edges:
             tau_old = self.pheromones.get(eid, self.config.initial_pheromone)
-            self.pheromones[eid] = self._clamp(
-                (1.0 - rho) * tau_old + rho * delta
-            )
+            self.pheromones[eid] = self._clamp((1.0 - rho) * tau_old + rho * delta)
 
     def _apply_lazy_evaporation(self, current_time: float) -> None:
         """Decays all pheromones when simulation time has advanced.
@@ -715,8 +711,7 @@ class ACORouter(Router):
         if not edge_ids:
             return 0.0
         total = sum(
-            self.pheromones.get(eid, self.config.initial_pheromone)
-            for eid in edge_ids
+            self.pheromones.get(eid, self.config.initial_pheromone) for eid in edge_ids
         )
         return total / len(edge_ids)
 
@@ -735,9 +730,7 @@ class ACORouter(Router):
         """Appends one iteration diagnostic record to search_metrics."""
         records = search_metrics.iteration_records
         # avg cost from the previous iteration record, or use current best
-        avg_cost = (
-            records[-1].avg_cost_in_iteration if records else iter_best_cost
-        )
+        avg_cost = records[-1].avg_cost_in_iteration if records else iter_best_cost
         exploitation_ratio = exploits / max(1, self.config.num_ants)
         mean_ph = self._mean_pheromone(best_edges)
         search_metrics.iteration_records.append(

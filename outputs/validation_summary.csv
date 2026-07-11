@@ -1,0 +1,2 @@
+algorithm_name,scenario_name,seed,timestamp,avg_travel_time,median_travel_time,total_rerouting_events,pdr,avg_latency,packet_loss,stranded_vehicles,total_charging_events,avg_execution_time,ablation_settings
+DijkstraRouter,Manhattan SUMO Smoke Test,42,2026-07-11T23:14:45.289111,218.0909090909091,274.0,0,1.0,0.0,0,0,0,0.0,{}

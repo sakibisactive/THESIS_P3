@@ -59,9 +59,7 @@ class RoutingMetrics:
         return total
 
     @staticmethod
-    def calculate_optimality_ratio(
-        actual_cost: float, optimal_cost: float
-    ) -> float:
+    def calculate_optimality_ratio(actual_cost: float, optimal_cost: float) -> float:
         """Calculates optimality ratio comparing actual cost to baseline optimal cost.
 
         A ratio of 1.0 represents perfect optimality. Ratios > 1.0 indicate

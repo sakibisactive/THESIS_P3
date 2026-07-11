@@ -133,3 +133,45 @@ This document logs the major engineering and design decisions guiding the simula
     2.  **Scientific Ablation**: The Blackboard design permits strict toggling of individual information flows (e.g., ACO → PSO, Hybrid $G_{best}$ → BCO) via `E3HybridConfig`, enabling precise measurement of each sharing mechanism's contribution.
     3.  **Heterogeneous Data Synthesis**: BCO and PSO natively consume node/edge paths; however, PSO also digests the ACO pheromone matrix dynamically during initialization to bias particle generation. This ensures each algorithm benefits from the others without requiring native schema changes.
 *   **Consequences**: The hybrid framework is deterministic, resilient to dynamic events (closures are lazily propagated to subsystems), and provides granular per-iteration metrics tracking subsystem contributions.
+
+---
+
+## AD-014: SUMO TraCI Bidirectional State Synchronization and Ownership
+
+*   **Context**: Integrating our Python simulator framework with SUMO via TraCI requires a clear definition of data flows, synchronization directions, and state ownership to prevent desynchronization, conflicts, and performance bottlenecks.
+*   **Decision**: Establish a strict state-synchronization protocol with clear ownership boundaries. At each simulation timestep, synchronization occurs in a deterministic two-way sweep.
+*   **Data Flows**:
+    1.  **SUMO → Python**:
+        *   **Vehicle Spatial Kinematics**: Positions (X, Y coordinates), active speeds, and current edge locations are queried from SUMO (using TraCI subscriptions for performance) and synced to the Python `Vehicle` agents.
+        *   **Arrivals**: Vehicles that finish their trips are detected by SUMO's active ID list and removed from Python.
+    2.  **Python → SUMO**:
+        *   **Edge Closures / Dynamic Events**: Road closures triggered in Python are immediately synchronized to SUMO by invoking `traci.edge.setDisallowed` to block traffic.
+        *   **Dynamic Rerouting / EV Charging redirection**: When a Python `Vehicle` decides to reroute (due to dynamic closures or low battery SoC), the Python router computes a new path. This edge list is pushed to SUMO using `traci.vehicle.setRoute`.
+        *   **Emergency Corridors**: Active corridors triggered in Python are synced to SUMO by modifying maximum lane speeds for standard vehicles along the corridor edges.
+*   **State Ownership Diagram**:
+    ```mermaid
+    stateDiagram-v2
+        state "SUMO Engine (C++)" as SUMO {
+            [*] --> VehicleKinematics : Physical ground-truth
+            VehicleKinematics --> PositionSpeed : TraCI Subscription (Observe)
+            VehicleKinematics --> RouteExecution : Drives vehicle on lanes
+        }
+        
+        state "Python Coordinator" as Python {
+            [*] --> BatteryModel : EV battery state & SoC calculations
+            [*] --> ScenarioManager : Incident triggers & closures
+            [*] --> SwarmRouters : Dijkstra/A*/E3-Hybrid pathfinding
+        }
+
+        PositionSpeed --> BatteryModel : Speed/position syncs energy calculations
+        ScenarioManager --> SUMO : setDisallowed (Road closures)
+        SwarmRouters --> SUMO : setRoute (Dynamic reroutes / Charging redirects)
+    ```
+*   **Ownership Summary**:
+    *   **Position & Speed**: Owned by SUMO. Python acts as a reader/observer.
+    *   **EV Battery State (SoC)**: Owned by Python. Python performs physical energy calculations at each step; SUMO is unaware of EV charge state.
+    *   **Route Sequence**: Negotiated. Python computes the route path; SUMO executes it physically.
+    *   **Dynamic Network Closures**: Owned by Python. Python's scenario events dictate segment closures, which are enforced in SUMO.
+*   **Rationale**: Decouples heavy physical/traffic dynamics (handled natively by SUMO) from custom battery calculations and research routing algorithms (handled in Python). TraCI subscriptions avoid per-vehicle query overhead.
+*   **Consequences**: The system is deterministic and easy to debug. SUMO's built-in collision/lane-changing logic is fully utilized without custom Python implementation, while keeping EV battery physics fully reproducible.
+

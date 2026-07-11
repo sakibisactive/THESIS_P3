@@ -122,9 +122,7 @@ class CachedRouter(Router):
         if cached is not None:
             return cached
 
-        result = self.delegate.find_route(
-            origin_node_id, destination_node_id, context
-        )
+        result = self.delegate.find_route(origin_node_id, destination_node_id, context)
         self.cache.set(origin_node_id, destination_node_id, cost_fn_id, result)
         return result
 

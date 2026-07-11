@@ -88,7 +88,11 @@ class DijkstraRouter(Router):
             if u == destination_node_id:
                 break
 
-            for edge in network.get_outgoing_edges(u):
+            from_edge = None
+            if u != origin_node_id and u in parent:
+                from_edge = parent[u][1]
+
+            for edge in network.get_outgoing_edges(u, from_edge):
                 if edge.is_closed or edge.current_speed_limit <= 0.0:
                     continue
 

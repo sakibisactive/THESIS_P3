@@ -133,9 +133,7 @@ class BCORouter(Router):
             seed: Optional random seed for fully reproducible execution.
         """
         self.config = config
-        self.scorer = scorer or MultiObjectiveEdgeScorer(
-            RoutingObjectivesConfig()
-        )
+        self.scorer = scorer or MultiObjectiveEdgeScorer(RoutingObjectivesConfig())
         self._rng = random.Random(seed)
 
         # Inter-query memory (used only if elite_route_seeding is True)
@@ -186,15 +184,12 @@ class BCORouter(Router):
             return self._trivial_result(origin_node_id, start_wall)
 
         best_nodes, best_edges, best_cost, conv_iter, total_expanded = (
-            self._run_bco_iterations(
-                origin_node_id, destination_node_id, context
-            )
+            self._run_bco_iterations(origin_node_id, destination_node_id, context)
         )
 
         if not best_nodes:
             raise NoPathFoundError(
-                f"No bee path found from '{origin_node_id}' to "
-                f"'{destination_node_id}'."
+                f"No bee path found from '{origin_node_id}' to '{destination_node_id}'."
             )
 
         if best_cost < self._global_best_cost:
@@ -259,7 +254,8 @@ class BCORouter(Router):
             "total_search_time_s": self.total_search_time,
             "avg_search_time_s": (
                 self.total_search_time / self.search_count
-                if self.search_count > 0 else 0.0
+                if self.search_count > 0
+                else 0.0
             ),
             "total_expanded_nodes": self.total_expanded_nodes,
             "global_best_cost": self._global_best_cost,
@@ -274,7 +270,9 @@ class BCORouter(Router):
         """Not applicable for BCO."""
         pass
 
-    def inject_global_best(self, path_nodes: list[str], path_edges: list[str], cost: float) -> None:
+    def inject_global_best(
+        self, path_nodes: list[str], path_edges: list[str], cost: float
+    ) -> None:
         """Injects a globally discovered best path into the engine.
         For BCO, this seeds the recruiter pool.
         """
@@ -330,12 +328,14 @@ class BCORouter(Router):
 
         for iteration in range(self.config.max_iterations):
             iter_result = self.execute_iteration(origin, dest, context)
-            
+
             iter_best_cost = float("inf")
             iter_best_path: _BeePath | None = None
-            
+
             valid_paths = []
-            for nodes, edges, cost in zip(iter_result.path_nodes, iter_result.path_edges, iter_result.costs):
+            for nodes, edges, cost in zip(
+                iter_result.path_nodes, iter_result.path_edges, iter_result.costs
+            ):
                 valid_paths.append((nodes, edges, cost))
                 if cost < iter_best_cost:
                     iter_best_cost = cost
@@ -370,17 +370,25 @@ class BCORouter(Router):
             metrics.convergence_iteration = conv_iter
             metrics.best_cost_found = best_cost
             if self.config.max_iterations > 1:
-                metrics.route_stability = identical_best_count / (self.config.max_iterations - 1)
+                metrics.route_stability = identical_best_count / (
+                    self.config.max_iterations - 1
+                )
             self.metrics_history.append(metrics)
 
         return best_nodes, best_edges, best_cost, conv_iter, total_expanded
 
-    def initialize_search(self, origin: str, dest: str, context: RoutingContext) -> None:
+    def initialize_search(
+        self, origin: str, dest: str, context: RoutingContext
+    ) -> None:
         """Initializes per-query state."""
         self._current_recruiters: list[_BeePath] = []
         if self.config.elite_route_seeding and self._global_best_edges:
             self._current_recruiters.append(
-                (self._global_best_nodes, self._global_best_edges, self._global_best_cost)
+                (
+                    self._global_best_nodes,
+                    self._global_best_edges,
+                    self._global_best_cost,
+                )
             )
 
     def execute_iteration(
@@ -388,14 +396,14 @@ class BCORouter(Router):
     ) -> SwarmIterationResult:
         """Executes one single iteration of the BCO algorithm."""
         result = SwarmIterationResult()
-        
+
         iter_paths: list[_BeePath | None] = []
         iter_expanded = 0
         scouts_succeeded = 0
         recruits_succeeded = 0
         actual_scouts = 0
         actual_recruits = 0
-        
+
         num_scouts = max(1, int(self.config.colony_size * self.config.scout_ratio))
 
         # Forward Pass
@@ -419,10 +427,10 @@ class BCORouter(Router):
                     recruits_succeeded += 1
 
         valid_paths = [p for p in iter_paths if p is not None]
-        
+
         # Backward Pass
         self._current_recruiters, abandoning = self._waggle_dance(valid_paths)
-        
+
         # If all bees abandoned (e.g., tough constraints), force the best bee
         # to recruit so the colony doesn't completely lose direction, unless
         # even the best bee failed.
@@ -434,16 +442,16 @@ class BCORouter(Router):
             result.path_nodes.append(p[0])
             result.path_edges.append(p[1])
             result.costs.append(p[2])
-            
+
         result.nodes_expanded = iter_expanded
-        
+
         result.custom_metrics["scouts_succeeded"] = float(scouts_succeeded)
         result.custom_metrics["actual_scouts"] = float(actual_scouts)
         result.custom_metrics["recruits_succeeded"] = float(recruits_succeeded)
         result.custom_metrics["actual_recruits"] = float(actual_recruits)
         result.custom_metrics["num_recruiters"] = float(len(self._current_recruiters))
         result.custom_metrics["abandoning"] = float(abandoning)
-        
+
         return result
 
     # ------------------------------------------------------------------
@@ -464,11 +472,11 @@ class BCORouter(Router):
         context: RoutingContext,
     ) -> tuple[_BeePath | None, int]:
         """Follows a prefix of the recruiter's path, then searches randomly.
-        
+
         This models BCO's local exploration/neighborhood search.
         """
         nodes, edges, _ = recruiter_path
-        
+
         # Must diverge at some point before the destination
         if len(nodes) <= 2:
             split_idx = 0
@@ -478,7 +486,7 @@ class BCORouter(Router):
 
         prefix_nodes = nodes[: split_idx + 1]
         prefix_edges = edges[:split_idx]
-        
+
         # Calculate the deterministic cost of the prefix
         prefix_cost = 0.0
         net = context.network
@@ -503,25 +511,26 @@ class BCORouter(Router):
         context: RoutingContext,
     ) -> tuple[_BeePath | None, int]:
         """Probabilistic step-by-step path construction from current node.
-        
+
         Returns:
             Tuple (BeePath or None, nodes_expanded).
         """
         net = context.network
         veh = context.vehicle
         active_incidents = context.active_incidents
-        
+
         tabu = set(tabu_nodes)
         nodes_expanded = 0
 
         while current != dest:
             candidates: list[_Candidate] = []
-            for edge in net.get_outgoing_edges(current):
+            from_edge = current_edges[-1] if current_edges else None
+            for edge in net.get_outgoing_edges(current, from_edge):
                 if edge.is_closed or edge.current_speed_limit <= 0.0:
                     continue
                 if edge.to_node in tabu:
                     continue
-                
+
                 eta = self.scorer.heuristic(edge, veh, net, active_incidents)
                 # BCO primarily uses heuristic desirability directly
                 attract = eta
@@ -533,7 +542,7 @@ class BCORouter(Router):
 
             # Roulette wheel selection based on heuristic desirability
             chosen_node, chosen_edge, chosen_cost = self._weighted_choice(candidates)
-            
+
             tabu.add(chosen_node)
             tabu_nodes.append(chosen_node)
             current_edges.append(chosen_edge)
@@ -568,11 +577,9 @@ class BCORouter(Router):
     # Private: Backward Pass Mechanics
     # ------------------------------------------------------------------
 
-    def _waggle_dance(
-        self, valid_paths: list[_BeePath]
-    ) -> tuple[list[_BeePath], int]:
+    def _waggle_dance(self, valid_paths: list[_BeePath]) -> tuple[list[_BeePath], int]:
         """Evaluates paths, computes loyalty probabilities, and recruits.
-        
+
         Returns:
             Tuple (list of loyal recruiters, number of abandoning bees).
         """
@@ -581,21 +588,21 @@ class BCORouter(Router):
 
         c_best = min(p[2] for p in valid_paths)
         c_max = max(p[2] for p in valid_paths)
-        
+
         recruiters: list[_BeePath] = []
         abandoning = 0
 
         # Phase 1: Determine Loyalty
         for path in valid_paths:
             cost = path[2]
-            
+
             # Equation: p_b = RF * exp(-(C_b - C_best) / (C_max - C_best + 1e-6))
             exponent = -(cost - c_best) / (c_max - c_best + 1e-6)
             p_loyalty = self.config.recruitment_factor * math.exp(exponent)
-            
+
             if p_loyalty < self.config.abandonment_threshold:
                 p_loyalty = 0.0  # Force abandonment if below threshold
-                
+
             if self._rng.random() <= p_loyalty:
                 recruiters.append(path)
             else:
@@ -605,13 +612,13 @@ class BCORouter(Router):
         abandoning += self.config.colony_size - len(valid_paths)
 
         # Note: Roulette wheel selection for the abandoning bees is handled
-        # implicitly in the next iteration's forward pass by calling 
+        # implicitly in the next iteration's forward pass by calling
         # _rng.choice(recruiters) for recruited bees. This is mathematically
         # equivalent to selecting a recruiter uniformly if their waggle dance
         # duration (number of copies in the pool) is proportional to their quality.
         # Here we enhance the recruiter pool based on quality so choice() models
         # the roulette wheel correctly.
-        
+
         weighted_recruiters: list[_BeePath] = []
         if recruiters:
             # Assign waggle duration proportional to 1/cost
@@ -621,7 +628,7 @@ class BCORouter(Router):
                 w = ((c_max - r[2]) / (c_max - c_best + 1e-6)) + 0.1
                 num_copies = max(1, int(w * 10))
                 weighted_recruiters.extend([r] * num_copies)
-                
+
         return weighted_recruiters, abandoning
 
     # ------------------------------------------------------------------
@@ -644,7 +651,7 @@ class BCORouter(Router):
         """Records diagnostics for a single BCO iteration."""
         avg_cost = best_cost
         diversity = 0.0
-        
+
         if valid_paths:
             avg_cost = sum(p[2] for p in valid_paths) / len(valid_paths)
             unique_paths = len({tuple(p[1]) for p in valid_paths})
@@ -652,7 +659,7 @@ class BCORouter(Router):
 
         scout_rate = scouts_succ / num_scouts if num_scouts > 0 else 0.0
         recruit_rate = recruits_succ / num_recruits if num_recruits > 0 else 0.0
-        
+
         loyalty = num_recruiters / self.config.colony_size
         abandon_rate = abandoning / self.config.colony_size
 

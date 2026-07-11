@@ -3,8 +3,6 @@
 from src.routing.aco import ACOIterationMetrics, ACORouter, ACOSearchMetrics
 from src.routing.astar import AStarRouter
 from src.routing.bco import BCOIterationMetrics, BCORouter, BCOSearchMetrics
-from src.routing.e3_hybrid import E3HybridIterationMetrics, E3HybridRouter, E3HybridSearchMetrics
-from src.routing.pso import PSOIterationMetrics, PSORouter, PSOSearchMetrics
 from src.routing.benchmark import (
     RouteBenchmarkMetrics,
     RouterBenchmarkResult,
@@ -12,6 +10,11 @@ from src.routing.benchmark import (
 )
 from src.routing.cache import CachedRouter, RouteCache
 from src.routing.dijkstra import DijkstraRouter
+from src.routing.e3_hybrid import (
+    E3HybridIterationMetrics,
+    E3HybridRouter,
+    E3HybridSearchMetrics,
+)
 from src.routing.exceptions import (
     InvalidNodeError,
     NoPathFoundError,
@@ -26,6 +29,7 @@ from src.routing.heuristic import (
     ZeroHeuristic,
     get_heuristic,
 )
+from src.routing.pso import PSOIterationMetrics, PSORouter, PSOSearchMetrics
 from src.routing.router import Router
 from src.routing.routing_context import (
     EdgeCostFunction,

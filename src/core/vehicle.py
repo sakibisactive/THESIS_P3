@@ -53,6 +53,7 @@ class Vehicle:
         self.current_route: list[str] = []  # List of edge IDs representing path
         self.current_edge_idx: int = 0
         self.distance_on_current_edge: float = 0.0
+        self.speed: float = 0.0
 
         # Operational state
         self.state: VehicleState = VehicleState.EN_ROUTE
