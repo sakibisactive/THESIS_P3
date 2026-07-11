@@ -427,35 +427,133 @@ class ACOConfig(BaseModel):
 
 
 class BCOConfig(BaseModel):
-    """Hyperparameters for Bee Colony Optimization path exploration."""
+    """Hyperparameters for Bee Colony Optimization (BCO) routing.
 
-    scout_ratio: float = Field(
-        default=0.2, description="Ratio of total vehicles designated as scouts"
+    Reference: Lučić, P. & Teodorović, D. (2001). Bee System: Solving routing
+    problems by artificial bees. Journal of Heuristics, 7, 507-526.
+    """
+
+    colony_size: int = Field(
+        default=20, description="Total number of bees in the colony (B)."
     )
-    max_alternative_routes: int = Field(
-        default=3, description="Maximum number of alternative detour paths managed"
+    max_iterations: int = Field(
+        default=50, description="Maximum number of search iterations per query (I)."
+    )
+    scout_ratio: float = Field(
+        default=0.2, description="Ratio of colony acting as scout bees."
     )
     recruitment_factor: float = Field(
         default=0.5,
-        description="Probability parameter for path advertising/waggle dance",
+        description="Base probability scalar for recruiter waggle dance loyalty.",
     )
+    abandonment_threshold: float = Field(
+        default=0.2,
+        description="Probability below which a bee abandons its route.",
+    )
+    elite_route_seeding: bool = Field(
+        default=False,
+        description=(
+            "If True, seeds the first iteration of a new query with the "
+            "best route from the previous query to accelerate convergence "
+            "in dynamic networks. Must be False for independent benchmarks."
+        ),
+    )
+    collect_metrics: bool = Field(
+        default=False,
+        description="Collect per-iteration research metrics for BCO evaluation.",
+    )
+
+    @model_validator(mode="after")
+    def validate_bco(self) -> "BCOConfig":
+        if self.colony_size < 1:
+            raise ValueError("colony_size must be >= 1")
+        if self.max_iterations < 1:
+            raise ValueError("max_iterations must be >= 1")
+        if not 0.0 < self.scout_ratio <= 1.0:
+            raise ValueError("scout_ratio must be in (0, 1]")
+        if not 0.0 < self.recruitment_factor <= 1.0:
+            raise ValueError("recruitment_factor must be in (0, 1]")
+        if not 0.0 <= self.abandonment_threshold <= 1.0:
+            raise ValueError("abandonment_threshold must be in [0, 1]")
+        return self
+
 
 
 class PSOConfig(BaseModel):
-    """Hyperparameters for Particle Swarm Optimization parameter tuning."""
+    """Hyperparameters for Particle Swarm Optimization (PSO) routing.
 
-    cognitive_weight: float = Field(
-        default=1.5, description="Acceleration constant c1 for personal best"
+    Uses Edge Priority-Based Encoding mapping continuous positions
+    to combinatorial paths via DFS.
+    """
+
+    swarm_size: int = Field(
+        default=20, description="Number of particles in the swarm (S)."
     )
-    social_weight: float = Field(
-        default=1.5, description="Acceleration constant c2 for global best"
+    max_iterations: int = Field(
+        default=50, description="Maximum number of search iterations per query (I)."
     )
     inertia_weight: float = Field(
-        default=0.8, description="Inertia weight w for velocity update"
+        default=0.7, description="Inertia weight factor (omega) for velocity update."
     )
-    swarm_size: int = Field(
-        default=30, description="Number of particles evaluated in swarm"
+    cognitive_weight: float = Field(
+        default=1.5, description="Acceleration constant c1 for personal best."
     )
+    social_weight: float = Field(
+        default=1.5, description="Acceleration constant c2 for global best."
+    )
+    v_max: float = Field(
+        default=5.0, description="Maximum absolute velocity for priority clamping."
+    )
+    collect_metrics: bool = Field(
+        default=False,
+        description="Collect per-iteration research metrics for PSO evaluation.",
+    )
+
+    @model_validator(mode="after")
+    def validate_pso(self) -> "PSOConfig":
+        if self.swarm_size < 1:
+            raise ValueError("swarm_size must be >= 1")
+        if self.max_iterations < 1:
+            raise ValueError("max_iterations must be >= 1")
+        if self.v_max <= 0.0:
+            raise ValueError("v_max must be positive")
+        return self
+
+
+class E3HybridConfig(BaseModel):
+    """Configuration and ablation toggles for the E3-Hybrid Swarm Routing system."""
+
+    max_iterations: int = Field(
+        default=50, description="Maximum number of search iterations per query (I)."
+    )
+    collect_metrics: bool = Field(
+        default=True,
+        description="Collect per-iteration research metrics for hybrid evaluation.",
+    )
+
+    # Information Sharing Ablation Toggles
+    share_aco_to_pso: bool = Field(
+        default=True,
+        description="If True, ACO pheromones bias PSO particle initialization.",
+    )
+    share_gbest_to_pso: bool = Field(
+        default=True,
+        description="If True, Hybrid G_best acts as the global attractor for PSO.",
+    )
+    share_gbest_to_bco: bool = Field(
+        default=True,
+        description="If True, Hybrid G_best seeds BCO recruiters.",
+    )
+    share_bco_pso_to_aco: bool = Field(
+        default=True,
+        description="If True, Hybrid G_best triggers ACO global pheromone update.",
+    )
+
+    @model_validator(mode="after")
+    def validate_hybrid(self) -> "E3HybridConfig":
+        if self.max_iterations < 1:
+            raise ValueError("max_iterations must be >= 1")
+        return self
 
 
 class AlgorithmConfig(BaseModel):
@@ -467,6 +565,7 @@ class AlgorithmConfig(BaseModel):
     aco: ACOConfig = Field(default_factory=ACOConfig)
     bco: BCOConfig = Field(default_factory=BCOConfig)
     pso: PSOConfig = Field(default_factory=PSOConfig)
+    e3_hybrid: E3HybridConfig = Field(default_factory=E3HybridConfig)
 
 
 class ScenarioConfig(BaseModel):

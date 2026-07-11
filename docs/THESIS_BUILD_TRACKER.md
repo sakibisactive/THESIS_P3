@@ -51,45 +51,43 @@ The goal of this thesis is to design, implement, and evaluate a swarm-intelligen
     *   **ACS Router (`src/routing/aco.py`)**: Employs the pseudo-random proportional state transition rule, local pheromone updates (to encourage exploration), global pheromone updates (for the best-found path), lazy temporal evaporation, and configurable MAX-MIN pheromone bounds.
     *   **Research Metrics**: Collects iteration-by-iteration convergence, exploitation ratios, and pheromone distribution metrics.
 
+### Phase 3: Bee Colony Optimization (BCO) Routing
+*   **Objective**: Implement a BCO-based routing algorithm utilizing scout and recruit bee phases, waggle dance information sharing, and neighborhood exploration.
+*   **Implementation details**:
+    *   **BCO Router (`src/routing/bco.py`)**: Based on Lučić & Teodorović (2001). Features heuristic-guided random walk scouts, path prefix recruitment (neighborhood search), and a dynamic Waggle Dance computing route loyalty based on comparative costs.
+    *   **Elite Route Seeding**: A configuration-driven persistence mechanism that injects the best known path from previous queries into the first iteration of the next query, allowing continuous learning across independent route requests.
+    *   **Research Metrics**: Detailed evaluation of scout success rate, recruitment effectiveness, colony diversity, loyalty distribution, abandonment rate, and convergence iteration.
+
 ---
 
 ## 3. Future Roadmap: Upcoming Steps
 
 ```mermaid
 graph TD
-    A[BCO Routing Implementation] --> B[PSO Routing Implementation]
-    B --> C[E³-Hybrid Swarm Routing]
+    B[PSO Routing Implementation] --> C[E³-Hybrid Swarm Routing]
     C --> D[SUMO Coupling & TraCI Adapter]
     D --> E[Scenario Benchmarking & Analysis]
 ```
 
-### Step 1: Bee Colony Optimization (BCO) Routing (Next Up)
-*   **Goal**: Implement a BCO-based routing algorithm utilizing scout and recruit bee phases, waggle dance information sharing, and neighborhood exploration.
-*   **Key Design Aspects**:
-    *   Scout bees randomly or heuristically discover new routes.
-    *   Waggle dance models recruit bees to high-quality routes.
-    *   Reuses `MultiObjectiveEdgeScorer` and `RoutingContext` for fair baseline comparison.
-    *   Incorporates parameters: recruitment ratio, abandonment criteria, colony size.
-
-### Step 2: Particle Swarm Optimization (PSO) Routing
+### Step 1: Particle Swarm Optimization (PSO) Routing (Next Up)
 *   **Goal**: Optimize edge-scoring weights or routing paths dynamically using PSO.
 *   **Key Design Aspects**:
     *   Particles track personal best solutions (`pbest`) and the global best swarm solution (`gbest`).
     *   Dynamic adaptation of routing priorities depending on network-wide conditions.
 
-### Step 3: E³-Hybrid Swarm Routing
+### Step 2: E³-Hybrid Swarm Routing
 *   **Goal**: Design and implement the core novelty of the thesis: a hybrid swarm routing algorithm integrating ACO, BCO, and PSO.
 *   **Key Design Aspects**:
     *   Shared memory structures (shared pheromones and swarm position updates).
     *   Balancing the local search power of BCO with the global path convergence of ACO and dynamic parameter tuning of PSO.
 
-### Step 4: SUMO Integration & TraCI Adapter
+### Step 3: SUMO Integration & TraCI Adapter
 *   **Goal**: Couple the simulator with SUMO to enable real-world traffic flows, traffic lights, and realistic vehicle interactions.
 *   **Key Design Aspects**:
     *   Map SUMO network elements (junctions, lanes) to core Python `Network` and `Edge` models.
     *   Sync vehicle movements, speed overrides, and coordinates between TraCI and the V2X communication module.
 
-### Step 5: Comprehensive Scenario Benchmarking
+### Step 4: Comprehensive Scenario Benchmarking
 *   **Goal**: Run evaluation scenarios comparing Dijkstra, A*, ACO, BCO, PSO, and E³-Hybrid.
 *   **Key Design Aspects**:
     *   Generate statistics on average travel time, total energy consumed, charging queue delay, and emergency response times.

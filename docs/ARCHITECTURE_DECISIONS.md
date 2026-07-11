@@ -100,3 +100,36 @@ This document logs the major engineering and design decisions guiding the simula
 *   **Rationale**: Persistent learning allows the algorithm to capitalize on prior routing knowledge and adapt smoothly to network changes. A complete reset would discard valuable information and cause erratic route instability after dynamic events.
 *   **Consequences**: The `reset()` method provides an explicit, controlled mechanism for independent experiment boundaries. Lazy temporal evaporation ensures pheromones on obsolete paths decay at realistic simulation rates.
 
+---
+
+## AD-011: Bee Colony Optimization (BCO) Implementation
+
+*   **Context**: The thesis requires multiple swarm algorithms for evaluation against baselines and eventual integration into a hybrid system. BCO offers route exploration and diversity benefits but traditionally lacks a mechanism for persistent learning across independent queries.
+*   **Decision**: Implemented BCO based on Lučić & Teodorović (2001), featuring Scout independent random walks, Recruit neighborhood search, and Waggle Dance loyalty evaluation. Added a configuration-driven **Elite Route Seeding** mechanism to persist knowledge between sequential queries without modifying the core BCO structure.
+*   **Rationale**: The chosen BCO variant provides strong local exploitation (via recruitment) and global exploration (via scouts). Elite Seeding solves the lack of inter-query memory in dynamic environments without polluting the standard benchmark configurations (as it can be explicitly toggled). BCO reuses the `MultiObjectiveEdgeScorer` ensuring a level evaluation field against ACO.
+*   **Consequences**: BCO is benchmark-ready and its Elite Route Seeding allows it to remain competitive with ACO in continuously evolving traffic scenarios. Its stateless nature outside the query boundary allows for easy composition within the future E³-Hybrid algorithm.
+
+---
+
+## AD-012: PSO Edge Priority-Based Encoding for Combinatorial Routing
+
+*   **Context**: Standard Particle Swarm Optimization (PSO) relies on continuous position and velocity vectors. Mapping this directly to a combinatorial graph routing problem without breaking the core PSO mathematical behaviors is challenging. Standard permutation encodings are brittle on sparse graphs, and discrete PSO variants (swapping nodes) often lack mathematical elegance and convergence properties of continuous PSO.
+*   **Decision**: Implemented an Edge Priority-Based Encoding (inspired by Ahn et al., 2004) to bridge continuous PSO with discrete graphs. Each particle maintains a continuous, sparse position vector $X \in \mathbb{R}^{|E|}$ and velocity vector $V \in \mathbb{R}^{|E|}$. 
+*   **Decoding Strategy**: The continuous position $X$ dictates the *priority* of each edge. The combinatorial path is extracted using a priority-ordered Depth-First Search (DFS) with backtracking. Missing edges default to the `MultiObjectiveEdgeScorer` heuristic with $\pm 10\%$ uniform noise to ensure initial swarm diversity and prevent deterministic stagnation.
+*   **Rationale**: 
+    1.  **Valid Paths**: The priority-ordered DFS guarantees that if a valid path exists, it will be found, completely eliminating the "invalid route repair" problem common in standard continuous PSO adaptations.
+    2.  **Mathematical Purity**: The velocity update equations ($V_{t+1} = \omega V + c_1 r_1 (P_{best} - X) + c_2 r_2 (G_{best} - X)$) remain entirely continuous and mathematically faithful to Kennedy & Eberhart (1995).
+    3.  **Dynamic Adaptation**: Instead of resetting the swarm on road closures or emergencies, the algorithm simply flags the environment as dirty. On the next query, the fitness of $G_{best}$ and $P_{best}$ are re-evaluated. If their paths cross a new closure, their cost becomes $\infty$, naturally pulling the swarm away from the obsolete routes.
+*   **Consequences**: The PSO algorithm correctly integrates with the `RoutingBenchmark`, respects multi-objective edge scores, supports dynamic environment closures without wiping learned vectors, and is mathematically rigorous for thesis defense.
+
+---
+
+## AD-013: E³-Hybrid Orchestration and Subsystem Decoupling
+
+*   **Context**: The primary thesis contribution is the E³-Hybrid swarm system, which ensembles ACO, BCO, and PSO. Integrating three distinct algorithms natively could lead to tight coupling, making scientific ablation studies and unit testing difficult.
+*   **Decision**: Adopted a **Composition over Inheritance** orchestration model via a centralized **Information Blackboard**. The `E3HybridRouter` manages an `IterativeSwarmEngine` interface (`execute_iteration`, `inject_global_best`, `inject_pheromone_matrix`) implemented by the three sub-engines independently.
+*   **Rationale**: 
+    1.  **Independent Verification**: ACO, BCO, and PSO retain 100% backward compatibility and remain testable as standalone algorithms.
+    2.  **Scientific Ablation**: The Blackboard design permits strict toggling of individual information flows (e.g., ACO → PSO, Hybrid $G_{best}$ → BCO) via `E3HybridConfig`, enabling precise measurement of each sharing mechanism's contribution.
+    3.  **Heterogeneous Data Synthesis**: BCO and PSO natively consume node/edge paths; however, PSO also digests the ACO pheromone matrix dynamically during initialization to bias particle generation. This ensures each algorithm benefits from the others without requiring native schema changes.
+*   **Consequences**: The hybrid framework is deterministic, resilient to dynamic events (closures are lazily propagated to subsystems), and provides granular per-iteration metrics tracking subsystem contributions.

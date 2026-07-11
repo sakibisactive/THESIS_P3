@@ -2,6 +2,9 @@
 
 from src.routing.aco import ACOIterationMetrics, ACORouter, ACOSearchMetrics
 from src.routing.astar import AStarRouter
+from src.routing.bco import BCOIterationMetrics, BCORouter, BCOSearchMetrics
+from src.routing.e3_hybrid import E3HybridIterationMetrics, E3HybridRouter, E3HybridSearchMetrics
+from src.routing.pso import PSOIterationMetrics, PSORouter, PSOSearchMetrics
 from src.routing.benchmark import (
     RouteBenchmarkMetrics,
     RouterBenchmarkResult,
@@ -66,4 +69,13 @@ __all__ = [
     "ACORouter",
     "ACOIterationMetrics",
     "ACOSearchMetrics",
+    "BCORouter",
+    "BCOIterationMetrics",
+    "BCOSearchMetrics",
+    "PSORouter",
+    "PSOIterationMetrics",
+    "PSOSearchMetrics",
+    "E3HybridRouter",
+    "E3HybridIterationMetrics",
+    "E3HybridSearchMetrics",
 ]

@@ -12,9 +12,10 @@ This document tracks the progressive implementation milestones of the research s
 | **Phase 2: Communication Layer** | **Completed** | Simulator-agnostic V2X communication, generic typed `Packet` payloads via Pydantic, transceivers, V2V/V2I channel range, packet latency, packet loss, and blackouts. |
 | **Phase 2: Emergency System** | **Completed** | Dynamic spatiotemporal hazard model (Incident), lane-clearance corridors, configurable infrastructure failures (road closures, station outages, channel blackouts), and polymorphic event scheduler. |
 | **Phase 3: Routing Framework & Baselines** | **Completed** | Reusable routing architecture, Dijkstra, A* with strategy heuristics, potential-based Johnson reweighting for EV energy cost routing, and edge-specific invalidation route cache. |
-| **Phase 3: ACO (Ant Colony System)** | **Completed** (Current) | ACS variant with persistent pheromones, pseudo-random proportional rule, local/global updates, multi-objective EV scorer, lazy temporal evaporation, and research metrics. |
-| **Phase 3: BCO / PSO** | *Scheduled* | Bee Colony Optimization (route diversity exploration) and Particle Swarm Optimization (adaptive routing weights). |
-| **Phase 3: E³-Hybrid Algorithm** | *Scheduled* | Combined ACO+BCO+PSO hybrid with shared pheromone matrix and scorer. |
+| **Phase 3: ACO (Ant Colony System)** | **Completed** | ACS variant with persistent pheromones, pseudo-random proportional rule, local/global updates, multi-objective EV scorer, lazy temporal evaporation, and research metrics. |
+| **Phase 3: BCO (Bee Colony Optimization)** | **Completed** | BCO variant with Scout/Recruit search, Waggle Dance loyalty evaluation, roulette-wheel recruitment, Elite Route Seeding, and dynamic adaptation. |
+| **Phase 3: PSO (Particle Swarm)** | **Completed** | Discrete adaptation via Edge Priority-Based Encoding, priority-ordered DFS decoding, continuous velocity updates, and dynamic environment tracking. |
+| **Phase 3: E³-Hybrid Algorithm** | **Completed** | Combined ACO+BCO+PSO hybrid using a centralized Information Blackboard and ablation-configurable information sharing. |
 | **Phase 4: Evaluation & SUMO Coupling** | *Scheduled* | SUMO/TraCI adapter, Scenario execution loops, and real-time visualization export. |
 
 ---
@@ -53,3 +54,6 @@ This document tracks the progressive implementation milestones of the research s
 - [x] **Generic Benchmarking**: Evaluates and compares multiple routers against set origin-destination pairs.
 - [x] **MultiObjectiveEdgeScorer** (`scorer.py`): Stateless, reusable edge scoring combining travel time, distance, EV energy, congestion, and emergency proximity with configurable weights. Shared by ACO, BCO, PSO, and E3-Hybrid.
 - [x] **ACO Router / ACS** (`aco.py`): Full Ant Colony System implementation with persistent pheromones, pseudo-random proportional rule, local & global pheromone updates, lazy temporal evaporation, configurable pheromone bounds, research metrics collection, and EV-aware multi-objective heuristic.
+- [x] **BCO Router** (`bco.py`): Bee Colony Optimization based on Lučić & Teodorović, featuring independent Scout random walks, Recruit neighborhood exploitation, Waggle Dance path evaluations with dynamic Loyalty calculation, configurable abandonment, Elite Route Seeding across queries, and detailed convergence/diversity metrics.
+- [x] **PSO Router** (`pso.py`): Particle Swarm Optimization adapted to combinatorial routing via Edge Priority-Based Encoding (Ahn et al., 2004). Features priority-ordered DFS path decoding with backtracking, continuous position/velocity updates, sparse memory structures, and dynamic G_best/P_best re-evaluation to adapt to changing edge costs without full swarm resets.
+- [x] **E³-Hybrid Orchestrator** (`e3_hybrid.py`): The primary thesis contribution. Combines ACO, BCO, and PSO into a cooperative parallel ensemble via Composition. Features a centralized Information Blackboard, granular ablation toggles (`E3HybridConfig`) for controlled knowledge flow (e.g., ACO → PSO pheromone injection, Hybrid $G_{best}$ sharing), resilient dynamic event propagation, and unified subsystem telemetry.

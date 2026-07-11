@@ -93,8 +93,10 @@ import math
 import random
 import time
 from dataclasses import dataclass, field
+from heapq import heappush, heappop
 from typing import Any
 
+from src.routing.base_swarm import SwarmIterationResult
 from src.routing.exceptions import InvalidNodeError, NoPathFoundError
 from src.routing.graph_utils import reconstruct_path
 from src.routing.router import Router
@@ -250,8 +252,7 @@ class ACORouter(Router):
         if origin_node_id == destination_node_id:
             return self._trivial_result(origin_node_id, start_wall)
 
-        self._apply_lazy_evaporation(context.current_time)
-        self._initialise_pheromones(context.network)
+        self.initialize_search(origin_node_id, destination_node_id, context)
 
         best_nodes, best_edges, best_cost, conv_iter, total_expanded = (
             self._run_acs_iterations(
@@ -361,6 +362,21 @@ class ACORouter(Router):
         """
         return self.pheromones.get(edge_id, self.config.initial_pheromone)
 
+    def inject_global_best(self, path_nodes: list[str], path_edges: list[str], cost: float) -> None:
+        """Injects a globally discovered best path into the engine.
+        For ACO, this triggers a global pheromone deposit along the path.
+        """
+        if path_edges and cost < float("inf"):
+            self._global_pheromone_update(path_edges, cost)
+
+    def get_pheromone_matrix(self) -> dict[str, float] | None:
+        """Returns the current pheromone matrix."""
+        return self.pheromones
+
+    def inject_pheromone_matrix(self, matrix: dict[str, float]) -> None:
+        """Not applicable for ACO as it owns the master pheromones."""
+        pass
+
     # ------------------------------------------------------------------
     # Private: search orchestration
     # ------------------------------------------------------------------
@@ -424,16 +440,28 @@ class ACORouter(Router):
         total_expanded = 0
 
         for iteration in range(self.config.max_iterations):
-            iter_result = self._run_single_iteration(
+            iter_result = self.execute_iteration(
                 origin_node_id, destination_node_id, context
             )
-            iter_nodes, iter_edges, iter_cost, exploits, expanded = iter_result
-            total_expanded += expanded
+            
+            # Extract the best path from the iteration
+            iter_best_cost = float("inf")
+            iter_best_nodes: list[str] = []
+            iter_best_edges: list[str] = []
+            
+            for nodes, edges, cost in zip(iter_result.path_nodes, iter_result.path_edges, iter_result.costs):
+                if cost < iter_best_cost:
+                    iter_best_cost = cost
+                    iter_best_nodes = nodes
+                    iter_best_edges = edges
 
-            if iter_cost < best_cost:
-                best_cost = iter_cost
-                best_nodes = iter_nodes
-                best_edges = iter_edges
+            total_expanded += iter_result.nodes_expanded
+            exploits = int(iter_result.custom_metrics.get("total_exploits", 0.0))
+
+            if iter_best_cost < best_cost:
+                best_cost = iter_best_cost
+                best_nodes = iter_best_nodes
+                best_edges = iter_best_edges
                 convergence_iter = iteration
 
             if best_edges:
@@ -441,7 +469,7 @@ class ACORouter(Router):
 
             if search_metrics is not None and best_edges:
                 self._record_iteration_metrics(
-                    search_metrics, iteration, iter_cost, exploits, best_edges
+                    search_metrics, iteration, iter_best_cost, exploits, best_edges
                 )
 
         if search_metrics is not None:
@@ -451,39 +479,37 @@ class ACORouter(Router):
 
         return best_nodes, best_edges, best_cost, convergence_iter, total_expanded
 
-    def _run_single_iteration(
-        self,
-        origin_node_id: str,
-        destination_node_id: str,
-        context: RoutingContext,
-    ) -> tuple[list[str], list[str], float, int, int]:
-        """Deploys all ants for one iteration and returns the best result.
+    def initialize_search(self, origin: str, dest: str, context: RoutingContext) -> None:
+        """Initializes per-query state (applies lazy evaporation)."""
+        self._apply_lazy_evaporation(context.current_time)
+        self._initialise_pheromones(context.network)
 
-        Returns:
-            Tuple of (best_nodes, best_edges, best_cost,
-            total_exploits, total_nodes_expanded).
+    def execute_iteration(
+        self,
+        origin: str,
+        dest: str,
+        context: RoutingContext,
+    ) -> SwarmIterationResult:
+        """Deploys all ants for one iteration and returns all discovered paths.
+        
+        This satisfies the IterativeSwarmEngine protocol.
         """
-        best_cost = float("inf")
-        best_nodes: list[str] = []
-        best_edges: list[str] = []
+        result = SwarmIterationResult()
         total_exploits = 0
-        total_expanded = 0
 
         for _ in range(self.config.num_ants):
-            ant = self._construct_solution(
-                origin_node_id, destination_node_id, context
-            )
+            ant = self._construct_solution(origin, dest, context)
             if ant is None:
                 continue
             a_nodes, a_edges, a_cost, exploits, expanded = ant
+            result.path_nodes.append(a_nodes)
+            result.path_edges.append(a_edges)
+            result.costs.append(a_cost)
+            result.nodes_expanded += expanded
             total_exploits += exploits
-            total_expanded += expanded
-            if a_cost < best_cost:
-                best_cost = a_cost
-                best_nodes = a_nodes
-                best_edges = a_edges
-
-        return best_nodes, best_edges, best_cost, total_exploits, total_expanded
+            
+        result.custom_metrics["total_exploits"] = float(total_exploits)
+        return result
 
     # ------------------------------------------------------------------
     # Private: ACS mechanics
