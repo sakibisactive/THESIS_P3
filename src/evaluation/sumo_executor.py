@@ -386,6 +386,26 @@ class SumoScenarioExecutor:
                         )
                         veh.destination_node_id = original_dest
 
+                        if cs.node_id == original_dest:
+                            # Already at destination! Mark as arrived.
+                            veh.state = VehicleState.ARRIVED
+                            logger.info(f"Vehicle '{veh_id}' finished charging and is already at destination node '{original_dest}'. Marking as ARRIVED.")
+                            distance_m = sum(
+                                self.network.edges[eid].length
+                                for eid in veh.current_route
+                                if eid in self.network.edges
+                            )
+                            free_flow = self._calculate_free_flow_time(veh.current_route)
+                            self.metrics_collector.record_vehicle_arrival(
+                                vehicle_id=veh_id,
+                                travel_time=veh.accumulated_travel_time,
+                                energy_consumed=veh.accumulated_energy_consumed,
+                                distance_m=distance_m,
+                                free_flow_time=free_flow,
+                            )
+                            self.channel.deregister_transceiver(f"obu_{veh_id}")
+                            continue
+
                         # Reroute to destination from charging node
                         try:
                             start_t = time.perf_counter()
@@ -396,6 +416,10 @@ class SumoScenarioExecutor:
                             self.metrics_collector.record_router_invocation(
                                 end_t - start_t
                             )
+                            
+                            if not res.path_edges:
+                                raise ValueError("Router returned an empty route path (network disconnected or unreachable).")
+                                
                             veh.assign_route(res.path_edges)
 
                             # Re-spawn in SUMO
