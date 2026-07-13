@@ -44,19 +44,41 @@ class SumoClient:
             str(self.config.step_length),
             "--seed",
             str(self.config.seed),
+            "--no-warnings",
+            "--no-step-log",
         ]
         if route_file:
             cmd.extend(["-r", route_file])
         if self.config.real_time_factor > 0:
             cmd.extend(["--real-time-factor", str(self.config.real_time_factor)])
 
-        logger.info(f"Starting SUMO with command: {' '.join(cmd)}")
-
         try:
-            # traci.start launches the process and connects
-            traci.start(cmd, port=self.config.traci_port)
-            self._connected = True
-            logger.info("Successfully connected to SUMO via TraCI.")
+            import io
+            import os
+            import sys
+            from contextlib import redirect_stdout, redirect_stderr
+
+            # Auto-detect or override invalid SUMO_HOME to prevent XML validation warnings
+            sumo_home = os.environ.get("SUMO_HOME", "")
+            if not sumo_home or not os.path.isdir(sumo_home):
+                for candidate in ["/usr/share/sumo", "/usr/local/share/sumo"]:
+                    if os.path.isdir(candidate):
+                        os.environ["SUMO_HOME"] = candidate
+                        break
+
+            f_null = io.StringIO()
+            try:
+                # Redirect stdout/stderr to capture "Retrying in 1 seconds" and warnings
+                with redirect_stdout(f_null), redirect_stderr(f_null):
+                    traci.start(cmd, port=self.config.traci_port)
+                self._connected = True
+                logger.info("Successfully connected to SUMO via TraCI.")
+            except Exception as e:
+                # If connection fails, log the captured outputs for diagnostics
+                captured = f_null.getvalue()
+                if captured:
+                    logger.error(f"SUMO/TraCI startup output:\n{captured}")
+                raise
         except Exception as e:
             logger.error(f"Failed to start SUMO / connect TraCI: {e}")
             raise RuntimeError(f"TraCI connection failed: {e}") from e

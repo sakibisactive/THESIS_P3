@@ -114,10 +114,11 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
     scenario, algorithm, vehicles, seed, port_offset, research_mode = args
     task_file = get_task_file_path(scenario, algorithm, vehicles, seed)
 
-    print(
-        f"[START] {scenario} | {algorithm} | {vehicles} vehs | "
-        f"Seed {seed} | Port {8813 + port_offset}"
-    )
+    if os.environ.get("THESIS_LOG_LEVEL", "INFO").upper() in ["INFO", "DEBUG"]:
+        print(
+            f"[START] {scenario} | {algorithm} | {vehicles} vehs | "
+            f"Seed {seed} | Port {8813 + port_offset}"
+        )
 
     # Load configuration
     config_path = f"configs/benchmarks/{scenario}.yaml"
@@ -196,7 +197,8 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
         }
         json.dump(data, f, indent=2)
 
-    print(f"[DONE] {scenario} | {algorithm} | {vehicles} vehs | Seed {seed}")
+    if os.environ.get("THESIS_LOG_LEVEL", "INFO").upper() in ["INFO", "DEBUG"]:
+        print(f"[DONE] {scenario} | {algorithm} | {vehicles} vehs | Seed {seed}")
     return {
         "scenario": scenario,
         "algorithm": algorithm,
