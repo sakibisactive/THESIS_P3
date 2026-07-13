@@ -19,11 +19,15 @@ This is a thin orchestration wrapper. All benchmark logic lives in:
 """
 
 import argparse
+import os
 import pathlib
 import subprocess
 import sys
 import textwrap
 import time
+
+# Set default log level to WARNING to keep the console clean and show only progress/errors
+os.environ.setdefault("THESIS_LOG_LEVEL", "WARNING")
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent
 VENV_PYTHON = REPO_ROOT / ".venv" / "bin" / "python"
@@ -50,10 +54,7 @@ PRESETS: dict[str, dict] = {
         "description": "Quick pipeline sanity check — 2 runs",
         "matrix":      "2 algorithms × 1 scenario × 25 vehicles × 1 seed",
         "benchmark_args": [
-            "--algorithms", "Dijkstra,E3-Hybrid",
-            "--scenarios",  "normal_traffic",
-            "--vehicles",   "25",
-            "--seeds",      "1",
+            "--test-run",
             "--no-resume",
         ],
         "run_profiler": False,

@@ -18,6 +18,9 @@ import sys
 import time
 from typing import Any
 
+# Default to WARNING level logging to keep output clean and focus on progress updates
+os.environ.setdefault("THESIS_LOG_LEVEL", "WARNING")
+
 import matplotlib
 
 matplotlib.use("Agg")

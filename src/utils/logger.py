@@ -30,19 +30,31 @@ class CustomFormatter(logging.Formatter):
 
 def setup_logger(
     name: str,
-    level: int = logging.INFO,
+    level: int | None = None,
     log_file: str | None = None,
 ) -> logging.Logger:
     """Sets up and returns a structured logger with console and optional file output.
 
     Args:
         name: Name of the logger.
-        level: Logging severity level.
+        level: Logging severity level. If None, checks THESIS_LOG_LEVEL environment variable (default: INFO).
         log_file: Optional filepath to write logs.
 
     Returns:
         logging.Logger: The configured logger instance.
     """
+    import os
+    if level is None:
+        env_val = os.environ.get("THESIS_LOG_LEVEL", "INFO").upper()
+        level_map = {
+            "DEBUG": logging.DEBUG,
+            "INFO": logging.INFO,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "CRITICAL": logging.CRITICAL,
+        }
+        level = level_map.get(env_val, logging.INFO)
+
     logger = logging.getLogger(name)
     logger.setLevel(level)
 
