@@ -152,7 +152,10 @@ class SumoScenarioExecutor:
 
             # Pre-validate connectivity
             try:
+                start_t = time.perf_counter()
                 res = self.router.find_route(origin, dest, routing_ctx)
+                end_t = time.perf_counter()
+                self.metrics_collector.record_router_invocation(end_t - start_t)
                 if len(res.path_edges) < MIN_PATH_EDGES:
                     continue
             except Exception:

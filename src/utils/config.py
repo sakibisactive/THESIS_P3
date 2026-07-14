@@ -1,6 +1,7 @@
 import os
 from enum import StrEnum
 
+from typing import Any
 import yaml
 from pydantic import BaseModel, Field, model_validator
 
@@ -377,6 +378,30 @@ class RoutingObjectivesConfig(BaseModel):
         default=0.1,
         description="Weight for emergency proximity hazard potential objective.",
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def map_aliases_and_defaults(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            mappings = {
+                "weight_travel_time": "w_time",
+                "weight_distance": "w_distance",
+                "weight_energy_consumption": "w_energy",
+                "weight_congestion": "w_congestion",
+                "weight_safety": "w_emergency",
+            }
+            mapped_data = {}
+            has_custom = any(k in data for k in mappings)
+            for legacy_key, internal_key in mappings.items():
+                if legacy_key in data:
+                    mapped_data[internal_key] = data[legacy_key]
+                elif internal_key in data:
+                    mapped_data[internal_key] = data[internal_key]
+                elif has_custom:
+                    mapped_data[internal_key] = 0.0
+            for k, v in mapped_data.items():
+                data[k] = v
+        return data
 
     @model_validator(mode="after")
     def validate_weights(self) -> "RoutingObjectivesConfig":

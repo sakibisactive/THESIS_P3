@@ -10,7 +10,7 @@ algorithms:
     loyalty_threshold: 0.6
     max_scout_iterations: 5
   e3_hybrid:
-    max_iterations: 5
+    max_iterations: 15
   objectives:
     weight_energy_consumption: 0.2
     weight_safety: 0.1

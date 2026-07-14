@@ -54,4 +54,4 @@ algorithms:
     c1_personal: 1.5
     c2_global: 1.5
   e3_hybrid:
-    max_iterations: 5
+    max_iterations: 15

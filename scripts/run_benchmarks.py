@@ -138,7 +138,7 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
         cfg.algorithms.bco.max_iterations = 5
         cfg.algorithms.pso.swarm_size = 5
         cfg.algorithms.pso.max_iterations = 5
-        cfg.algorithms.e3_hybrid.max_iterations = 5
+        cfg.algorithms.e3_hybrid.max_iterations = 15
 
     # Instantiate Router
     router_cls = ROUTER_CLASSES[algorithm]
@@ -146,14 +146,21 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
     kwargs: dict[str, Any] = {}
     if algorithm in ["ACO", "BCO", "PSO", "E3-Hybrid"]:
         kwargs["seed"] = seed
+        from src.routing.scorer import MultiObjectiveEdgeScorer
+        scorer = MultiObjectiveEdgeScorer(cfg.algorithms.objectives)
+        
         if algorithm == "ACO":
             kwargs["config"] = cfg.algorithms.aco
+            kwargs["scorer"] = scorer
         elif algorithm == "BCO":
             kwargs["config"] = cfg.algorithms.bco
+            kwargs["scorer"] = scorer
         elif algorithm == "PSO":
             kwargs["config"] = cfg.algorithms.pso
+            kwargs["scorer"] = scorer
         elif algorithm == "E3-Hybrid":
             kwargs["config"] = cfg.algorithms
+            kwargs["scorer"] = scorer
 
     try:
         router_instance = router_cls(**kwargs)
@@ -634,17 +641,17 @@ def main() -> None:
 
     # PILOT PHASE GATING
     print("\n" + "=" * 60)
-    print("                 PHASE 1: BENCHMARK PILOT (72 RUNS)")
+    print("                 PHASE 1: BENCHMARK PILOT")
     print("=" * 60)
-    pilot_scenarios = SCENARIOS
-    pilot_algorithms = list(ROUTER_CLASSES.keys())
-    pilot_vehicles = [25]
-    pilot_seeds = [1, 2]
+    pilot_scenarios = [s for s in SCENARIOS if s in run_scenarios]
+    pilot_algorithms = [a for a in list(ROUTER_CLASSES.keys()) if a in run_algorithms]
+    pilot_vehicles = [v for v in [25] if v in run_vehicles] or [run_vehicles[0]]
+    pilot_seeds = [s for s in [1, 2] if s in run_seeds] or [run_seeds[0]]
 
     pilot_tasks, pilot_completed = _build_task_list(
         pilot_scenarios, pilot_algorithms, pilot_vehicles, pilot_seeds, args.resume, args.research_mode
     )
-    print(f"Pilot runs expected: 72 | Already completed: {pilot_completed} | Remaining: {len(pilot_tasks)}")
+    print(f"Pilot runs expected: {len(pilot_scenarios)*len(pilot_algorithms)*len(pilot_vehicles)*len(pilot_seeds)} | Already completed: {pilot_completed} | Remaining: {len(pilot_tasks)}")
 
     _execute_tasks(pilot_tasks, test_run=False, use_multiprocessing=args.use_multiprocessing)
     
@@ -784,6 +791,33 @@ def _write_stats_tables(
                 sf.write(
                     format_hypothesis_markdown_table(
                         test_results, "Pairwise Reroute Significance"
+                    )
+                )
+                sf.write("\n\n")
+
+            # Perform pairwise tests for E3-Hybrid
+            e3_test_results = []
+            for target_alg in ["ACO", "Dijkstra", "PSO"]:
+                key_e3 = (scen, "E3-Hybrid")
+                key_target = (scen, target_alg)
+                if (
+                    key_e3 in run_means
+                    and key_target in run_means
+                    and run_means[key_e3]
+                    and run_means[key_target]
+                ):
+                    res = perform_hypothesis_tests(
+                        run_means[key_e3],
+                        run_means[key_target],
+                        "E3-Hybrid",
+                        target_alg,
+                    )
+                    e3_test_results.append(res)
+
+            if e3_test_results:
+                sf.write(
+                    format_hypothesis_markdown_table(
+                        e3_test_results, "E3-Hybrid Pairwise Significance"
                     )
                 )
                 sf.write("\n\n---\n\n")
