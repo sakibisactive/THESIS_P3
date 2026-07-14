@@ -693,8 +693,19 @@ def _aggregate_metrics(
     response_times: dict[tuple[str, str], list[float]] = {}
 
     for r in results:
-        scen = r["scenario_name"]
-        alg = r["algorithm_name"]
+        scen_raw = r["scenario_name"]
+        alg_raw = r["algorithm_name"]
+        
+        # Normalize keys to match SCENARIOS and algorithm IDs used in plot/table lookup
+        scen = scen_raw.lower()
+        if scen.endswith(" scenario"):
+            scen = scen[:-9]
+        scen = scen.replace(" ", "_")
+        
+        alg = alg_raw.replace("Router", "")
+        if alg == "E3Hybrid":
+            alg = "E3-Hybrid"
+            
         tt_dict = r.get("vehicle_travel_times", {})
         times = list(tt_dict.values())
 

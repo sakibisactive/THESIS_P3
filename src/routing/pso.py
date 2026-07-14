@@ -253,6 +253,18 @@ class PSORouter(Router):
         self, origin: str, dest: str, context: RoutingContext
     ) -> None:
         self._injected_pheromones = {}
+        
+        # Reset query-specific global best state
+        self.g_best_cost = float("inf")
+        self.g_best_path_nodes = []
+        self.g_best_path_edges = []
+        self.g_best_X = {}
+        
+        # Re-initialize the particles fresh for the new query
+        self.particles = [
+            Particle(i) for i in range(self.config.swarm_size)
+        ]
+        
         if self._environment_dirty:
             self._re_evaluate_bests(context)
             self._environment_dirty = False

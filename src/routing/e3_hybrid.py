@@ -110,6 +110,12 @@ class E3HybridRouter(Router):
 
         self._validate_nodes(origin_node_id, destination_node_id, context)
 
+        # Reset blackboard state for the new query
+        self.gbest_cost = float("inf")
+        self.gbest_nodes = []
+        self.gbest_edges = []
+        self.gbest_source = "None"
+
         if origin_node_id == destination_node_id:
             return self._trivial_result(origin_node_id, start_wall)
 
