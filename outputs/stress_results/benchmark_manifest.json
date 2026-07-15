@@ -1,0 +1,44 @@
+{
+  "algorithms": [
+    "Dijkstra",
+    "AStar",
+    "ACO",
+    "BCO",
+    "PSO",
+    "E3-Hybrid"
+  ],
+  "scenarios": [
+    "stress_normal",
+    "stress_closures",
+    "stress_blackout",
+    "stress_failures",
+    "stress_ambulance"
+  ],
+  "vehicle_counts": [
+    1000
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "timestamp": "2026-07-15T08:33:40Z",
+  "git_commit": "c40f23f73f4d46d41645c27d20c2359d05da2443",
+  "parameters": {
+    "aco": {
+      "num_ants": 5,
+      "max_iterations": 5
+    },
+    "bco": {
+      "colony_size": 5,
+      "max_iterations": 5
+    },
+    "pso": {
+      "swarm_size": 5,
+      "max_iterations": 5
+    },
+    "e3_hybrid": {
+      "max_iterations": 5
+    }
+  }
+}

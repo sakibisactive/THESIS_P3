@@ -138,6 +138,11 @@ class RoutingContext:
         self.current_time = current_time
         self.cost_function = cost_function or shortest_distance_cost
         self.active_incidents: list[Any] = active_incidents or []
+        
+        # Real-time state feedback variables for adaptive weighting
+        self.traffic_speed_ratio: float = 1.0
+        self.energy_depletion_index: float = 0.0
+        self.emergency_alert_status: float = 0.0
 
         # Lazy elevation calculation
         self._node_elevations: dict[str, float] | None = None

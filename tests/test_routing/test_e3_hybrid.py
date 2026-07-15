@@ -149,3 +149,49 @@ def test_subsystems_statistics(context: RoutingContext, base_config: AlgorithmCo
     # The sub-engines should not have recorded monolithic search_count because they 
     # were orchestrated via execute_iteration, not find_route.
     assert stats["subsystems"]["aco"]["search_count"] == 0
+
+
+def test_e3_hybrid_ablation(context: RoutingContext, base_config: AlgorithmConfig):
+    # Disable ACO and PSO, only keep BCO
+    base_config.e3_hybrid.disable_aco = True
+    base_config.e3_hybrid.disable_pso = True
+    base_config.e3_hybrid.disable_bco = False
+    
+    router = E3HybridRouter(base_config, seed=42)
+    result = router.find_route("A", "D", context)
+    
+    # It should still find a valid route using only BCO
+    assert result.path_nodes == ["A", "B", "D"]
+    assert router.gbest_source == "BCO"
+
+
+def test_e3_hybrid_adaptive_weighting(context: RoutingContext, base_config: AlgorithmConfig):
+    base_config.e3_hybrid.enable_adaptive_weighting = True
+    base_config.objectives.w_time = 0.7
+    base_config.objectives.w_energy = 0.2
+    base_config.objectives.w_emergency = 0.1
+    base_config.objectives.w_distance = 0.0
+    base_config.objectives.w_congestion = 0.0
+    
+    # Set custom feedback values in routing context
+    context.traffic_speed_ratio = 0.5  # 50% speed degradation (congestion)
+    context.energy_depletion_index = 0.8  # high battery depletion
+    context.emergency_alert_status = 1.0  # active emergency
+    
+    router = E3HybridRouter(base_config, seed=42)
+    router.find_route("A", "D", context)
+    
+    # Check that weights were dynamically adjusted from the base (0.7, 0.2, 0.1)
+    # wt_raw = 0.7 + 0.15 * 0.5 = 0.775 -> max(0.3, 0.775) = 0.775
+    # we_raw = 0.2 + 0.15 * 0.8 = 0.32 -> max(0.05, 0.32) = 0.32
+    # ws_raw = 0.1 + 0.15 * 1.0 = 0.25 -> max(0.02, 0.25) = 0.25
+    # w_sum = 0.775 + 0.32 + 0.25 = 1.345
+    # w_time = 0.775 / 1.345 ≈ 0.576
+    # w_energy = 0.32 / 1.345 ≈ 0.238
+    # w_emergency = 0.25 / 1.345 ≈ 0.186
+    assert router.scorer.config.w_time == pytest.approx(0.775 / 1.345)
+    assert router.scorer.config.w_energy == pytest.approx(0.32 / 1.345)
+    assert router.scorer.config.w_emergency == pytest.approx(0.25 / 1.345)
+    assert router.scorer.config.w_distance == 0.0
+    assert router.scorer.config.w_congestion == 0.0
+

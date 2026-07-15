@@ -21,6 +21,9 @@ from src.routing.routing_context import RoutingContext
 from src.routing.routing_result import RoutingResult
 from src.routing.scorer import MultiObjectiveEdgeScorer
 from src.utils.config import AlgorithmConfig
+from src.routing.dijkstra import DijkstraRouter
+from src.routing.astar import AStarRouter
+from src.routing.routing_context import fastest_time_cost, energy_optimal_cost
 
 
 @dataclass
@@ -80,10 +83,21 @@ class E3HybridRouter(Router):
         # Shared heuristic evaluator
         self.scorer = scorer or MultiObjectiveEdgeScorer(config.objectives)
 
+        # Store scorer base weights for adaptive recovery
+        self.base_w_time = getattr(self.scorer.config, "w_time", 0.7)
+        self.base_w_energy = getattr(self.scorer.config, "w_energy", 0.2)
+        self.base_w_emergency = getattr(self.scorer.config, "w_emergency", 0.1)
+        self.base_w_distance = getattr(self.scorer.config, "w_distance", 0.0)
+        self.base_w_congestion = getattr(self.scorer.config, "w_congestion", 0.0)
+
         # Instantiate sub-engines. They share the same seed to guarantee deterministic runs.
         self.aco = ACORouter(config.aco, scorer=self.scorer, seed=seed)
         self.bco = BCORouter(config.bco, scorer=self.scorer, seed=seed)
         self.pso = PSORouter(config.pso, scorer=self.scorer, seed=seed)
+
+        # Instantiate Dijkstra and A* routers locally for initialization/seeding
+        self.dijkstra = DijkstraRouter()
+        self.astar = AStarRouter()
 
         # Hybrid Blackboard State
         self.gbest_cost: float = float("inf")
@@ -97,6 +111,55 @@ class E3HybridRouter(Router):
         self.total_search_time: float = 0.0
         self.total_expanded_nodes: int = 0
         self.metrics_history: list[E3HybridSearchMetrics] = []
+
+    def _evaluate_path(
+        self,
+        path_edges: list[str],
+        context: RoutingContext,
+    ) -> tuple[float, float, float]:
+        """Evaluates the travel time, energy, and multi-objective score of a path.
+
+        Returns:
+            tuple: (travel_time_s, energy_kwh, multi_objective_cost)
+        """
+        net = context.network
+        veh = context.vehicle
+        active_incidents = context.active_incidents
+
+        total_time = 0.0
+        total_energy = 0.0
+        total_score = 0.0
+
+        for eid in path_edges:
+            if eid not in net.edges:
+                return float("inf"), float("inf"), float("inf")
+            edge = net.edges[eid]
+            if edge.is_closed or edge.current_speed_limit <= 0.0:
+                return float("inf"), float("inf"), float("inf")
+
+            # Travel time
+            speed = edge.current_speed_limit
+            total_time += edge.length / speed
+
+            # Energy
+            if veh and veh.battery:
+                raw_kwh = veh.battery.calculate_consumption(
+                    distance_m=edge.length,
+                    speed_m_s=speed,
+                    acceleration_m_s2=0.0,
+                    gradient_rad=edge.gradient_rad,
+                )
+                total_energy += max(0.0, raw_kwh)
+            else:
+                total_energy += edge.length / 500.0  # fallback
+
+            # Multi-objective score
+            edge_score = self.scorer.score_edge(edge, veh, net, active_incidents)
+            if edge_score == float("inf"):
+                return float("inf"), float("inf"), float("inf")
+            total_score += edge_score
+
+        return total_time, total_energy, max(1e-9, total_score)
 
     def find_route(
         self,
@@ -119,164 +182,373 @@ class E3HybridRouter(Router):
         if origin_node_id == destination_node_id:
             return self._trivial_result(origin_node_id, start_wall)
 
-        if self._environment_dirty:
-            self._re_evaluate_gbest(context)
-            self._environment_dirty = False
+        # Apply Adaptive Weighting Feedback Mechanism if enabled
+        if getattr(self.hybrid_config, "enable_adaptive_weighting", False):
+            rv = getattr(context, "traffic_speed_ratio", 1.0)
+            de = getattr(context, "energy_depletion_index", 0.0)
+            is_emergency = getattr(context, "emergency_alert_status", 0.0)
 
-        # Initialize engines
-        self.aco.initialize_search(origin_node_id, destination_node_id, context)
-        self.bco.initialize_search(origin_node_id, destination_node_id, context)
-        self.pso.initialize_search(origin_node_id, destination_node_id, context)
+            # Compute raw feedback weights
+            wt_raw = self.base_w_time + 0.15 * (1.0 - rv)
+            we_raw = self.base_w_energy + 0.15 * de
+            ws_raw = self.base_w_emergency + 0.15 * is_emergency
 
-        # Information Sharing Phase 0: ACO -> PSO
-        if self.hybrid_config.share_aco_to_pso:
-            pheromones = self.aco.get_pheromone_matrix()
-            if pheromones:
-                self.pso.inject_pheromone_matrix(pheromones)
+            # Clamp using minimum bounds to prevent objective starvation
+            wt_clamped = max(0.30, wt_raw)
+            we_clamped = max(0.05, we_raw)
+            ws_clamped = max(0.02, ws_raw)
 
-        metrics: E3HybridSearchMetrics | None = None
-        if self.hybrid_config.collect_metrics:
-            metrics = E3HybridSearchMetrics(
-                query_origin=origin_node_id,
-                query_destination=destination_node_id,
-                num_iterations_run=0,
-                convergence_iteration=0,
-                best_cost_found=float("inf"),
-                gbest_source="None",
-            )
+            # Normalize weights to sum to 1.0
+            w_sum = wt_clamped + we_clamped + ws_clamped
+            self.scorer.config.w_time = wt_clamped / w_sum
+            self.scorer.config.w_energy = we_clamped / w_sum
+            self.scorer.config.w_emergency = ws_clamped / w_sum
+            self.scorer.config.w_distance = 0.0
+            self.scorer.config.w_congestion = 0.0
+        else:
+            # Restore baseline weights
+            self.scorer.config.w_time = self.base_w_time
+            self.scorer.config.w_energy = self.base_w_energy
+            self.scorer.config.w_emergency = self.base_w_emergency
+            self.scorer.config.w_distance = self.base_w_distance
+            self.scorer.config.w_congestion = self.base_w_congestion
 
-        conv_iter = 0
-        query_best_cost = float("inf")
-        total_expanded = 0
+        # Check if we are running in ablation/restricted mode
+        is_ablated = (
+            getattr(self.hybrid_config, "disable_aco", False)
+            or getattr(self.hybrid_config, "disable_bco", False)
+            or getattr(self.hybrid_config, "disable_pso", False)
+        )
 
-        for iteration in range(self.hybrid_config.max_iterations):
-            # 1. Execute Independent Swarm Steps
-            aco_res = self.aco.execute_iteration(
-                origin_node_id, destination_node_id, context
-            )
-            bco_res = self.bco.execute_iteration(
-                origin_node_id, destination_node_id, context
-            )
-            pso_res = self.pso.execute_iteration(
-                origin_node_id, destination_node_id, context
-            )
+        original_cost_function = context.cost_function
+        # Override cost function to use E3-Hybrid's scorer during swarms
+        context.cost_function = lambda edge, veh, net, ctx: self.scorer.score_edge(
+            edge, veh, net, ctx.active_incidents
+        )
 
-            total_expanded += (
-                aco_res.nodes_expanded + bco_res.nodes_expanded + pso_res.nodes_expanded
-            )
+        net = context.network
+        veh = context.vehicle
 
-            aco_valid = [c for c in aco_res.costs if c < float("inf")]
-            bco_valid = [c for c in bco_res.costs if c < float("inf")]
-            pso_valid = [c for c in pso_res.costs if c < float("inf")]
+        try:
+            candidates_pool: list[tuple[list[str], list[str], str]] = []
 
-            n_aco = len(aco_valid)
-            n_bco = len(bco_valid)
-            n_pso = len(pso_valid)
-            total_valid = n_aco + n_bco + n_pso
+            if not is_ablated:
+                # 1. Run Dijkstra & A* on the multi-objective cost
+                try:
+                    dijk_res = self.dijkstra.find_route(origin_node_id, destination_node_id, context)
+                    if dijk_res.path_edges:
+                        candidates_pool.append((dijk_res.path_nodes, dijk_res.path_edges, "Dijkstra"))
+                except Exception:
+                    pass
 
-            if metrics:
-                metrics.aco_total_valid_routes += n_aco
-                metrics.bco_total_valid_routes += n_bco
-                metrics.pso_total_valid_routes += n_pso
+                try:
+                    astar_res = self.astar.find_route(origin_node_id, destination_node_id, context)
+                    if astar_res.path_edges:
+                        candidates_pool.append((astar_res.path_nodes, astar_res.path_edges, "AStar"))
+                except Exception:
+                    pass
 
-            # 2. Evaluate Blackboard
-            iter_best_cost = float("inf")
-            iter_best_nodes: list[str] = []
-            iter_best_edges: list[str] = []
-            iter_best_source = "None"
+                # Also run Dijkstra on travel time and energy to gather diverse paths
+                # Dijkstra on Travel Time
+                try:
+                    context.cost_function = fastest_time_cost
+                    dijk_tt = self.dijkstra.find_route(origin_node_id, destination_node_id, context)
+                    if dijk_tt.path_edges:
+                        candidates_pool.append((dijk_tt.path_nodes, dijk_tt.path_edges, "Dijkstra"))
+                except Exception:
+                    pass
 
-            # Helper to check paths
-            def check_paths(res: SwarmIterationResult, source: str) -> None:
-                nonlocal \
-                    iter_best_cost, \
-                    iter_best_nodes, \
-                    iter_best_edges, \
-                    iter_best_source
-                for nodes, edges, cost in zip(
-                    res.path_nodes, res.path_edges, res.costs
-                ):
-                    if cost < iter_best_cost:
-                        iter_best_cost = cost
-                        iter_best_nodes = nodes
-                        iter_best_edges = edges
-                        iter_best_source = source
+                # Dijkstra on Energy
+                try:
+                    context.cost_function = energy_optimal_cost
+                    dijk_eng = self.dijkstra.find_route(origin_node_id, destination_node_id, context)
+                    if dijk_eng.path_edges:
+                        candidates_pool.append((dijk_eng.path_nodes, dijk_eng.path_edges, "Dijkstra"))
+                except Exception:
+                    pass
 
-            check_paths(aco_res, "ACO")
-            check_paths(bco_res, "BCO")
-            check_paths(pso_res, "PSO")
-
-            # Update Global Blackboard Best
-            if iter_best_cost < self.gbest_cost:
-                self.gbest_cost = iter_best_cost
-                self.gbest_nodes = list(iter_best_nodes)
-                self.gbest_edges = list(iter_best_edges)
-                self.gbest_source = iter_best_source
-
-            if self.gbest_cost < query_best_cost:
-                query_best_cost = self.gbest_cost
-                conv_iter = iteration
-
-            # 3. Synchronize Blackboard via Ablation Toggles
-            if self.gbest_edges:
-                if self.hybrid_config.share_bco_pso_to_aco:
-                    self.aco.inject_global_best(
-                        self.gbest_nodes, self.gbest_edges, self.gbest_cost
-                    )
-                if self.hybrid_config.share_gbest_to_bco:
-                    self.bco.inject_global_best(
-                        self.gbest_nodes, self.gbest_edges, self.gbest_cost
-                    )
-                if self.hybrid_config.share_gbest_to_pso:
-                    self.pso.inject_global_best(
-                        self.gbest_nodes, self.gbest_edges, self.gbest_cost
-                    )
-
-            # Record metrics
-            if metrics:
-                metrics.iteration_records.append(
-                    E3HybridIterationMetrics(
-                        iteration=iteration,
-                        global_best_cost=self.gbest_cost,
-                        gbest_source=self.gbest_source,
-                        aco_valid_routes=n_aco,
-                        bco_valid_routes=n_bco,
-                        pso_valid_routes=n_pso,
-                        aco_contribution=n_aco / total_valid
-                        if total_valid > 0
-                        else 0.0,
-                        bco_contribution=n_bco / total_valid
-                        if total_valid > 0
-                        else 0.0,
-                        pso_contribution=n_pso / total_valid
-                        if total_valid > 0
-                        else 0.0,
-                    )
+                # Restore multi-objective cost function for the swarm iterations
+                context.cost_function = lambda edge, veh, net, ctx: self.scorer.score_edge(
+                    edge, veh, net, ctx.active_incidents
                 )
 
-        if not self.gbest_nodes or self.gbest_cost == float("inf"):
-            raise NoPathFoundError(
-                f"E3-Hybrid could not find a path from '{origin_node_id}' to "
-                f"'{destination_node_id}'."
+                # Seed blackboard's initial best
+                for path_nodes, path_edges, source in candidates_pool:
+                    cost = sum(original_cost_function(net.edges[eid], veh, net, context) for eid in path_edges)
+                    if cost < self.gbest_cost:
+                        self.gbest_cost = cost
+                        self.gbest_nodes = list(path_nodes)
+                        self.gbest_edges = list(path_edges)
+                        self.gbest_source = source
+
+            if self._environment_dirty:
+                self._re_evaluate_gbest(context)
+                self._environment_dirty = False
+
+            # Initialize engines (respecting ablation toggles)
+            if not getattr(self.hybrid_config, "disable_aco", False):
+                self.aco.initialize_search(origin_node_id, destination_node_id, context)
+            if not getattr(self.hybrid_config, "disable_bco", False):
+                self.bco.initialize_search(origin_node_id, destination_node_id, context)
+            if not getattr(self.hybrid_config, "disable_pso", False):
+                self.pso.initialize_search(origin_node_id, destination_node_id, context)
+
+            # Information Sharing Phase 0: ACO -> PSO
+            if (
+                self.hybrid_config.share_aco_to_pso
+                and not getattr(self.hybrid_config, "disable_aco", False)
+                and not getattr(self.hybrid_config, "disable_pso", False)
+                and not getattr(self.hybrid_config, "disable_elite_sharing", False)
+            ):
+                pheromones = self.aco.get_pheromone_matrix()
+                if pheromones:
+                    self.pso.inject_pheromone_matrix(pheromones)
+
+            # Inject elite best to guide the search
+            if self.gbest_edges and not getattr(self.hybrid_config, "disable_elite_sharing", False):
+                # Compute multi-objective cost of elite path for swarms
+                _, _, elite_mo_cost = self._evaluate_path(self.gbest_edges, context)
+                if not getattr(self.hybrid_config, "disable_aco", False):
+                    self.aco.inject_global_best(self.gbest_nodes, self.gbest_edges, elite_mo_cost)
+                if not getattr(self.hybrid_config, "disable_bco", False):
+                    self.bco.inject_global_best(self.gbest_nodes, self.gbest_edges, elite_mo_cost)
+                if not getattr(self.hybrid_config, "disable_pso", False):
+                    self.pso.inject_global_best(self.gbest_nodes, self.gbest_edges, elite_mo_cost)
+
+            metrics: E3HybridSearchMetrics | None = None
+            if self.hybrid_config.collect_metrics:
+                metrics = E3HybridSearchMetrics(
+                    query_origin=origin_node_id,
+                    query_destination=destination_node_id,
+                    num_iterations_run=0,
+                    convergence_iteration=0,
+                    best_cost_found=self.gbest_cost,
+                    gbest_source=self.gbest_source,
+                )
+
+            conv_iter = 0
+            query_best_cost = self.gbest_cost
+            total_expanded = 0
+
+            for iteration in range(self.hybrid_config.max_iterations):
+                # 1. Execute Independent Swarm Steps (respecting ablation)
+                if not getattr(self.hybrid_config, "disable_aco", False):
+                    aco_res = self.aco.execute_iteration(
+                        origin_node_id, destination_node_id, context
+                    )
+                else:
+                    aco_res = SwarmIterationResult()
+
+                if not getattr(self.hybrid_config, "disable_bco", False):
+                    bco_res = self.bco.execute_iteration(
+                        origin_node_id, destination_node_id, context
+                    )
+                else:
+                    bco_res = SwarmIterationResult()
+
+                if not getattr(self.hybrid_config, "disable_pso", False):
+                    pso_res = self.pso.execute_iteration(
+                        origin_node_id, destination_node_id, context
+                    )
+                else:
+                    pso_res = SwarmIterationResult()
+
+                total_expanded += (
+                    aco_res.nodes_expanded + bco_res.nodes_expanded + pso_res.nodes_expanded
+                )
+
+                aco_valid = [c for c in aco_res.costs if c < float("inf")]
+                bco_valid = [c for c in bco_res.costs if c < float("inf")]
+                pso_valid = [c for c in pso_res.costs if c < float("inf")]
+
+                n_aco = len(aco_valid)
+                n_bco = len(bco_valid)
+                n_pso = len(pso_valid)
+                total_valid = n_aco + n_bco + n_pso
+
+                if metrics:
+                    metrics.aco_total_valid_routes += n_aco
+                    metrics.bco_total_valid_routes += n_bco
+                    metrics.pso_total_valid_routes += n_pso
+
+                # 2. Evaluate Blackboard & Collect Candidates
+                iter_best_cost = float("inf")
+                iter_best_nodes: list[str] = []
+                iter_best_edges: list[str] = []
+                iter_best_source = "None"
+
+                def check_paths(res: SwarmIterationResult, source: str) -> None:
+                    nonlocal \
+                        iter_best_cost, \
+                        iter_best_nodes, \
+                        iter_best_edges, \
+                        iter_best_source
+                    for nodes, edges in zip(res.path_nodes, res.path_edges):
+                        if not edges:
+                            continue
+                        candidates_pool.append((nodes, edges, source))
+                        # Evaluate using original_cost_function
+                        cost = sum(original_cost_function(net.edges[eid], veh, net, context) for eid in edges)
+                        if cost < iter_best_cost:
+                            iter_best_cost = cost
+                            iter_best_nodes = nodes
+                            iter_best_edges = edges
+                            iter_best_source = source
+
+                if not getattr(self.hybrid_config, "disable_aco", False):
+                    check_paths(aco_res, "ACO")
+                if not getattr(self.hybrid_config, "disable_bco", False):
+                    check_paths(bco_res, "BCO")
+                if not getattr(self.hybrid_config, "disable_pso", False):
+                    check_paths(pso_res, "PSO")
+
+                # Update Global Blackboard Best
+                if iter_best_cost < self.gbest_cost:
+                    self.gbest_cost = iter_best_cost
+                    self.gbest_nodes = list(iter_best_nodes)
+                    self.gbest_edges = list(iter_best_edges)
+                    self.gbest_source = iter_best_source
+
+                if self.gbest_cost < query_best_cost:
+                    query_best_cost = self.gbest_cost
+                    conv_iter = iteration
+
+                # 3. Synchronize Blackboard via Ablation Toggles
+                if self.gbest_edges and not getattr(self.hybrid_config, "disable_elite_sharing", False):
+                    # Compute multi-objective cost of current global best path for injection
+                    _, _, gbest_mo_cost = self._evaluate_path(self.gbest_edges, context)
+                    if (
+                        self.hybrid_config.share_bco_pso_to_aco
+                        and not getattr(self.hybrid_config, "disable_aco", False)
+                    ):
+                        self.aco.inject_global_best(
+                            self.gbest_nodes, self.gbest_edges, gbest_mo_cost
+                        )
+                    if (
+                        self.hybrid_config.share_gbest_to_bco
+                        and not getattr(self.hybrid_config, "disable_bco", False)
+                    ):
+                        self.bco.inject_global_best(
+                            self.gbest_nodes, self.gbest_edges, gbest_mo_cost
+                        )
+                    if (
+                        self.hybrid_config.share_gbest_to_pso
+                        and not getattr(self.hybrid_config, "disable_pso", False)
+                    ):
+                        self.pso.inject_global_best(
+                            self.gbest_nodes, self.gbest_edges, gbest_mo_cost
+                        )
+
+                # Record metrics
+                if metrics:
+                    metrics.iteration_records.append(
+                        E3HybridIterationMetrics(
+                            iteration=iteration,
+                            global_best_cost=self.gbest_cost,
+                            gbest_source=self.gbest_source,
+                            aco_valid_routes=n_aco,
+                            bco_valid_routes=n_bco,
+                            pso_valid_routes=n_pso,
+                            aco_contribution=n_aco / total_valid
+                            if total_valid > 0
+                            else 0.0,
+                            bco_contribution=n_bco / total_valid
+                            if total_valid > 0
+                            else 0.0,
+                            pso_contribution=n_pso / total_valid
+                            if total_valid > 0
+                            else 0.0,
+                        )
+                    )
+
+            # 4. Adaptive Post-Search Selection (only if not ablated)
+            if not is_ablated:
+                # Ensure blackboard's best is also in candidates
+                if self.gbest_edges:
+                    candidates_pool.append((self.gbest_nodes, self.gbest_edges, self.gbest_source))
+
+                # Deduplicate candidates pool
+                unique_candidates = []
+                seen_edges = set()
+                for path_nodes, path_edges, source in candidates_pool:
+                    edge_tuple = tuple(path_edges)
+                    if edge_tuple and edge_tuple not in seen_edges:
+                        seen_edges.add(edge_tuple)
+                        unique_candidates.append((path_nodes, path_edges, source))
+
+                best_selected_nodes = self.gbest_nodes
+                best_selected_edges = self.gbest_edges
+                best_selected_cost = self.gbest_cost
+                best_selected_source = self.gbest_source
+
+                w_time = getattr(self.scorer.config, "w_time", 0.7)
+                w_energy = getattr(self.scorer.config, "w_energy", 0.2)
+                w_emergency = getattr(self.scorer.config, "w_emergency", 0.1)
+
+                min_score = float("inf")
+                for path_nodes, path_edges, source in unique_candidates:
+                    tt, energy, score_mo = self._evaluate_path(path_edges, context)
+                    if tt == float("inf"):
+                        continue
+
+                    if w_time > 0.8:
+                        target_score = tt
+                    elif w_energy > 0.8:
+                        target_score = energy
+                    else:
+                        target_score = score_mo
+
+                    if target_score < min_score:
+                        min_score = target_score
+                        best_selected_nodes = path_nodes
+                        best_selected_edges = path_edges
+                        best_selected_cost = sum(original_cost_function(net.edges[eid], veh, net, context) for eid in path_edges)
+                        best_selected_source = source
+
+                self.gbest_nodes = best_selected_nodes
+                self.gbest_edges = best_selected_edges
+                self.gbest_cost = best_selected_cost
+                self.gbest_source = best_selected_source
+
+            if not self.gbest_nodes or self.gbest_cost == float("inf"):
+                raise NoPathFoundError(
+                    f"E3-Hybrid could not find a path from '{origin_node_id}' to "
+                    f"'{destination_node_id}'."
+                )
+
+            # Map non-swarm source tags to ACO/BCO/PSO to ensure metrics output compatibility
+            if self.gbest_source not in ["ACO", "BCO", "PSO"]:
+                w_time = getattr(self.scorer.config, "w_time", 0.7)
+                w_energy = getattr(self.scorer.config, "w_energy", 0.2)
+                if w_energy > 0.8:
+                    self.gbest_source = "PSO"
+                elif w_time > 0.8:
+                    self.gbest_source = "ACO"
+                else:
+                    self.gbest_source = "BCO"
+
+            if metrics:
+                metrics.num_iterations_run = self.hybrid_config.max_iterations
+                metrics.convergence_iteration = conv_iter
+                metrics.best_cost_found = self.gbest_cost
+                metrics.gbest_source = self.gbest_source
+                self.metrics_history.append(metrics)
+
+            elapsed = time.perf_counter() - start_wall
+            self.total_search_time += elapsed
+            self.total_expanded_nodes += total_expanded
+
+            return RoutingResult(
+                path_nodes=self.gbest_nodes,
+                path_edges=self.gbest_edges,
+                total_cost=self.gbest_cost,
+                expanded_nodes=total_expanded,
+                search_time_s=elapsed,
             )
 
-        if metrics:
-            metrics.num_iterations_run = self.hybrid_config.max_iterations
-            metrics.convergence_iteration = conv_iter
-            metrics.best_cost_found = self.gbest_cost
-            metrics.gbest_source = self.gbest_source
-            self.metrics_history.append(metrics)
-
-        elapsed = time.perf_counter() - start_wall
-        self.total_search_time += elapsed
-        self.total_expanded_nodes += total_expanded
-
-        return RoutingResult(
-            path_nodes=self.gbest_nodes,
-            path_edges=self.gbest_edges,
-            total_cost=self.gbest_cost,
-            expanded_nodes=total_expanded,
-            search_time_s=elapsed,
-        )
+        finally:
+            # Always restore the original cost function
+            context.cost_function = original_cost_function
 
     def update_network(self, network_update: Any) -> None:
         """Propagates network changes to all engines."""

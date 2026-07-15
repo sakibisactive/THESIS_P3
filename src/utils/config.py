@@ -64,6 +64,10 @@ class SimulationConfig(BaseModel):
         default=-1.0,
         description="Target real-time speed factor for SUMO, -1 for unlimited",
     )
+    breakdown_probability: float = Field(
+        default=0.0,
+        description="Probability of vehicle breakdown per step",
+    )
 
     @model_validator(mode="after")
     def validate_mode(self) -> "SimulationConfig":
@@ -628,6 +632,28 @@ class E3HybridConfig(BaseModel):
     share_bco_pso_to_aco: bool = Field(
         default=True,
         description="If True, Hybrid G_best triggers ACO global pheromone update.",
+    )
+
+    # Advanced Ablation Studies Toggles
+    disable_aco: bool = Field(
+        default=False,
+        description="If True, ACO sub-engine is bypassed in E3-Hybrid.",
+    )
+    disable_bco: bool = Field(
+        default=False,
+        description="If True, BCO sub-engine is bypassed in E3-Hybrid.",
+    )
+    disable_pso: bool = Field(
+        default=False,
+        description="If True, PSO sub-engine is bypassed in E3-Hybrid.",
+    )
+    disable_elite_sharing: bool = Field(
+        default=False,
+        description="If True, global best sharing is disabled in E3-Hybrid.",
+    )
+    enable_adaptive_weighting: bool = Field(
+        default=False,
+        description="If True, E3-Hybrid adjusts objective weights dynamically.",
     )
 
     @model_validator(mode="after")

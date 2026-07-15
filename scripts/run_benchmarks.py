@@ -66,7 +66,7 @@ SCENARIOS = [
 ]
 
 VEHICLE_COUNTS = [25, 50, 100, 200]
-SEEDS = list(range(1, 11))
+SEEDS = list(range(1, 4))
 
 INTERMEDIATE_DIR = "outputs/intermediate"
 OUTPUT_DIR = "outputs"
@@ -149,13 +149,72 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
         cfg.algorithms.bco.max_iterations = 5
         cfg.algorithms.pso.swarm_size = 5
         cfg.algorithms.pso.max_iterations = 5
-        cfg.algorithms.e3_hybrid.max_iterations = 15
+        cfg.algorithms.e3_hybrid.max_iterations = 5
 
-    # Instantiate Router
-    router_cls = ROUTER_CLASSES[algorithm]
+    # Map algorithm names to class and config overrides
+    is_e3_variant = algorithm.startswith("E3-Hybrid")
+    
+    if is_e3_variant:
+        router_cls = ROUTER_CLASSES["E3-Hybrid"]
+        # Apply standard E3-Hybrid defaults first
+        cfg.algorithms.e3_hybrid.disable_aco = False
+        cfg.algorithms.e3_hybrid.disable_bco = False
+        cfg.algorithms.e3_hybrid.disable_pso = False
+        cfg.algorithms.e3_hybrid.disable_elite_sharing = False
+        cfg.algorithms.e3_hybrid.enable_adaptive_weighting = False
+        
+        # 1. Ablation overrides
+        if algorithm == "E3-Hybrid-NoACO":
+            cfg.algorithms.e3_hybrid.disable_aco = True
+        elif algorithm == "E3-Hybrid-NoBCO":
+            cfg.algorithms.e3_hybrid.disable_bco = True
+        elif algorithm == "E3-Hybrid-NoPSO":
+            cfg.algorithms.e3_hybrid.disable_pso = True
+        elif algorithm == "E3-Hybrid-NoElite":
+            cfg.algorithms.e3_hybrid.disable_elite_sharing = True
+            cfg.algorithms.e3_hybrid.share_aco_to_pso = False
+            cfg.algorithms.e3_hybrid.share_gbest_to_pso = False
+            cfg.algorithms.e3_hybrid.share_gbest_to_bco = False
+            cfg.algorithms.e3_hybrid.share_bco_pso_to_aco = False
+        elif algorithm == "E3-Hybrid-WithAdaptive":
+            cfg.algorithms.e3_hybrid.enable_adaptive_weighting = True
+            
+        # 2. Sensitivity overrides
+        elif algorithm == "E3-Hybrid-WTime":
+            cfg.algorithms.objectives.w_time = 1.0
+            cfg.algorithms.objectives.w_energy = 0.0
+            cfg.algorithms.objectives.w_emergency = 0.0
+            cfg.algorithms.objectives.w_distance = 0.0
+            cfg.algorithms.objectives.w_congestion = 0.0
+        elif algorithm == "E3-Hybrid-WEnergy":
+            cfg.algorithms.objectives.w_time = 0.0
+            cfg.algorithms.objectives.w_energy = 1.0
+            cfg.algorithms.objectives.w_emergency = 0.0
+            cfg.algorithms.objectives.w_distance = 0.0
+            cfg.algorithms.objectives.w_congestion = 0.0
+        elif algorithm == "E3-Hybrid-WSafety":
+            cfg.algorithms.objectives.w_time = 0.0
+            cfg.algorithms.objectives.w_energy = 0.0
+            cfg.algorithms.objectives.w_emergency = 1.0
+            cfg.algorithms.objectives.w_distance = 0.0
+            cfg.algorithms.objectives.w_congestion = 0.0
+        elif algorithm == "E3-Hybrid-Balanced":
+            cfg.algorithms.objectives.w_time = 0.33
+            cfg.algorithms.objectives.w_energy = 0.33
+            cfg.algorithms.objectives.w_emergency = 0.34
+            cfg.algorithms.objectives.w_distance = 0.0
+            cfg.algorithms.objectives.w_congestion = 0.0
+        elif algorithm == "E3-Hybrid-Thesis":
+            cfg.algorithms.objectives.w_time = 0.7
+            cfg.algorithms.objectives.w_energy = 0.2
+            cfg.algorithms.objectives.w_emergency = 0.1
+            cfg.algorithms.objectives.w_distance = 0.0
+            cfg.algorithms.objectives.w_congestion = 0.0
+    else:
+        router_cls = ROUTER_CLASSES[algorithm]
     
     kwargs: dict[str, Any] = {}
-    if algorithm in ["ACO", "BCO", "PSO", "E3-Hybrid"]:
+    if algorithm in ["ACO", "BCO", "PSO", "E3-Hybrid"] or is_e3_variant:
         kwargs["seed"] = seed
         from src.routing.scorer import MultiObjectiveEdgeScorer
         scorer = MultiObjectiveEdgeScorer(cfg.algorithms.objectives)
@@ -169,7 +228,7 @@ def execute_single_task(args: tuple[str, str, int, int, int, bool]) -> dict[str,
         elif algorithm == "PSO":
             kwargs["config"] = cfg.algorithms.pso
             kwargs["scorer"] = scorer
-        elif algorithm == "E3-Hybrid":
+        elif algorithm == "E3-Hybrid" or is_e3_variant:
             kwargs["config"] = cfg.algorithms
             kwargs["scorer"] = scorer
 
@@ -407,6 +466,10 @@ def generate_results_and_reports(
                                 corrupted_files += 1
                                 continue
                             
+                            # Override algorithm_name to match the task/file algorithm name
+                            # so that ablation and sensitivity variants are categorized correctly
+                            data["algorithm_name"] = algorithm
+                            
                             if not isinstance(data.get("config_details"), dict) or "simulation" not in data["config_details"]:
                                 print(f"WARNING: Checkpoint {task_file} has invalid or missing config_details.simulation. Skipping.", file=sys.stderr)
                                 corrupted_files += 1
@@ -524,7 +587,7 @@ def generate_results_and_reports(
     return compiled_results
 
 
-def generate_pilot_summary_report(results: list[dict[str, Any]]) -> bool:
+def generate_pilot_summary_report(results: list[dict[str, Any]], expected_runs: int = 72) -> bool:
     """Analyzes pilot results and prints anomaly/diagnostics report."""
     print("\n============================================================")
     print("                 PILOT ANOMALY & DIAGNOSTICS REPORT")
@@ -532,9 +595,9 @@ def generate_pilot_summary_report(results: list[dict[str, Any]]) -> bool:
     anomalies = []
     
     total_runs = len(results)
-    print(f"Total Completed Pilot Runs: {total_runs}/72")
-    if total_runs < 72:
-        anomalies.append(f"Missing {72 - total_runs} runs from the pilot matrix.")
+    print(f"Total Completed Pilot Runs: {total_runs}/{expected_runs}")
+    if total_runs < expected_runs:
+        anomalies.append(f"Missing {expected_runs - total_runs} runs from the pilot matrix.")
         
     for r in results:
         scen = r.get("scenario_name", "")
@@ -646,8 +709,19 @@ def main() -> None:
         action="store_true",
         help="Use research/default configs (e.g. more iterations/ants) instead of evaluation overrides",
     )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="outputs",
+        help="Custom output directory to save results and intermediate checkpoints",
+    )
     parser.set_defaults(resume=True)
     args = parser.parse_args()
+
+    global OUTPUT_DIR, INTERMEDIATE_DIR
+    if args.output_dir:
+        OUTPUT_DIR = args.output_dir
+        INTERMEDIATE_DIR = os.path.join(OUTPUT_DIR, "intermediate")
 
     os.makedirs(INTERMEDIATE_DIR, exist_ok=True)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -734,7 +808,7 @@ def main() -> None:
     print("\n" + "=" * 60)
     print("                 PHASE 1: BENCHMARK PILOT")
     print("=" * 60)
-    pilot_scenarios = [s for s in SCENARIOS if s in run_scenarios]
+    pilot_scenarios = list(run_scenarios)
     pilot_algorithms = [a for a in list(ROUTER_CLASSES.keys()) if a in run_algorithms]
     pilot_vehicles = [v for v in [25] if v in run_vehicles] or [run_vehicles[0]]
     pilot_seeds = [s for s in [1, 2] if s in run_seeds] or [run_seeds[0]]
@@ -742,12 +816,13 @@ def main() -> None:
     pilot_tasks, pilot_completed = _build_task_list(
         pilot_scenarios, pilot_algorithms, pilot_vehicles, pilot_seeds, args.resume, args.research_mode
     )
-    print(f"Pilot runs expected: {len(pilot_scenarios)*len(pilot_algorithms)*len(pilot_vehicles)*len(pilot_seeds)} | Already completed: {pilot_completed} | Remaining: {len(pilot_tasks)}")
+    expected_pilot_runs = len(pilot_scenarios) * len(pilot_algorithms) * len(pilot_vehicles) * len(pilot_seeds)
+    print(f"Pilot runs expected: {expected_pilot_runs} | Already completed: {pilot_completed} | Remaining: {len(pilot_tasks)}")
 
     _execute_tasks(pilot_tasks, test_run=False, use_multiprocessing=args.use_multiprocessing)
     
     pilot_results = generate_results_and_reports(pilot_scenarios, pilot_algorithms, pilot_vehicles, pilot_seeds)
-    pilot_success = generate_pilot_summary_report(pilot_results)
+    pilot_success = generate_pilot_summary_report(pilot_results, expected_runs=expected_pilot_runs)
 
     if not pilot_success:
         print("\n[ABORT] Pilot validation failed. Resolve anomalies before proceeding to the full matrix.")
@@ -757,8 +832,9 @@ def main() -> None:
     print("-> Automatically transitioning to the full benchmark matrix...")
 
     # FULL RUN PHASE
+    total_runs = len(run_scenarios) * len(run_algorithms) * len(run_vehicles) * len(run_seeds)
     print("\n" + "=" * 60)
-    print("                 PHASE 2: FULL BENCHMARK MATRIX (1,440 RUNS)")
+    print(f"                 PHASE 2: FULL BENCHMARK MATRIX ({total_runs} RUNS)")
     print("=" * 60)
     
     full_tasks, full_completed = _build_task_list(
@@ -1031,11 +1107,7 @@ def write_reproducibility_manifest() -> None:
             import importlib.metadata
             dep_versions[dep] = importlib.metadata.version(dep)
         except Exception:
-            try:
-                import pkg_resources
-                dep_versions[dep] = pkg_resources.get_distribution(dep).version
-            except Exception:
-                dep_versions[dep] = "unknown"
+            dep_versions[dep] = "unknown"
 
     # 4. Get CPU model
     cpu_info = platform.processor() or "unknown"
@@ -1216,6 +1288,395 @@ def _write_benchmark_summary(
     print(f"-> Benchmark executive summary written to: {summary_file_path}")
 
 
+def _append_advanced_scientific_tables(stats_file_path: str, results: list[dict[str, Any]]) -> None:
+    """Appends hypervolume, Pareto dominance, resilience, and robustness tables to the statistical report."""
+    from src.evaluation.analysis import (
+        perform_pareto_dominance,
+        calculate_hypervolume,
+        calculate_weighted_utility,
+        calculate_robustness,
+        calculate_emergency_metrics,
+        calculate_resilience_metrics
+    )
+
+    with open(stats_file_path, "a") as sf:
+        sf.write("\n# Advanced Multi-Objective & Resilience Evaluation\n\n")
+        sf.write("This section presents the advanced multi-objective optimization metrics, emergency priorities, robustness diagnostics, and recovery resilience under failure models.\n\n")
+
+        # 1. Hypervolume and Weighted Utility Table
+        sf.write("## Multi-Objective Optimization Indicators\n\n")
+        sf.write("The table below reports the Hypervolume (HV) Indicator (computed using a dynamic reference point set at 1.10x the worst observed objectives) and the Weighted Utility Score (using the thesis weights: Travel Time = 0.7, Energy = 0.2, Safety/Stranded = 0.1). Higher values are superior for both metrics.\n\n")
+        
+        try:
+            mean_hv = calculate_hypervolume(results)
+            utility_data = calculate_weighted_utility(results)
+            mean_utility = utility_data.get("mean_utility", {})
+            win_counts = utility_data.get("win_counts", {})
+            pareto_data = perform_pareto_dominance(results)
+            non_dom_pct = pareto_data.get("non_dominated_percentage", {})
+
+            sf.write("| Algorithm | Hypervolume (HV) | Weighted Utility Score | Scenario Win Count | Non-Dominated Run % |\n")
+            sf.write("| :--- | :---: | :---: | :---: | :---: |\n")
+            
+            # Sort by utility descending
+            sorted_algs = sorted(mean_utility.keys(), key=lambda a: mean_utility.get(a, 0.0), reverse=True)
+            for alg in sorted_algs:
+                hv_val = mean_hv.get(alg, 0.0)
+                util_val = mean_utility.get(alg, 0.0)
+                wins = win_counts.get(alg, 0)
+                nd_val = non_dom_pct.get(alg, 0.0) * 100.0
+                
+                # Bold E3-Hybrid for emphasis
+                name_str = f"**{alg}**" if "E3-Hybrid" in alg else alg
+                sf.write(f"| {name_str} | {hv_val:.4e} | {util_val:.4f} | {wins} | {nd_val:.1f}% |\n")
+            sf.write("\n")
+        except Exception as e:
+            sf.write(f"*Error calculating multi-objective metrics: {e}*\n\n")
+
+        # 2. Pareto Dominance Matrix Table
+        sf.write("## Pairwise Pareto Dominance Ratios\n\n")
+        sf.write("The value at row A, column B represents the fraction of evaluation runs in which Algorithm A Pareto-dominates Algorithm B (i.e. is better or equal in all objectives, and strictly better in at least one).\n\n")
+        
+        try:
+            pareto_data = perform_pareto_dominance(results)
+            dom_ratio = pareto_data.get("dominance_ratio", {})
+            algs_list = sorted(list(dom_ratio.keys()))
+            
+            if algs_list:
+                sf.write("| Dominates ↓ / Dominated → | " + " | ".join(algs_list) + " |\n")
+                sf.write("| :--- | " + " | ".join([":---:" for _ in algs_list]) + " |\n")
+                for a in algs_list:
+                    row_strs = []
+                    for b in algs_list:
+                        val = dom_ratio.get(a, {}).get(b, 0.0) * 100.0
+                        row_strs.append(f"{val:.1f}%")
+                    name_str = f"**{a}**" if "E3-Hybrid" in a else a
+                    sf.write(f"| {name_str} | " + " | ".join(row_strs) + " |\n")
+                sf.write("\n")
+        except Exception as e:
+            sf.write(f"*Error calculating Pareto dominance: {e}*\n\n")
+
+        # 3. Resilience Recovery Profiles Table
+        sf.write("## Dynamic Network Resilience Analysis\n\n")
+        sf.write("For scenarios featuring physical bottlenecks and outages, we report the Performance Loss Area (cumulative speed reduction below limit over time) and Recovery Time (steps to restore average speed above 0.95 of free-flow). Lower is superior.\n\n")
+        
+        try:
+            resilience_data = calculate_resilience_metrics(results)
+            if resilience_data:
+                for scen, algs_data in resilience_data.items():
+                    scen_title = scen.replace('_', ' ').title()
+                    sf.write(f"### Scenario: {scen_title}\n\n")
+                    sf.write("| Algorithm | Performance Loss Area | Recovery Time (steps) |\n")
+                    sf.write("| :--- | :---: | :---: |\n")
+                    sorted_algs = sorted(algs_data.keys(), key=lambda a: algs_data[a].get("avg_performance_loss_area", 999999))
+                    for alg in sorted_algs:
+                        loss = algs_data[alg].get("avg_performance_loss_area", 0.0)
+                        rec_steps = algs_data[alg].get("avg_recovery_steps", 0.0)
+                        name_str = f"**{alg}**" if "E3-Hybrid" in alg else alg
+                        sf.write(f"| {name_str} | {loss:.3f} | {rec_steps:.1f} |\n")
+                    sf.write("\n")
+            else:
+                sf.write("*No dynamic disruption scenarios found in results.*\n\n")
+        except Exception as e:
+            sf.write(f"*Error calculating resilience metrics: {e}*\n\n")
+
+        # 4. Emergency Prioritization Table
+        sf.write("## Emergency Prioritization and Corridor Response\n\n")
+        sf.write("Under scenarios with ambulance dispatches, we evaluate the average ambulance response time, dispatch success rate, and emergency corridor yielding duration.\n\n")
+        
+        try:
+            emerg_data = calculate_emergency_metrics(results)
+            if emerg_data:
+                for scen, algs_data in emerg_data.items():
+                    scen_title = scen.replace('_', ' ').title()
+                    sf.write(f"### Scenario: {scen_title}\n\n")
+                    sf.write("| Algorithm | Ambulance Response Time (s) | Dispatch Success Rate | Yielding Corridor Duration (s) |\n")
+                    sf.write("| :--- | :---: | :---: | :---: |\n")
+                    sorted_algs = sorted(algs_data.keys(), key=lambda a: algs_data[a].get("avg_response_time", 999999))
+                    for alg in sorted_algs:
+                        resp = algs_data[alg].get("avg_response_time", 0.0)
+                        succ = algs_data[alg].get("avg_success_rate", 0.0) * 100.0
+                        corrid = algs_data[alg].get("avg_corridor_time", 0.0)
+                        name_str = f"**{alg}**" if "E3-Hybrid" in alg else alg
+                        sf.write(f"| {name_str} | {resp:.2f} | {succ:.1f}% | {corrid:.2f} |\n")
+                    sf.write("\n")
+            else:
+                sf.write("*No ambulance dispatch scenarios found in results.*\n\n")
+        except Exception as e:
+            sf.write(f"*Error calculating emergency metrics: {e}*\n\n")
+
+        # 5. Robustness & Variability Diagnostics Table
+        sf.write("## Robustness and Consistency Analysis\n\n")
+        sf.write("We evaluate the stability of travel times across seeds via the Coefficient of Variation (CV = standard deviation / mean). Lower CV indicates higher routing predictability and robustness.\n\n")
+        
+        try:
+            robustness_data = calculate_robustness(results)
+            if robustness_data:
+                for scen, algs_data in robustness_data.items():
+                    scen_title = scen.replace('_', ' ').title()
+                    sf.write(f"### Scenario: {scen_title}\n\n")
+                    sf.write("| Algorithm | Mean Travel Time (s) | Std Dev (s) | Coefficient of Variation (CV) |\n")
+                    sf.write("| :--- | :---: | :---: | :---: |\n")
+                    sorted_algs = sorted(algs_data.keys(), key=lambda a: algs_data[a].get("time_cv", 999999))
+                    for alg in sorted_algs:
+                        mean_val = algs_data[alg].get("time_mean", 0.0)
+                        std_val = algs_data[alg].get("time_std", 0.0)
+                        cv_val = algs_data[alg].get("time_cv", 0.0)
+                        name_str = f"**{alg}**" if "E3-Hybrid" in alg else alg
+                        sf.write(f"| {name_str} | {mean_val:.2f} | {std_val:.2f} | {cv_val:.4f} |\n")
+                    sf.write("\n")
+        except Exception as e:
+            sf.write(f"*Error calculating robustness diagnostics: {e}*\n\n")
+
+
+def _generate_scientific_reports_and_plots(
+    results: list[dict[str, Any]],
+    scenarios: list[str],
+    algorithms: list[str],
+    vehicles_list: list[int],
+    plotter: PlotGenerator
+) -> None:
+    """Computes advanced metrics and generates scientific figures (Pareto, Scalability, Resilience, Radar, Rank Heatmap)."""
+    import numpy as np
+    from src.evaluation.analysis import (
+        perform_pareto_dominance,
+        calculate_hypervolume,
+        calculate_weighted_utility,
+        calculate_robustness,
+        calculate_emergency_metrics,
+        calculate_resilience_metrics
+    )
+
+    clean_algs = [a.replace("Router", "").replace("E3Hybrid", "E3-Hybrid") for a in algorithms]
+
+    # 1. Pareto Fronts
+    for scen in scenarios:
+        alg_means = {}
+        for alg in clean_algs:
+            scen_alg_runs = [
+                r for r in results
+                if r["scenario_name"] == scen and
+                r["algorithm_name"].replace("Router", "").replace("E3Hybrid", "E3-Hybrid") == alg
+            ]
+            if not scen_alg_runs:
+                continue
+            
+            times = []
+            energies = []
+            for r in scen_alg_runs:
+                tt_dict = r.get("vehicle_travel_times", {})
+                if tt_dict:
+                    times.append(float(np.mean(list(tt_dict.values()))))
+                energy_dict = r.get("vehicle_energy_consumed", {})
+                if energy_dict:
+                    energies.append(float(sum(energy_dict.values())))
+                    
+            if times and energies:
+                alg_means[alg] = (
+                    float(np.mean(times)),
+                    float(np.std(times)) if len(times) > 1 else 0.0,
+                    float(np.mean(energies)),
+                    float(np.std(energies)) if len(energies) > 1 else 0.0
+                )
+        if alg_means:
+            plotter.generate_pareto_fronts(alg_means, f"pareto_front_{scen}")
+
+    # 2. Scalability Curves
+    scalability_data = {}
+    for alg in clean_algs:
+        scalability_data[alg] = {}
+        for vehs in vehicles_list:
+            runs = [
+                r for r in results
+                if r["vehicles"] == vehs and
+                r["algorithm_name"].replace("Router", "").replace("E3Hybrid", "E3-Hybrid") == alg
+            ]
+            if not runs:
+                continue
+            times = []
+            for r in runs:
+                tt_dict = r.get("vehicle_travel_times", {})
+                if tt_dict:
+                    times.append(float(np.mean(list(tt_dict.values()))))
+            if times:
+                scalability_data[alg][vehs] = float(np.mean(times))
+                
+    scalability_data = {k: v for k, v in scalability_data.items() if v}
+    if scalability_data:
+        plotter.generate_scalability_curves(scalability_data, "scalability_curves")
+
+    # 3. Resilience Profiles
+    disruptive_scenarios = [s for s in scenarios if any(k in s.lower() for k in ["closure", "failure", "blackout"])]
+    for scen in disruptive_scenarios:
+        alg_congestion_profiles = {}
+        max_len = 0
+        for alg in clean_algs:
+            runs = [
+                r for r in results
+                if r["scenario_name"] == scen and
+                r["algorithm_name"].replace("Router", "").replace("E3Hybrid", "E3-Hybrid") == alg
+            ]
+            profiles = [r["congestion_levels_over_time"] for r in runs if r.get("congestion_levels_over_time")]
+            if not profiles:
+                continue
+            min_len = min(len(p) for p in profiles)
+            max_len = max(max_len, min_len)
+            mean_profile = [float(np.mean([p[i] for p in profiles])) for i in range(min_len)]
+            alg_congestion_profiles[alg] = mean_profile
+            
+        if alg_congestion_profiles:
+            steps = [float(i) for i in range(max_len)]
+            plotter.generate_resilience_profiles(steps, alg_congestion_profiles, f"resilience_profile_{scen}")
+
+    # 4. Radar Chart
+    categories = ["Travel Time", "Energy", "Execution Speed", "Resilience", "Robustness"]
+    raw_scores = {alg: {"tt": [], "energy": [], "exec": [], "loss": [], "cv": []} for alg in clean_algs}
+    
+    for r in results:
+        alg = r["algorithm_name"].replace("Router", "").replace("E3Hybrid", "E3-Hybrid")
+        if alg not in raw_scores:
+            continue
+            
+        tt_dict = r.get("vehicle_travel_times", {})
+        if tt_dict:
+            raw_scores[alg]["tt"].append(float(np.mean(list(tt_dict.values()))))
+            
+        energy_dict = r.get("vehicle_energy_consumed", {})
+        if energy_dict:
+            raw_scores[alg]["energy"].append(float(sum(energy_dict.values())))
+            
+        router_times = _normalize_router_times(r)
+        if router_times:
+            raw_scores[alg]["exec"].append(float(np.mean(router_times)) * 1000.0)
+            
+        if tt_dict:
+            times = list(tt_dict.values())
+            mean_t = np.mean(times)
+            std_t = np.std(times) if len(times) > 1 else 0.0
+            cv = std_t / mean_t if mean_t > 0.0 else 0.0
+            raw_scores[alg]["cv"].append(cv)
+
+    resilience_data = calculate_resilience_metrics(results)
+    for scen in resilience_data:
+        for alg in resilience_data[scen]:
+            clean_alg_name = alg.replace("Router", "").replace("E3Hybrid", "E3-Hybrid")
+            if clean_alg_name in raw_scores:
+                raw_scores[clean_alg_name]["loss"].append(resilience_data[scen][alg].get("avg_performance_loss_area", 0.0))
+
+    avg_raw = {}
+    for alg in clean_algs:
+        avg_raw[alg] = {
+            "tt": float(np.mean(raw_scores[alg]["tt"])) if raw_scores[alg]["tt"] else 1e9,
+            "energy": float(np.mean(raw_scores[alg]["energy"])) if raw_scores[alg]["energy"] else 1e9,
+            "exec": float(np.mean(raw_scores[alg]["exec"])) if raw_scores[alg]["exec"] else 1e9,
+            "loss": float(np.mean(raw_scores[alg]["loss"])) if raw_scores[alg]["loss"] else 1e9,
+            "cv": float(np.mean(raw_scores[alg]["cv"])) if raw_scores[alg]["cv"] else 1e9,
+        }
+
+    keys = ["tt", "energy", "exec", "loss", "cv"]
+    alg_metrics = {alg: [] for alg in clean_algs}
+    
+    for key in keys:
+        vals = [avg_raw[alg][key] for alg in clean_algs if avg_raw[alg][key] != 1e9]
+        if not vals:
+            for alg in clean_algs:
+                alg_metrics[alg].append(0.2)
+            continue
+            
+        min_v = min(vals)
+        max_v = max(vals)
+        range_v = (max_v - min_v) or 1.0
+        
+        for alg in clean_algs:
+            val = avg_raw[alg][key]
+            if val == 1e9:
+                score = 0.2
+            else:
+                norm = (val - min_v) / range_v
+                score = 0.2 + 0.8 * (1.0 - norm)
+            alg_metrics[alg].append(score)
+            
+    if alg_metrics:
+        plotter.generate_radar_chart(categories, alg_metrics, "radar_chart")
+
+    # 5. Rank Heatmap and Rank Comparison
+    run_utils = {}
+    for r in results:
+        scen = r["scenario_name"]
+        veh = r["vehicles"]
+        seed = r["seed"]
+        alg = r["algorithm_name"].replace("Router", "").replace("E3Hybrid", "E3-Hybrid")
+        
+        tt_dict = r.get("vehicle_travel_times", {})
+        times = list(tt_dict.values())
+        if not times: continue
+        avg_t = np.mean(times)
+        
+        energy_dict = r.get("vehicle_energy_consumed", {})
+        tot_e = sum(energy_dict.values()) if energy_dict else 0.0
+        
+        stranded_raw = r.get("stranded_vehicle_count")
+        if stranded_raw is None:
+            stranded_raw = r.get("stranded_vehicles", 0)
+        if stranded_raw is None:
+            stranded_raw = 0
+        stranded = float(stranded_raw)
+        amb_times = list(r.get("ambulance_response_times", {}).values())
+        avg_amb = np.mean(amb_times) if amb_times else 0.0
+        safety = stranded * 1000.0 + avg_amb
+        
+        key = (scen, veh, seed)
+        if key not in run_utils:
+            run_utils[key] = {}
+        run_utils[key][alg] = (avg_t, tot_e, safety)
+
+    alg_run_ranks = {a: [] for a in clean_algs}
+    scen_alg_ranks = {scen: {alg: [] for alg in clean_algs} for scen in scenarios}
+    
+    for key, alg_data in run_utils.items():
+        scen, veh, seed = key
+        
+        min_t = min(d[0] for d in alg_data.values())
+        max_t = max(d[0] for d in alg_data.values())
+        range_t = (max_t - min_t) or 1.0
+        
+        min_e = min(d[1] for d in alg_data.values())
+        max_e = max(d[1] for d in alg_data.values())
+        range_e = (max_e - min_e) or 1.0
+        
+        min_s = min(d[2] for d in alg_data.values())
+        max_s = max(d[2] for d in alg_data.values())
+        range_s = (max_s - min_s) or 1.0
+        
+        utils = {}
+        for alg, (t, e, s) in alg_data.items():
+            t_norm = (t - min_t) / range_t
+            e_norm = (e - min_e) / range_e
+            s_norm = (s - min_s) / range_s
+            utils[alg] = 1.0 - (0.7 * t_norm + 0.2 * e_norm + 0.1 * s_norm)
+            
+        sorted_algs_by_util = sorted(utils.keys(), key=lambda x: utils[x], reverse=True)
+        for rank_idx, alg in enumerate(sorted_algs_by_util):
+            rank = rank_idx + 1
+            if alg in alg_run_ranks:
+                alg_run_ranks[alg].append(rank)
+            if alg in scen_alg_ranks.get(scen, {}):
+                scen_alg_ranks[scen][alg].append(rank)
+
+    mean_ranks = {a: float(np.mean(alg_run_ranks[a])) if alg_run_ranks[a] else 0.0 for a in clean_algs}
+    plotter.generate_rank_comparison(mean_ranks, "rank_comparison")
+
+    valid_scens = [s for s in scenarios if any(scen_alg_ranks[s][alg] for alg in clean_algs)]
+    if valid_scens and clean_algs:
+        heatmap_data = np.zeros((len(valid_scens), len(clean_algs)))
+        for i, scen in enumerate(valid_scens):
+            for j, alg in enumerate(clean_algs):
+                ranks = scen_alg_ranks[scen][alg]
+                heatmap_data[i, j] = float(np.mean(ranks)) if ranks else 1.0
+                
+        plotter.generate_rank_heatmap(heatmap_data, valid_scens, clean_algs, "rank_heatmap")
+
+
 def generate_statistics_and_plots(
     results: list[dict[str, Any]],
     scenarios: list[str],
@@ -1229,9 +1690,27 @@ def generate_statistics_and_plots(
         results
     )
     _write_stats_tables(scenarios, algorithms, run_means)
+    
+    # Append the advanced scientific tables to the stats tables file
+    try:
+        stats_file_path = os.path.join(OUTPUT_DIR, "statistical_tables.md")
+        _append_advanced_scientific_tables(stats_file_path, results)
+    except Exception as e:
+        print(f"[WARNING] Failed to append advanced scientific tables: {e}")
+        import traceback
+        traceback.print_exc()
+
     _plot_scenarios(scenarios, algorithms, travel_times, response_times, plotter)
     _plot_energy_consumption(scenarios, algorithms, run_energy)
     _write_benchmark_summary(scenarios, algorithms, run_means, run_energy)
+    
+    # Generate new advanced scientific evaluation reports and plots
+    try:
+        _generate_scientific_reports_and_plots(results, scenarios, algorithms, vehicles_list, plotter)
+    except Exception as e:
+        print(f"[WARNING] Failed to generate advanced scientific reports/plots: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":

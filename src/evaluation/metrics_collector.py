@@ -23,6 +23,10 @@ class SimulationRunMetrics(BaseModel):
     config_details: dict[str, Any] = Field(default_factory=dict)
     timestamp: str = ""
     ablation_settings: dict[str, bool] = Field(default_factory=dict)
+    
+    # Telemetry Metrics
+    cpu_utilization_percent: float = 0.0
+    memory_usage_mb: float = 0.0
 
     # Traffic Metrics
     vehicle_travel_times: dict[str, float] = Field(
@@ -252,5 +256,15 @@ class MetricsCollector:
             self.metrics.ambulance_success_rate = arrived_ambulances / total_ambulances
         else:
             self.metrics.ambulance_success_rate = 1.0
+
+        # Collect CPU and Memory utilization
+        try:
+            import psutil
+            process = psutil.Process()
+            self.metrics.memory_usage_mb = float(process.memory_info().rss / (1024.0 * 1024.0))
+            # System-wide or process-specific CPU percentage
+            self.metrics.cpu_utilization_percent = float(psutil.cpu_percent())
+        except Exception:
+            pass
 
         return self.metrics

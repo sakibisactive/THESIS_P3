@@ -1,0 +1,85 @@
+algorithms:
+  aco:
+    alpha: 1.0
+    beta: 2.0
+    evaporation_rate: 0.1
+    num_ants: 10
+    pheromone_constant: 100.0
+  bco:
+    colony_size: 10
+    loyalty_threshold: 0.6
+    max_scout_iterations: 5
+  e3_hybrid:
+    max_iterations: 15
+  objectives:
+    weight_energy_consumption: 0.2
+    weight_safety: 0.1
+    weight_travel_time: 0.7
+  pso:
+    c1_personal: 1.5
+    c2_global: 1.5
+    swarm_size: 10
+    w_inertia: 0.7
+ambulance_dispatches: []
+battery:
+  capacity_kwh: 60.0
+  drag_coeff: 0.25
+  efficiency: 0.9
+  frontal_area: 2.2
+  mass_kg: 1500.0
+  regen_efficiency: 0.7
+  rolling_res_coeff: 0.01
+charging_stations:
+- base_price_per_kwh: 0.35
+  capacity: 4
+  id: station_west
+  node_id: '42432825'
+  power_kw: 150.0
+- base_price_per_kwh: 0.35
+  capacity: 4
+  id: station_east
+  node_id: '42437644'
+  power_kw: 150.0
+communication:
+  channel_bandwidth_mbps: 10.0
+  communication_delay_s: 0.05
+  packet_loss_rate: 0.02
+  v2i_range_m: 300.0
+  v2v_range_m: 150.0
+emergencies: []
+infrastructure_failures: []
+name: Stress Closures Scenario
+road_closures:
+- duration: 300.0
+  edge_id: -1088325196#1
+  id: stress_closure_1
+  start_time: 100.0
+- duration: 400.0
+  edge_id: 1088325196#1
+  id: stress_closure_2
+  start_time: 200.0
+- duration: 300.0
+  edge_id: '-42432825'
+  id: stress_closure_3
+  start_time: 300.0
+- duration: 300.0
+  edge_id: '42437644'
+  id: stress_closure_4
+  start_time: 400.0
+simulation:
+  dt: 1.0
+  enable_subscriptions: true
+  max_steps: 2000
+  mode: sumo
+  network_file: data/networks/midtown_manhattan.net.xml
+  osm_file: null
+  output_dir: outputs
+  real_time_factor: -1.0
+  route_file: null
+  scenario_file: data/scenarios/manhattan.yaml
+  seed: 42
+  step_length: 1.0
+  sumo_binary: sumo
+  traci_port: 8813
+  use_gui: false
+  breakdown_probability: 0.0

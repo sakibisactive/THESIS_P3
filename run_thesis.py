@@ -90,6 +90,52 @@ PRESETS: dict[str, dict] = {
         ],
         "run_profiler": True,
     },
+    "stress": {
+        "runtime":     "~1–2 hours on 4 CPU cores",
+        "description": "Thesis stress testing matrix — 300 runs",
+        "matrix":      "6 algorithms × 5 stress scenarios × 1 vehicle count (1000) × 10 seeds",
+        "benchmark_args": [
+            "--use-multiprocessing",
+            "--algorithms", "Dijkstra,AStar,ACO,BCO,PSO,E3-Hybrid",
+            "--scenarios", "stress_normal,stress_closures,stress_blackout,stress_failures,stress_ambulance",
+            "--vehicles", "1000",
+            "--output-dir", "outputs/stress_results",
+        ],
+        "run_profiler": False,
+    },
+    "ablation": {
+        "runtime":     "~1–2 hours on 4 CPU cores",
+        "description": "E3-Hybrid ablation analysis — 720 runs",
+        "matrix":      "6 E3 variants × 6 scenarios × 2 vehicle counts × 10 seeds",
+        "benchmark_args": [
+            "--use-multiprocessing",
+            "--algorithms", "E3-Hybrid,E3-Hybrid-NoACO,E3-Hybrid-NoBCO,E3-Hybrid-NoPSO,E3-Hybrid-NoElite,E3-Hybrid-WithAdaptive",
+            "--scenarios", "normal_traffic,road_closure,progressive_closures,emergency_incident,infrastructure_failure,communication_blackout",
+            "--vehicles", "100,200",
+            "--output-dir", "outputs/ablation_results",
+        ],
+        "run_profiler": False,
+    },
+    "sensitivity": {
+        "runtime":     "~1–2 hours on 4 CPU cores",
+        "description": "Objective weights sensitivity analysis — 600 runs",
+        "matrix":      "5 weight configurations × 6 scenarios × 2 vehicle counts × 10 seeds",
+        "benchmark_args": [
+            "--use-multiprocessing",
+            "--algorithms", "E3-Hybrid-WTime,E3-Hybrid-WEnergy,E3-Hybrid-WSafety,E3-Hybrid-Balanced,E3-Hybrid-Thesis",
+            "--scenarios", "normal_traffic,road_closure,progressive_closures,emergency_incident,infrastructure_failure,communication_blackout",
+            "--vehicles", "100,200",
+            "--output-dir", "outputs/sensitivity_results",
+        ],
+        "run_profiler": False,
+    },
+    "complete": {
+        "runtime":     "~4–8 hours on 4 CPU cores",
+        "description": "Entire evaluation suite (heavy + stress + ablation + sensitivity) — 3,060 runs total",
+        "matrix":      "Baseline (1,440) + Stress (300) + Ablation (720) + Sensitivity (600)",
+        "sub_presets": ["heavy", "stress", "ablation", "sensitivity"],
+        "run_profiler": True,
+    },
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -169,7 +215,7 @@ plot / report only (no benchmark)
         required=True,
         choices=list(PRESETS.keys()),
         metavar="PRESET",
-        help="Experiment scale: smoke | light | heavy | extreme",
+        help="Experiment scale: smoke | light | heavy | extreme | stress | ablation | sensitivity | complete",
     )
     parser.add_argument(
         "--skip-preflight",
@@ -204,7 +250,11 @@ def main() -> int:
     print(f"  Matrix  : {preset['matrix']}")
     print(f"  Runtime : {preset['runtime']}")
 
-    total_steps = 3 if preset["run_profiler"] else 2
+    has_preflight = 1 if not args.skip_preflight else 0
+    has_profiler = 1 if preset["run_profiler"] else 0
+    sub_presets = preset.get("sub_presets", [args.preset])
+    num_benchmarks = len(sub_presets)
+    total_steps = has_preflight + has_profiler + num_benchmarks
     step = 1
 
     # ── Step 1: Preflight ─────────────────────────────────────────────────────
@@ -229,40 +279,61 @@ def main() -> int:
         if rc != 0:
             print(f"\n{YELLOW}⚠  Profiling failed — continuing to benchmark.{RESET}")
 
-    # ── Step 3: Benchmark ─────────────────────────────────────────────────────
-    benchmark_cmd = [PYTHON, "scripts/run_benchmarks.py"]
-    extra = list(preset["benchmark_args"])
+    # ── Step 3+: Benchmark Suites ─────────────────────────────────────────────
+    for sub in sub_presets:
+        sub_preset_cfg = PRESETS[sub]
+        benchmark_cmd = [PYTHON, "scripts/run_benchmarks.py"]
+        extra = list(sub_preset_cfg["benchmark_args"])
 
-    if args.no_resume and "--no-resume" not in extra:
-        extra.append("--no-resume")
-    if args.sequential:
-        extra = [a for a in extra if a != "--use-multiprocessing"]
+        if args.no_resume and "--no-resume" not in extra:
+            extra.append("--no-resume")
+        if args.sequential:
+            extra = [a for a in extra if a != "--use-multiprocessing"]
 
-    benchmark_cmd += extra
-    rc = _run(benchmark_cmd, f"Step {step}/{total_steps} — Benchmark Suite")
-    if rc != 0:
-        print(f"\n{RED}Benchmark exited with errors (code {rc}).{RESET}")
-        print(f"Intermediate checkpoints are preserved. Re-run to resume.\n")
-        return rc
+        benchmark_cmd += extra
+        rc = _run(benchmark_cmd, f"Step {step}/{total_steps} — Benchmark Suite ({sub})")
+        step += 1
+        if rc != 0:
+            print(f"\n{RED}Benchmark ({sub}) exited with errors (code {rc}).{RESET}")
+            print(f"Intermediate checkpoints are preserved. Re-run to resume.\n")
+            return rc
 
     # ── Done ──────────────────────────────────────────────────────────────────
     elapsed = _elapsed(time.time() - wall_start)
     _banner("All Steps Complete")
     print(f"  {GREEN}✔  Finished in {elapsed}.{RESET}\n")
 
-    outputs = [
-        ("outputs/benchmark_manifest.json",                    "Benchmark manifest"),
-        ("outputs/statistical_tables.md",                      "Statistical hypothesis tables"),
-        ("outputs/energy_consumption_comparison.pdf",          "Energy comparison figure"),
-        ("outputs/thesis_results/environment_snapshot.json",   "Environment snapshot"),
-        ("outputs/thesis_results/reproducibility_manifest.json","Reproducibility manifest"),
-    ]
     print("  Generated artefacts:")
-    for rel, desc in outputs:
-        exists = (REPO_ROOT / rel).exists()
-        mark = f"{GREEN}✔{RESET}" if exists else f"{YELLOW}?{RESET}"
-        print(f"    {mark}  {rel}")
-        print(f"       {DIM}{desc}{RESET}")
+    for sub in sub_presets:
+        sub_preset_cfg = PRESETS[sub]
+        extra = list(sub_preset_cfg["benchmark_args"])
+        out_dir = "outputs"
+        for idx, arg in enumerate(extra):
+            if arg == "--output-dir" and idx + 1 < len(extra):
+                out_dir = extra[idx + 1]
+                break
+
+        if out_dir == "outputs":
+            outputs = [
+                ("outputs/benchmark_results.json",                    "Benchmark results JSON"),
+                ("outputs/statistical_tables.md",                      "Statistical hypothesis tables"),
+                ("outputs/energy_consumption_comparison.pdf",          "Energy comparison figure"),
+                ("outputs/thesis_results/environment_snapshot.json",   "Environment snapshot"),
+                ("outputs/thesis_results/reproducibility_manifest.json","Reproducibility manifest"),
+            ]
+        else:
+            outputs = [
+                (f"{out_dir}/benchmark_results.json",                  "Benchmark results JSON"),
+                (f"{out_dir}/statistical_tables.md",                   "Statistical hypothesis tables"),
+                (f"{out_dir}/benchmark_summary.md",                    "Benchmark executive summary"),
+                (f"{out_dir}/reproducibility_manifest.json",            "Reproducibility manifest"),
+            ]
+        print(f"\n  {BOLD}[Preset: {sub}]{RESET}")
+        for rel, desc in outputs:
+            exists = (REPO_ROOT / rel).exists()
+            mark = f"{GREEN}✔{RESET}" if exists else f"{YELLOW}?{RESET}"
+            print(f"    {mark}  {rel}")
+            print(f"       {DIM}{desc}{RESET}")
     print()
     return 0
 

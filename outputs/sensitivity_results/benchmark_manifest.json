@@ -1,0 +1,45 @@
+{
+  "algorithms": [
+    "E3-Hybrid-WTime",
+    "E3-Hybrid-WEnergy",
+    "E3-Hybrid-WSafety",
+    "E3-Hybrid-Balanced",
+    "E3-Hybrid-Thesis"
+  ],
+  "scenarios": [
+    "normal_traffic",
+    "road_closure",
+    "progressive_closures",
+    "emergency_incident",
+    "infrastructure_failure",
+    "communication_blackout"
+  ],
+  "vehicle_counts": [
+    100,
+    200
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "timestamp": "2026-07-15T12:05:22Z",
+  "git_commit": "c40f23f73f4d46d41645c27d20c2359d05da2443",
+  "parameters": {
+    "aco": {
+      "num_ants": 5,
+      "max_iterations": 5
+    },
+    "bco": {
+      "colony_size": 5,
+      "max_iterations": 5
+    },
+    "pso": {
+      "swarm_size": 5,
+      "max_iterations": 5
+    },
+    "e3_hybrid": {
+      "max_iterations": 5
+    }
+  }
+}

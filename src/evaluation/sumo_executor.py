@@ -76,6 +76,7 @@ class SumoScenarioExecutor:
         # Map vehicles -> Transceivers to manage range-based V2X
         self.vehicle_transceivers: dict[str, Transceiver] = {}
         self.original_destinations: dict[str, str] = {}
+        self._broken_vehicles: set[str] = set()
 
     def _initialize_network(self) -> Network:
         """Helper to parse SUMO .net.xml and add charging stations."""
@@ -326,6 +327,32 @@ class SumoScenarioExecutor:
                 # Step SUMO and synchronizers
                 client.step()
                 arrived = synchronizer.sync_from_sumo(dt=dt)
+
+                # Process vehicle breakdowns
+                if hasattr(sim_cfg, "breakdown_probability") and sim_cfg.breakdown_probability > 0.0:
+                    import random
+                    # Deterministic seeding per step/seed
+                    rng = random.Random(self.traffic_seed + step)
+                    for v in active_evs:
+                        if v.state == VehicleState.EN_ROUTE and v.id not in self._broken_vehicles:
+                            if rng.random() < sim_cfg.breakdown_probability:
+                                try:
+                                    road_id = traci.vehicle.getRoadID(v.id)
+                                    if road_id and not road_id.startswith(":"):
+                                        lane_pos = traci.vehicle.getLanePosition(v.id)
+                                        stop_duration = rng.randint(60, 180)  # 60 to 180 seconds stop
+                                        traci.vehicle.setStop(
+                                            vehID=v.id,
+                                            edgeID=road_id,
+                                            pos=max(10.0, lane_pos),
+                                            laneIndex=0,
+                                            duration=float(stop_duration),
+                                            flags=0
+                                        )
+                                        self._broken_vehicles.add(v.id)
+                                        logger.warning(f"[BREAKDOWN] Vehicle {v.id} broke down on edge {road_id} for {stop_duration}s")
+                                except Exception as e:
+                                    logger.debug(f"Failed to set breakdown stop for {v.id}: {e}")
 
                 # Process vehicles
                 for v in active_evs:

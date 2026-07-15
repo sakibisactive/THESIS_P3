@@ -1,79 +1,85 @@
 {
-  "timestamp": "2026-07-11T19:57:23Z",
-  "network_file": "data/networks/midtown_manhattan.net.xml",
-  "parameters": {
-    "evaluation_overrides": {
+  "reproducibility_metadata": {
+    "git_commit": "c40f23f73f4d46d41645c27d20c2359d05da2443",
+    "git_tag": "v1.0-thesis-baseline",
+    "python_version": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "sumo_version": "Eclipse SUMO sumo 1.27.1",
+    "os_info": "Linux-6.17.0-35-generic-x86_64",
+    "cpu_info": "AMD Ryzen 3 3250U with Radeon Graphics",
+    "network_file_sha256": "c2f5702163acf3377f74e03e4bce9598f17aeab54f245edc3daf12de8bf63275"
+  },
+  "benchmark_parameters": {
+    "random_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "vehicle_counts": [
+      25,
+      50,
+      100,
+      200
+    ],
+    "scenarios": [
+      "normal_traffic",
+      "road_closure",
+      "progressive_closures",
+      "emergency_incident",
+      "infrastructure_failure",
+      "communication_blackout"
+    ],
+    "objective_weights": {
+      "weight_travel_time": 0.7,
+      "weight_distance": 0.0,
+      "weight_energy_consumption": 0.2,
+      "weight_congestion": 0.0,
+      "weight_safety": 0.1
+    },
+    "algorithms": {
       "aco": {
-        "num_ants": 5,
-        "max_iterations": 5
+        "alpha": 1.0,
+        "beta": 2.0,
+        "evaporation_rate": 0.1,
+        "num_ants_override": 5,
+        "max_iterations_override": 5
       },
       "bco": {
-        "colony_size": 5,
-        "max_iterations": 5
+        "colony_size_override": 5,
+        "scout_ratio": 0.2,
+        "recruitment_factor": 0.5,
+        "abandonment_threshold": 0.2,
+        "max_iterations_override": 5
       },
       "pso": {
-        "swarm_size": 5,
-        "max_iterations": 5
+        "cognitive_weight": 1.5,
+        "social_weight": 1.5,
+        "inertia_weight": 0.7,
+        "swarm_size_override": 5,
+        "max_iterations_override": 5
       },
       "e3_hybrid": {
-        "max_iterations": 5
+        "max_iterations_override": 15
       }
     }
   },
-  "profiling_results": [
-    {
-      "algorithm": "Dijkstra",
-      "avg_latency_ms": 0.0028657913208007812,
-      "p95_latency_ms": 0.0031232833862304674,
-      "routes_per_second": 282635.0404312668,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    },
-    {
-      "algorithm": "A*",
-      "avg_latency_ms": 0.0014591217041015625,
-      "p95_latency_ms": 0.0015616416931152337,
-      "routes_per_second": 546133.3333333334,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    },
-    {
-      "algorithm": "ACO",
-      "avg_latency_ms": 0.0014829635620117188,
-      "p95_latency_ms": 0.001430511474609375,
-      "routes_per_second": 526922.6130653266,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    },
-    {
-      "algorithm": "BCO",
-      "avg_latency_ms": 0.0016927719116210938,
-      "p95_latency_ms": 0.0015616416931152337,
-      "routes_per_second": 476625.45454545453,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    },
-    {
-      "algorithm": "PSO",
-      "avg_latency_ms": 0.0019073486328125,
-      "p95_latency_ms": 0.0021457672119140625,
-      "routes_per_second": 412825.1968503937,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    },
-    {
-      "algorithm": "E3-Hybrid",
-      "avg_latency_ms": 0.00232696533203125,
-      "p95_latency_ms": 0.002384185791015625,
-      "routes_per_second": 362829.0657439446,
-      "peak_memory_maxrss_mb": 538.25,
-      "memory_delta_mb": 0.0,
-      "total_queries": 50
-    }
-  ]
+  "dependency_versions": {
+    "pyyaml": "6.0.3",
+    "numpy": "1.26.4",
+    "pydantic": "2.13.4",
+    "matplotlib": "3.11.0",
+    "sumolib": "1.27.1",
+    "traci": "1.27.1",
+    "scipy": "1.17.1",
+    "pytest": "9.1.1",
+    "pytest-cov": "7.1.0",
+    "mypy": "2.1.0",
+    "ruff": "0.15.20"
+  }
 }

@@ -1,0 +1,181 @@
+scenario,algorithm,vehicles,seed,avg_travel_time,median_travel_time,p95_travel_time,total_energy_kwh,stranded_vehicles,total_reroutes,avg_execution_time_ms,throughput
+Normal Traffic Scenario,E3-Hybrid-WTime,100,1,303.101,321.000,565.000,39.772,0,0,365.467,89
+Normal Traffic Scenario,E3-Hybrid-WTime,100,2,279.432,283.000,550.000,33.569,0,0,352.503,81
+Normal Traffic Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,339.004,81
+Normal Traffic Scenario,E3-Hybrid-WTime,200,1,273.250,292.000,563.250,70.219,0,0,360.374,176
+Normal Traffic Scenario,E3-Hybrid-WTime,200,2,263.257,263.000,548.000,64.813,0,0,334.617,171
+Normal Traffic Scenario,E3-Hybrid-WTime,200,3,269.244,279.500,546.900,66.844,0,0,346.762,168
+Normal Traffic Scenario,E3-Hybrid-WEnergy,100,1,288.956,295.000,565.750,34.909,0,0,331.895,90
+Normal Traffic Scenario,E3-Hybrid-WEnergy,100,2,281.179,278.500,547.900,29.848,0,0,315.496,84
+Normal Traffic Scenario,E3-Hybrid-WEnergy,100,3,295.122,309.000,538.850,33.915,0,0,326.762,82
+Normal Traffic Scenario,E3-Hybrid-WEnergy,200,1,270.801,286.000,563.000,65.424,0,0,344.138,181
+Normal Traffic Scenario,E3-Hybrid-WEnergy,200,2,263.896,264.000,538.000,57.282,0,0,331.115,173
+Normal Traffic Scenario,E3-Hybrid-WEnergy,200,3,274.579,292.000,535.500,62.417,0,0,339.720,171
+Normal Traffic Scenario,E3-Hybrid-WSafety,100,1,302.451,300.000,554.500,32.050,0,0,89.694,91
+Normal Traffic Scenario,E3-Hybrid-WSafety,100,2,292.470,283.000,545.100,29.090,0,0,71.160,83
+Normal Traffic Scenario,E3-Hybrid-WSafety,100,3,303.675,323.000,539.600,31.238,0,0,83.585,83
+Normal Traffic Scenario,E3-Hybrid-WSafety,200,1,285.599,294.000,556.800,60.929,0,0,91.840,182
+Normal Traffic Scenario,E3-Hybrid-WSafety,200,2,273.250,284.500,523.250,54.975,0,0,71.442,172
+Normal Traffic Scenario,E3-Hybrid-WSafety,200,3,284.586,306.000,548.000,58.940,0,0,82.397,174
+Normal Traffic Scenario,E3-Hybrid-Balanced,100,1,302.730,317.000,565.400,39.430,0,0,331.996,89
+Normal Traffic Scenario,E3-Hybrid-Balanced,100,2,279.506,283.000,550.000,33.707,0,0,312.483,81
+Normal Traffic Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,337.073,81
+Normal Traffic Scenario,E3-Hybrid-Balanced,200,1,272.257,286.000,549.800,70.225,0,0,314.863,175
+Normal Traffic Scenario,E3-Hybrid-Balanced,200,2,263.596,265.000,534.000,64.917,0,0,307.598,171
+Normal Traffic Scenario,E3-Hybrid-Balanced,200,3,269.143,279.500,547.250,66.835,0,0,323.356,168
+Normal Traffic Scenario,E3-Hybrid-Thesis,100,1,302.899,318.000,565.400,39.487,0,0,322.104,89
+Normal Traffic Scenario,E3-Hybrid-Thesis,100,2,278.938,283.000,549.000,33.589,0,0,344.690,81
+Normal Traffic Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,353.322,81
+Normal Traffic Scenario,E3-Hybrid-Thesis,200,1,269.339,286.000,534.050,69.389,0,0,335.541,174
+Normal Traffic Scenario,E3-Hybrid-Thesis,200,2,260.930,264.000,548.000,64.486,0,0,329.746,171
+Normal Traffic Scenario,E3-Hybrid-Thesis,200,3,269.149,279.500,546.900,66.847,0,0,331.524,168
+Single Road Closure Scenario,E3-Hybrid-WTime,100,1,303.101,321.000,565.000,39.772,0,0,327.542,89
+Single Road Closure Scenario,E3-Hybrid-WTime,100,2,279.432,283.000,550.000,33.569,0,0,325.014,81
+Single Road Closure Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,345.358,81
+Single Road Closure Scenario,E3-Hybrid-WTime,200,1,273.250,292.000,563.250,70.219,0,0,351.553,176
+Single Road Closure Scenario,E3-Hybrid-WTime,200,2,263.257,263.000,548.000,64.813,0,0,341.653,171
+Single Road Closure Scenario,E3-Hybrid-WTime,200,3,269.244,279.500,546.900,66.844,0,0,342.478,168
+Single Road Closure Scenario,E3-Hybrid-WEnergy,100,1,292.467,302.000,565.300,34.496,0,0,341.046,90
+Single Road Closure Scenario,E3-Hybrid-WEnergy,100,2,281.179,278.500,547.900,29.848,0,0,318.405,84
+Single Road Closure Scenario,E3-Hybrid-WEnergy,100,3,297.301,318.000,545.000,33.992,0,0,353.732,83
+Single Road Closure Scenario,E3-Hybrid-WEnergy,200,1,272.600,288.000,563.200,64.919,0,0,351.574,180
+Single Road Closure Scenario,E3-Hybrid-WEnergy,200,2,263.896,264.000,538.000,57.282,0,0,349.558,173
+Single Road Closure Scenario,E3-Hybrid-WEnergy,200,3,275.390,290.000,533.650,62.593,0,0,349.900,172
+Single Road Closure Scenario,E3-Hybrid-WSafety,100,1,302.500,300.500,552.550,31.307,0,0,88.967,90
+Single Road Closure Scenario,E3-Hybrid-WSafety,100,2,287.163,282.000,520.450,27.008,0,0,71.959,80
+Single Road Closure Scenario,E3-Hybrid-WSafety,100,3,303.146,324.000,540.800,30.667,0,0,84.336,82
+Single Road Closure Scenario,E3-Hybrid-WSafety,200,1,281.274,289.000,552.100,59.010,0,0,92.400,179
+Single Road Closure Scenario,E3-Hybrid-WSafety,200,2,275.333,285.000,536.500,54.288,0,0,69.385,171
+Single Road Closure Scenario,E3-Hybrid-WSafety,200,3,284.064,306.000,547.400,57.864,0,0,76.551,173
+Single Road Closure Scenario,E3-Hybrid-Balanced,100,1,302.730,317.000,565.400,39.430,0,0,334.730,89
+Single Road Closure Scenario,E3-Hybrid-Balanced,100,2,279.506,283.000,550.000,33.707,0,0,318.484,81
+Single Road Closure Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,337.078,81
+Single Road Closure Scenario,E3-Hybrid-Balanced,200,1,272.257,286.000,549.800,70.225,0,0,322.389,175
+Single Road Closure Scenario,E3-Hybrid-Balanced,200,2,263.596,265.000,534.000,64.917,0,0,316.880,171
+Single Road Closure Scenario,E3-Hybrid-Balanced,200,3,269.143,279.500,547.250,66.835,0,0,330.132,168
+Single Road Closure Scenario,E3-Hybrid-Thesis,100,1,302.899,318.000,565.400,39.487,0,0,319.142,89
+Single Road Closure Scenario,E3-Hybrid-Thesis,100,2,278.938,283.000,549.000,33.589,0,0,338.745,81
+Single Road Closure Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,366.822,81
+Single Road Closure Scenario,E3-Hybrid-Thesis,200,1,269.339,286.000,534.050,69.389,0,0,345.636,174
+Single Road Closure Scenario,E3-Hybrid-Thesis,200,2,260.930,264.000,548.000,64.486,0,0,348.073,171
+Single Road Closure Scenario,E3-Hybrid-Thesis,200,3,269.149,279.500,546.900,66.847,0,0,337.923,168
+Progressive Closures Scenario,E3-Hybrid-WTime,100,1,300.102,319.000,560.550,38.742,0,0,344.608,88
+Progressive Closures Scenario,E3-Hybrid-WTime,100,2,278.863,282.500,550.200,33.110,0,0,338.200,80
+Progressive Closures Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,340.794,81
+Progressive Closures Scenario,E3-Hybrid-WTime,200,1,268.453,285.500,551.150,67.570,0,0,333.402,172
+Progressive Closures Scenario,E3-Hybrid-WTime,200,2,261.845,260.000,548.650,62.887,0,0,335.595,168
+Progressive Closures Scenario,E3-Hybrid-WTime,200,3,268.605,280.000,534.300,66.178,0,0,335.596,167
+Progressive Closures Scenario,E3-Hybrid-WEnergy,100,1,289.371,298.000,557.200,33.464,0,0,326.360,89
+Progressive Closures Scenario,E3-Hybrid-WEnergy,100,2,280.747,278.000,550.600,29.298,0,0,342.834,83
+Progressive Closures Scenario,E3-Hybrid-WEnergy,100,3,297.301,318.000,545.000,33.992,0,0,342.411,83
+Progressive Closures Scenario,E3-Hybrid-WEnergy,200,1,269.791,285.000,552.600,63.046,0,0,335.423,177
+Progressive Closures Scenario,E3-Hybrid-WEnergy,200,2,261.635,260.000,540.250,55.238,0,0,332.967,170
+Progressive Closures Scenario,E3-Hybrid-WEnergy,200,3,275.439,292.000,525.500,62.128,0,0,327.916,171
+Progressive Closures Scenario,E3-Hybrid-WSafety,100,1,302.500,300.500,552.550,31.307,0,0,82.753,90
+Progressive Closures Scenario,E3-Hybrid-WSafety,100,2,287.100,282.000,520.450,26.967,0,0,65.180,80
+Progressive Closures Scenario,E3-Hybrid-WSafety,100,3,306.687,324.000,547.200,30.992,0,0,91.255,83
+Progressive Closures Scenario,E3-Hybrid-WSafety,200,1,280.159,288.000,549.750,57.259,0,0,93.933,176
+Progressive Closures Scenario,E3-Hybrid-WSafety,200,2,269.578,282.500,524.250,51.990,0,0,79.805,166
+Progressive Closures Scenario,E3-Hybrid-WSafety,200,3,282.919,304.500,548.000,57.015,0,0,88.780,172
+Progressive Closures Scenario,E3-Hybrid-Balanced,100,1,299.739,309.000,560.200,38.366,0,0,354.461,88
+Progressive Closures Scenario,E3-Hybrid-Balanced,100,2,278.812,282.500,550.150,33.136,0,0,312.813,80
+Progressive Closures Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,332.728,81
+Progressive Closures Scenario,E3-Hybrid-Balanced,200,1,267.439,286.000,522.000,67.614,0,0,321.606,171
+Progressive Closures Scenario,E3-Hybrid-Balanced,200,2,260.387,261.000,537.850,62.795,0,0,329.935,168
+Progressive Closures Scenario,E3-Hybrid-Balanced,200,3,268.587,280.000,533.300,66.126,0,0,328.555,167
+Progressive Closures Scenario,E3-Hybrid-Thesis,100,1,299.898,309.500,560.200,38.432,0,0,329.533,88
+Progressive Closures Scenario,E3-Hybrid-Thesis,100,2,278.325,283.000,550.150,33.146,0,0,330.834,80
+Progressive Closures Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,341.872,81
+Progressive Closures Scenario,E3-Hybrid-Thesis,200,1,268.017,285.000,535.450,68.318,0,0,329.935,172
+Progressive Closures Scenario,E3-Hybrid-Thesis,200,2,259.321,260.500,549.300,62.691,0,0,332.034,168
+Progressive Closures Scenario,E3-Hybrid-Thesis,200,3,268.671,280.000,534.300,66.090,0,0,334.229,167
+Emergency Incident Scenario,E3-Hybrid-WTime,100,1,303.101,321.000,565.000,39.772,0,0,324.593,89
+Emergency Incident Scenario,E3-Hybrid-WTime,100,2,279.432,283.000,550.000,33.569,0,0,329.688,81
+Emergency Incident Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,346.272,81
+Emergency Incident Scenario,E3-Hybrid-WTime,200,1,273.250,292.000,563.250,70.219,0,0,338.948,176
+Emergency Incident Scenario,E3-Hybrid-WTime,200,2,263.257,263.000,548.000,64.813,0,0,336.113,171
+Emergency Incident Scenario,E3-Hybrid-WTime,200,3,269.244,279.500,546.900,66.844,0,0,331.553,168
+Emergency Incident Scenario,E3-Hybrid-WEnergy,100,1,288.956,295.000,565.750,34.909,0,0,323.880,90
+Emergency Incident Scenario,E3-Hybrid-WEnergy,100,2,281.179,278.500,547.900,29.848,0,0,340.064,84
+Emergency Incident Scenario,E3-Hybrid-WEnergy,100,3,295.122,309.000,538.850,33.915,0,0,355.340,82
+Emergency Incident Scenario,E3-Hybrid-WEnergy,200,1,270.801,286.000,563.000,65.424,0,0,359.725,181
+Emergency Incident Scenario,E3-Hybrid-WEnergy,200,2,263.896,264.000,538.000,57.282,0,0,360.556,173
+Emergency Incident Scenario,E3-Hybrid-WEnergy,200,3,274.579,292.000,535.500,62.417,0,0,351.249,171
+Emergency Incident Scenario,E3-Hybrid-WSafety,100,1,302.451,300.000,554.500,32.050,0,0,85.905,91
+Emergency Incident Scenario,E3-Hybrid-WSafety,100,2,292.470,283.000,545.100,29.090,0,0,78.638,83
+Emergency Incident Scenario,E3-Hybrid-WSafety,100,3,303.675,323.000,539.600,31.238,0,0,96.670,83
+Emergency Incident Scenario,E3-Hybrid-WSafety,200,1,285.599,294.000,556.800,60.929,0,0,90.446,182
+Emergency Incident Scenario,E3-Hybrid-WSafety,200,2,273.250,284.500,523.250,54.975,0,0,71.901,172
+Emergency Incident Scenario,E3-Hybrid-WSafety,200,3,284.586,306.000,548.000,58.940,0,0,86.284,174
+Emergency Incident Scenario,E3-Hybrid-Balanced,100,1,302.730,317.000,565.400,39.430,0,0,347.432,89
+Emergency Incident Scenario,E3-Hybrid-Balanced,100,2,279.506,283.000,550.000,33.707,0,0,314.434,81
+Emergency Incident Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,334.564,81
+Emergency Incident Scenario,E3-Hybrid-Balanced,200,1,272.257,286.000,549.800,70.225,0,0,318.907,175
+Emergency Incident Scenario,E3-Hybrid-Balanced,200,2,263.596,265.000,534.000,64.917,0,0,310.170,171
+Emergency Incident Scenario,E3-Hybrid-Balanced,200,3,269.143,279.500,547.250,66.835,0,0,323.561,168
+Emergency Incident Scenario,E3-Hybrid-Thesis,100,1,302.899,318.000,565.400,39.487,0,0,323.299,89
+Emergency Incident Scenario,E3-Hybrid-Thesis,100,2,278.938,283.000,549.000,33.589,0,0,343.912,81
+Emergency Incident Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,334.745,81
+Emergency Incident Scenario,E3-Hybrid-Thesis,200,1,269.339,286.000,534.050,69.389,0,0,342.879,174
+Emergency Incident Scenario,E3-Hybrid-Thesis,200,2,260.930,264.000,548.000,64.486,0,0,334.196,171
+Emergency Incident Scenario,E3-Hybrid-Thesis,200,3,269.149,279.500,546.900,66.847,0,0,334.976,168
+Infrastructure Failure Scenario,E3-Hybrid-WTime,100,1,303.101,321.000,565.000,39.772,0,0,328.526,89
+Infrastructure Failure Scenario,E3-Hybrid-WTime,100,2,279.432,283.000,550.000,33.569,0,0,334.744,81
+Infrastructure Failure Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,348.146,81
+Infrastructure Failure Scenario,E3-Hybrid-WTime,200,1,273.250,292.000,563.250,70.219,0,0,337.483,176
+Infrastructure Failure Scenario,E3-Hybrid-WTime,200,2,263.257,263.000,548.000,64.813,0,0,339.255,171
+Infrastructure Failure Scenario,E3-Hybrid-WTime,200,3,269.244,279.500,546.900,66.844,0,0,329.693,168
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,100,1,288.956,295.000,565.750,34.909,0,0,330.776,90
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,100,2,281.179,278.500,547.900,29.848,0,0,334.787,84
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,100,3,295.122,309.000,538.850,33.915,0,0,357.773,82
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,200,1,270.801,286.000,563.000,65.424,0,0,352.560,181
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,200,2,263.896,264.000,538.000,57.282,0,0,353.308,173
+Infrastructure Failure Scenario,E3-Hybrid-WEnergy,200,3,274.579,292.000,535.500,62.417,0,0,341.980,171
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,100,1,302.451,300.000,554.500,32.050,0,0,85.896,91
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,100,2,292.470,283.000,545.100,29.090,0,0,71.747,83
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,100,3,303.675,323.000,539.600,31.238,0,0,82.355,83
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,200,1,285.599,294.000,556.800,60.929,0,0,91.905,182
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,200,2,273.250,284.500,523.250,54.975,0,0,71.236,172
+Infrastructure Failure Scenario,E3-Hybrid-WSafety,200,3,284.586,306.000,548.000,58.940,0,0,83.678,174
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,100,1,302.730,317.000,565.400,39.430,0,0,328.030,89
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,100,2,279.506,283.000,550.000,33.707,0,0,310.753,81
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,332.932,81
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,200,1,272.257,286.000,549.800,70.225,0,0,334.083,175
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,200,2,263.596,265.000,534.000,64.917,0,0,329.421,171
+Infrastructure Failure Scenario,E3-Hybrid-Balanced,200,3,269.143,279.500,547.250,66.835,0,0,333.005,168
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,100,1,302.899,318.000,565.400,39.487,0,0,335.777,89
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,100,2,278.938,283.000,549.000,33.589,0,0,332.319,81
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,360.285,81
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,200,1,269.339,286.000,534.050,69.389,0,0,339.191,174
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,200,2,260.930,264.000,548.000,64.486,0,0,340.708,171
+Infrastructure Failure Scenario,E3-Hybrid-Thesis,200,3,269.149,279.500,546.900,66.847,0,0,335.623,168
+Communication Blackout Scenario,E3-Hybrid-WTime,100,1,303.101,321.000,565.000,39.772,0,0,335.322,89
+Communication Blackout Scenario,E3-Hybrid-WTime,100,2,279.432,283.000,550.000,33.569,0,0,343.363,81
+Communication Blackout Scenario,E3-Hybrid-WTime,100,3,289.099,288.000,520.000,36.528,0,0,356.547,81
+Communication Blackout Scenario,E3-Hybrid-WTime,200,1,273.250,292.000,563.250,70.219,0,0,342.171,176
+Communication Blackout Scenario,E3-Hybrid-WTime,200,2,263.257,263.000,548.000,64.813,0,0,345.079,171
+Communication Blackout Scenario,E3-Hybrid-WTime,200,3,269.244,279.500,546.900,66.844,0,0,330.536,168
+Communication Blackout Scenario,E3-Hybrid-WEnergy,100,1,288.956,295.000,565.750,34.909,0,0,329.746,90
+Communication Blackout Scenario,E3-Hybrid-WEnergy,100,2,281.179,278.500,547.900,29.848,0,0,349.009,84
+Communication Blackout Scenario,E3-Hybrid-WEnergy,100,3,295.122,309.000,538.850,33.915,0,0,380.782,82
+Communication Blackout Scenario,E3-Hybrid-WEnergy,200,1,270.801,286.000,563.000,65.424,0,0,353.947,181
+Communication Blackout Scenario,E3-Hybrid-WEnergy,200,2,263.896,264.000,538.000,57.282,0,0,355.976,173
+Communication Blackout Scenario,E3-Hybrid-WEnergy,200,3,274.579,292.000,535.500,62.417,0,0,337.621,171
+Communication Blackout Scenario,E3-Hybrid-WSafety,100,1,302.451,300.000,554.500,32.050,0,0,87.401,91
+Communication Blackout Scenario,E3-Hybrid-WSafety,100,2,292.470,283.000,545.100,29.090,0,0,66.450,83
+Communication Blackout Scenario,E3-Hybrid-WSafety,100,3,303.675,323.000,539.600,31.238,0,0,87.517,83
+Communication Blackout Scenario,E3-Hybrid-WSafety,200,1,285.599,294.000,556.800,60.929,0,0,93.549,182
+Communication Blackout Scenario,E3-Hybrid-WSafety,200,2,273.250,284.500,523.250,54.975,0,0,74.474,172
+Communication Blackout Scenario,E3-Hybrid-WSafety,200,3,284.586,306.000,548.000,58.940,0,0,84.862,174
+Communication Blackout Scenario,E3-Hybrid-Balanced,100,1,302.730,317.000,565.400,39.430,0,0,348.883,89
+Communication Blackout Scenario,E3-Hybrid-Balanced,100,2,279.506,283.000,550.000,33.707,0,0,303.553,81
+Communication Blackout Scenario,E3-Hybrid-Balanced,100,3,289.099,288.000,520.000,36.528,0,0,327.666,81
+Communication Blackout Scenario,E3-Hybrid-Balanced,200,1,272.257,286.000,549.800,70.225,0,0,319.948,175
+Communication Blackout Scenario,E3-Hybrid-Balanced,200,2,263.596,265.000,534.000,64.917,0,0,330.050,171
+Communication Blackout Scenario,E3-Hybrid-Balanced,200,3,269.143,279.500,547.250,66.835,0,0,338.004,168
+Communication Blackout Scenario,E3-Hybrid-Thesis,100,1,302.899,318.000,565.400,39.487,0,0,320.106,89
+Communication Blackout Scenario,E3-Hybrid-Thesis,100,2,278.938,283.000,549.000,33.589,0,0,323.153,81
+Communication Blackout Scenario,E3-Hybrid-Thesis,100,3,289.099,288.000,520.000,36.528,0,0,351.778,81
+Communication Blackout Scenario,E3-Hybrid-Thesis,200,1,269.339,286.000,534.050,69.389,0,0,328.488,174
+Communication Blackout Scenario,E3-Hybrid-Thesis,200,2,260.930,264.000,548.000,64.486,0,0,294.111,171
+Communication Blackout Scenario,E3-Hybrid-Thesis,200,3,269.149,279.500,546.900,66.847,0,0,225.332,168

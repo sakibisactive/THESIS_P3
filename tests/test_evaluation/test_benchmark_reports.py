@@ -186,3 +186,85 @@ def test_generate_results_and_reports_with_missing_keys(patch_dirs) -> None:
     
     # Verify it skipped the file and returned empty list
     assert len(results) == 0
+
+
+def test_e3_hybrid_variants_configuration(monkeypatch) -> None:
+    """Verifies that execute_single_task configures e3-hybrid variants and objective weights correctly."""
+    from src.utils.config import ScenarioConfig
+    import yaml
+    
+    dummy_yaml = """
+    name: "test_scen"
+    simulation:
+      network_file: "dummy.net.xml"
+      traci_port: 8813
+      seed: 42
+    battery:
+      capacity_kwh: 50.0
+      mass_kg: 1500.0
+      initial_soc: 0.8
+    algorithms:
+      objectives:
+        weight_travel_time: 0.5
+        weight_energy_consumption: 0.3
+        weight_safety: 0.2
+      aco:
+        alpha: 1.0
+      bco:
+        colony_size: 5
+      pso:
+        cognitive_weight: 1.5
+      e3_hybrid:
+        disable_aco: False
+        disable_bco: False
+        disable_pso: False
+        disable_elite_sharing: False
+        enable_adaptive_weighting: False
+    """
+    
+    cfg = ScenarioConfig.model_validate(yaml.safe_load(dummy_yaml))
+    monkeypatch.setattr(rb, "load_scenario_config", lambda path: cfg)
+    
+    # Mock SumoScenarioExecutor.__init__ and execute
+    class MockMetrics:
+        def model_dump(self):
+            return {"vehicle_travel_times": {}, "vehicle_energy_consumed": {}, "router_execution_times": []}
+            
+    class MockCollector:
+        metrics = MockMetrics()
+        
+    class MockExecutor:
+        def __init__(self, *args, **kwargs):
+            pass
+        def generate_random_traffic(self, *args, **kwargs):
+            pass
+        def execute(self):
+            return MockCollector()
+            
+    monkeypatch.setattr(rb, "SumoScenarioExecutor", MockExecutor)
+    monkeypatch.setattr(rb, "get_network_checksum", lambda *args: "dummy_checksum")
+    
+    # Verify E3-Hybrid-NoACO override
+    rb.execute_single_task(("test_scen", "E3-Hybrid-NoACO", 50, 1, 0, False))
+    assert cfg.algorithms.e3_hybrid.disable_aco is True
+    assert cfg.algorithms.e3_hybrid.disable_bco is False
+    
+    # Verify E3-Hybrid-NoElite override
+    rb.execute_single_task(("test_scen", "E3-Hybrid-NoElite", 50, 1, 0, False))
+    assert cfg.algorithms.e3_hybrid.disable_elite_sharing is True
+    
+    # Verify E3-Hybrid-WithAdaptive override
+    rb.execute_single_task(("test_scen", "E3-Hybrid-WithAdaptive", 50, 1, 0, False))
+    assert cfg.algorithms.e3_hybrid.enable_adaptive_weighting is True
+    
+    # Verify E3-Hybrid-WTime override
+    rb.execute_single_task(("test_scen", "E3-Hybrid-WTime", 50, 1, 0, False))
+    assert cfg.algorithms.objectives.w_time == 1.0
+    assert cfg.algorithms.objectives.w_energy == 0.0
+    assert cfg.algorithms.objectives.w_emergency == 0.0
+    
+    # Verify E3-Hybrid-Balanced override
+    rb.execute_single_task(("test_scen", "E3-Hybrid-Balanced", 50, 1, 0, False))
+    assert cfg.algorithms.objectives.w_time == 0.33
+    assert cfg.algorithms.objectives.w_energy == 0.33
+    assert cfg.algorithms.objectives.w_emergency == 0.34

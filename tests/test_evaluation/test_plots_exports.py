@@ -97,6 +97,55 @@ def test_plot_generator(tmp_path) -> None:
     assert len(paths) == 1
     assert os.path.exists(paths[0])
 
+    # 6. Pareto fronts
+    pareto_data = {
+        "Dijkstra": (120.0, 10.0, 15.0, 1.0),
+        "E3-Hybrid": (100.0, 8.0, 12.0, 0.8)
+    }
+    paths = plotter.generate_pareto_fronts(pareto_data, formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
+    # 7. Scalability curves
+    scalability_data = {
+        "Dijkstra": {25: 100.0, 50: 120.0, 100: 160.0},
+        "E3-Hybrid": {25: 90.0, 50: 105.0, 100: 130.0}
+    }
+    paths = plotter.generate_scalability_curves(scalability_data, formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
+    # 8. Resilience profiles
+    resilience_data = {
+        "Dijkstra": [1.0, 0.8, 0.82, 0.85, 0.90],
+        "E3-Hybrid": [1.0, 0.8, 0.88, 0.95, 0.98]
+    }
+    paths = plotter.generate_resilience_profiles([0.0, 100.0, 200.0, 300.0, 400.0], resilience_data, formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
+    # 9. Rank heatmap
+    import numpy as np
+    heatmap_data = np.array([[1.0, 2.0], [2.0, 1.0]])
+    paths = plotter.generate_rank_heatmap(heatmap_data, ["Scen1", "Scen2"], ["Dijkstra", "E3-Hybrid"], formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
+    # 10. Rank comparison
+    ranks = {"Dijkstra": 2.5, "E3-Hybrid": 1.2}
+    paths = plotter.generate_rank_comparison(ranks, formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
+    # 11. Radar chart
+    radar_metrics = {
+        "Dijkstra": [0.5, 0.6, 0.8, 0.4, 0.7],
+        "E3-Hybrid": [0.9, 0.8, 0.7, 0.9, 0.9]
+    }
+    paths = plotter.generate_radar_chart(["Time", "Energy", "Latency", "Resilience", "Robustness"], radar_metrics, formats=["png"])
+    assert len(paths) == 1
+    assert os.path.exists(paths[0])
+
 
 def test_experiment_runner_and_benchmark(tmp_path) -> None:
     """Runs a complete test benchmark with ExperimentRunner and BenchmarkSuite."""
