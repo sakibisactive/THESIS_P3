@@ -1,0 +1,1441 @@
+scenario,algorithm,vehicles,seed,avg_travel_time,median_travel_time,p95_travel_time,total_energy_kwh,stranded_vehicles,total_reroutes,avg_execution_time_ms,throughput
+Normal Traffic Scenario,DijkstraRouter,25,1,304.087,298.000,454.600,7.323,0,0,0.886,23
+Normal Traffic Scenario,DijkstraRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.129,22
+Normal Traffic Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Normal Traffic Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Normal Traffic Scenario,DijkstraRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Normal Traffic Scenario,DijkstraRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Normal Traffic Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Normal Traffic Scenario,DijkstraRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Normal Traffic Scenario,DijkstraRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Normal Traffic Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Normal Traffic Scenario,DijkstraRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Normal Traffic Scenario,DijkstraRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Normal Traffic Scenario,DijkstraRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Normal Traffic Scenario,DijkstraRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Normal Traffic Scenario,DijkstraRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Normal Traffic Scenario,DijkstraRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Normal Traffic Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Normal Traffic Scenario,DijkstraRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Normal Traffic Scenario,DijkstraRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Normal Traffic Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Normal Traffic Scenario,DijkstraRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Normal Traffic Scenario,DijkstraRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Normal Traffic Scenario,DijkstraRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Normal Traffic Scenario,DijkstraRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Normal Traffic Scenario,DijkstraRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Normal Traffic Scenario,DijkstraRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Normal Traffic Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Normal Traffic Scenario,DijkstraRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Normal Traffic Scenario,DijkstraRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Normal Traffic Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Normal Traffic Scenario,DijkstraRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Normal Traffic Scenario,DijkstraRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Normal Traffic Scenario,DijkstraRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Normal Traffic Scenario,DijkstraRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Normal Traffic Scenario,DijkstraRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Normal Traffic Scenario,DijkstraRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Normal Traffic Scenario,DijkstraRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Normal Traffic Scenario,DijkstraRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Normal Traffic Scenario,DijkstraRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Normal Traffic Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Normal Traffic Scenario,AStarRouter,25,1,304.087,298.000,454.600,7.323,0,0,1.208,23
+Normal Traffic Scenario,AStarRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.658,22
+Normal Traffic Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Normal Traffic Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Normal Traffic Scenario,AStarRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Normal Traffic Scenario,AStarRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Normal Traffic Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Normal Traffic Scenario,AStarRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Normal Traffic Scenario,AStarRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Normal Traffic Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Normal Traffic Scenario,AStarRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Normal Traffic Scenario,AStarRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Normal Traffic Scenario,AStarRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Normal Traffic Scenario,AStarRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Normal Traffic Scenario,AStarRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Normal Traffic Scenario,AStarRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Normal Traffic Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Normal Traffic Scenario,AStarRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Normal Traffic Scenario,AStarRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Normal Traffic Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Normal Traffic Scenario,AStarRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Normal Traffic Scenario,AStarRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Normal Traffic Scenario,AStarRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Normal Traffic Scenario,AStarRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Normal Traffic Scenario,AStarRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Normal Traffic Scenario,AStarRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Normal Traffic Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Normal Traffic Scenario,AStarRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Normal Traffic Scenario,AStarRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Normal Traffic Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Normal Traffic Scenario,AStarRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Normal Traffic Scenario,AStarRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Normal Traffic Scenario,AStarRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Normal Traffic Scenario,AStarRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Normal Traffic Scenario,AStarRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Normal Traffic Scenario,AStarRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Normal Traffic Scenario,AStarRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Normal Traffic Scenario,AStarRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Normal Traffic Scenario,AStarRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Normal Traffic Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Normal Traffic Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,6.706,20
+Normal Traffic Scenario,ACORouter,25,2,301.478,298.000,588.600,8.999,0,0,7.139,23
+Normal Traffic Scenario,ACORouter,25,3,277.421,301.000,445.100,7.420,0,0,0.000,19
+Normal Traffic Scenario,ACORouter,25,4,327.304,368.000,574.400,9.390,0,0,0.000,23
+Normal Traffic Scenario,ACORouter,25,5,285.750,276.500,524.850,8.731,0,0,0.000,20
+Normal Traffic Scenario,ACORouter,25,6,261.000,264.500,478.350,8.263,0,0,0.000,22
+Normal Traffic Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Normal Traffic Scenario,ACORouter,25,8,340.421,378.000,594.100,6.918,0,0,0.000,19
+Normal Traffic Scenario,ACORouter,25,9,271.870,294.000,486.000,8.578,0,0,0.000,23
+Normal Traffic Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Normal Traffic Scenario,ACORouter,50,1,349.463,371.000,523.000,16.799,0,0,0.000,41
+Normal Traffic Scenario,ACORouter,50,2,274.023,256.000,571.600,13.898,0,0,0.000,43
+Normal Traffic Scenario,ACORouter,50,3,297.564,322.000,476.700,15.534,0,0,0.000,39
+Normal Traffic Scenario,ACORouter,50,4,326.767,332.000,574.500,17.186,0,0,0.000,43
+Normal Traffic Scenario,ACORouter,50,5,293.526,291.500,528.550,15.333,0,0,0.000,38
+Normal Traffic Scenario,ACORouter,50,6,283.907,288.000,514.700,15.628,0,0,0.000,43
+Normal Traffic Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Normal Traffic Scenario,ACORouter,50,8,350.976,378.000,594.000,15.633,0,0,0.000,41
+Normal Traffic Scenario,ACORouter,50,9,281.043,307.500,484.750,16.957,0,0,0.000,46
+Normal Traffic Scenario,ACORouter,50,10,322.791,333.000,556.000,16.992,0,0,0.000,43
+Normal Traffic Scenario,ACORouter,100,1,293.872,301.000,509.750,30.331,0,0,0.000,86
+Normal Traffic Scenario,ACORouter,100,2,277.227,259.000,549.650,29.037,0,0,0.000,88
+Normal Traffic Scenario,ACORouter,100,3,281.566,290.000,508.200,30.555,0,0,0.000,83
+Normal Traffic Scenario,ACORouter,100,4,288.809,301.000,588.200,32.262,0,0,0.000,89
+Normal Traffic Scenario,ACORouter,100,5,280.195,282.500,560.900,30.006,0,0,0.000,82
+Normal Traffic Scenario,ACORouter,100,6,279.400,279.000,514.200,30.097,0,0,0.000,85
+Normal Traffic Scenario,ACORouter,100,7,246.295,244.000,478.700,25.382,0,0,0.000,78
+Normal Traffic Scenario,ACORouter,100,8,312.136,324.000,565.000,30.003,0,0,0.000,81
+Normal Traffic Scenario,ACORouter,100,9,284.273,313.000,570.150,30.534,0,0,0.000,88
+Normal Traffic Scenario,ACORouter,100,10,309.674,325.000,554.400,33.444,0,0,0.000,89
+Normal Traffic Scenario,ACORouter,200,1,270.994,279.000,550.600,55.557,0,0,0.000,165
+Normal Traffic Scenario,ACORouter,200,2,269.886,278.000,546.500,55.451,0,0,0.000,175
+Normal Traffic Scenario,ACORouter,200,3,267.452,282.500,549.500,57.067,0,0,0.000,166
+Normal Traffic Scenario,ACORouter,200,4,248.515,258.000,517.500,53.015,0,0,0.000,171
+Normal Traffic Scenario,ACORouter,200,5,268.060,279.000,553.900,57.895,0,0,0.000,167
+Normal Traffic Scenario,ACORouter,200,6,262.231,279.000,549.000,56.317,0,0,0.000,173
+Normal Traffic Scenario,ACORouter,200,7,250.037,249.000,511.300,51.299,0,0,0.000,160
+Normal Traffic Scenario,ACORouter,200,8,273.956,279.000,549.900,52.178,0,0,0.000,158
+Normal Traffic Scenario,ACORouter,200,9,258.924,261.000,522.350,53.959,0,0,0.000,172
+Normal Traffic Scenario,ACORouter,200,10,282.555,301.000,550.400,57.956,0,0,0.000,173
+Normal Traffic Scenario,BCORouter,25,1,300.318,296.000,506.050,7.576,0,0,6.800,22
+Normal Traffic Scenario,BCORouter,25,2,305.727,294.000,575.100,7.793,0,0,5.484,22
+Normal Traffic Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Normal Traffic Scenario,BCORouter,25,4,288.550,266.500,490.950,6.631,0,0,0.000,20
+Normal Traffic Scenario,BCORouter,25,5,281.611,304.500,424.850,7.215,0,0,0.000,18
+Normal Traffic Scenario,BCORouter,25,6,300.583,309.500,545.350,8.641,0,0,0.000,24
+Normal Traffic Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Normal Traffic Scenario,BCORouter,25,8,365.095,378.000,557.000,8.843,0,0,0.000,21
+Normal Traffic Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Normal Traffic Scenario,BCORouter,25,10,310.733,331.000,496.600,4.888,0,0,0.000,15
+Normal Traffic Scenario,BCORouter,50,1,334.071,314.500,548.050,15.722,0,0,0.000,42
+Normal Traffic Scenario,BCORouter,50,2,272.419,263.000,548.300,12.874,0,0,0.000,43
+Normal Traffic Scenario,BCORouter,50,3,318.472,317.000,536.750,15.073,0,0,0.000,36
+Normal Traffic Scenario,BCORouter,50,4,284.610,292.000,491.000,13.532,0,0,0.000,41
+Normal Traffic Scenario,BCORouter,50,5,283.973,302.000,527.200,14.368,0,0,0.000,37
+Normal Traffic Scenario,BCORouter,50,6,293.068,279.500,557.650,15.948,0,0,0.000,44
+Normal Traffic Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Normal Traffic Scenario,BCORouter,50,8,341.282,378.000,519.200,15.502,0,0,0.000,39
+Normal Traffic Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Normal Traffic Scenario,BCORouter,50,10,303.686,323.000,549.800,12.627,0,0,0.000,35
+Normal Traffic Scenario,BCORouter,100,1,315.738,315.500,549.150,29.328,0,0,0.000,80
+Normal Traffic Scenario,BCORouter,100,2,266.541,273.000,534.000,26.567,0,0,0.000,85
+Normal Traffic Scenario,BCORouter,100,3,316.195,306.000,579.800,30.548,0,0,0.000,77
+Normal Traffic Scenario,BCORouter,100,4,297.190,319.500,508.350,30.618,0,0,0.000,84
+Normal Traffic Scenario,BCORouter,100,5,282.750,283.500,559.250,26.575,0,0,0.000,76
+Normal Traffic Scenario,BCORouter,100,6,270.929,279.000,506.800,28.586,0,0,0.000,85
+Normal Traffic Scenario,BCORouter,100,7,299.783,305.000,573.300,30.050,0,0,0.000,83
+Normal Traffic Scenario,BCORouter,100,8,310.941,331.000,526.600,30.971,0,0,0.000,85
+Normal Traffic Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Normal Traffic Scenario,BCORouter,100,10,266.405,288.500,532.350,25.026,0,0,0.000,74
+Normal Traffic Scenario,BCORouter,200,1,283.637,293.000,556.050,55.898,0,0,0.000,160
+Normal Traffic Scenario,BCORouter,200,2,253.442,253.500,558.000,50.605,0,0,0.000,172
+Normal Traffic Scenario,BCORouter,200,3,291.373,292.000,554.750,59.122,0,0,0.000,166
+Normal Traffic Scenario,BCORouter,200,4,291.193,307.000,537.000,60.031,0,0,0.000,171
+Normal Traffic Scenario,BCORouter,200,5,273.720,279.500,549.000,55.762,0,0,0.000,164
+Normal Traffic Scenario,BCORouter,200,6,252.439,248.000,547.400,55.130,0,0,0.000,173
+Normal Traffic Scenario,BCORouter,200,7,286.681,280.000,566.000,58.138,0,0,0.000,166
+Normal Traffic Scenario,BCORouter,200,8,274.577,299.000,550.900,58.390,0,0,0.000,175
+Normal Traffic Scenario,BCORouter,200,9,265.040,278.000,565.800,57.100,0,0,0.000,173
+Normal Traffic Scenario,BCORouter,200,10,250.485,249.000,534.700,49.546,0,0,0.000,163
+Normal Traffic Scenario,PSORouter,25,1,354.667,349.500,548.600,6.991,0,0,31.208,18
+Normal Traffic Scenario,PSORouter,25,2,341.533,376.000,564.300,5.219,0,0,93.258,15
+Normal Traffic Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Normal Traffic Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Normal Traffic Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Normal Traffic Scenario,PSORouter,25,6,313.056,285.000,493.150,7.696,0,0,0.000,18
+Normal Traffic Scenario,PSORouter,25,7,366.882,397.000,561.600,7.544,0,0,0.000,17
+Normal Traffic Scenario,PSORouter,25,8,389.882,420.000,582.200,7.248,0,0,0.000,17
+Normal Traffic Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Normal Traffic Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Normal Traffic Scenario,PSORouter,50,1,341.667,327.500,558.100,11.216,0,0,0.000,30
+Normal Traffic Scenario,PSORouter,50,2,359.571,355.500,577.650,10.668,0,0,0.000,28
+Normal Traffic Scenario,PSORouter,50,3,315.345,321.000,577.000,12.391,0,0,0.000,29
+Normal Traffic Scenario,PSORouter,50,4,299.844,323.500,515.350,11.907,0,0,0.000,32
+Normal Traffic Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Normal Traffic Scenario,PSORouter,50,6,311.548,323.000,502.500,12.852,0,0,0.000,31
+Normal Traffic Scenario,PSORouter,50,7,306.333,328.000,506.500,13.684,0,0,0.000,36
+Normal Traffic Scenario,PSORouter,50,8,340.714,379.000,584.200,14.141,0,0,0.000,35
+Normal Traffic Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Normal Traffic Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Normal Traffic Scenario,PSORouter,100,1,299.419,303.000,558.300,21.701,0,0,0.000,62
+Normal Traffic Scenario,PSORouter,100,2,306.629,281.000,555.750,22.131,0,0,0.000,62
+Normal Traffic Scenario,PSORouter,100,3,307.719,340.000,587.000,25.155,0,0,0.000,64
+Normal Traffic Scenario,PSORouter,100,4,299.391,311.000,535.200,26.061,0,0,0.000,69
+Normal Traffic Scenario,PSORouter,100,5,273.086,289.000,566.950,19.625,0,0,0.000,58
+Normal Traffic Scenario,PSORouter,100,6,304.545,291.000,547.750,24.410,0,0,0.000,66
+Normal Traffic Scenario,PSORouter,100,7,292.971,302.500,558.000,25.515,0,0,0.000,70
+Normal Traffic Scenario,PSORouter,100,8,330.254,331.000,592.500,27.667,0,0,0.000,71
+Normal Traffic Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Normal Traffic Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Normal Traffic Scenario,PSORouter,200,1,269.061,281.000,560.350,41.827,0,0,0.000,132
+Normal Traffic Scenario,PSORouter,200,2,263.523,254.000,532.750,39.723,0,0,0.000,130
+Normal Traffic Scenario,PSORouter,200,3,278.813,300.000,555.200,46.842,0,0,0.000,139
+Normal Traffic Scenario,PSORouter,200,4,268.385,290.000,523.300,44.831,0,0,0.000,135
+Normal Traffic Scenario,PSORouter,200,5,258.540,279.500,546.400,41.148,0,0,0.000,124
+Normal Traffic Scenario,PSORouter,200,6,269.504,279.000,550.000,46.213,0,0,0.000,141
+Normal Traffic Scenario,PSORouter,200,7,261.603,279.500,558.000,47.293,0,0,0.000,146
+Normal Traffic Scenario,PSORouter,200,8,276.182,288.000,584.500,47.761,0,0,0.000,143
+Normal Traffic Scenario,PSORouter,200,9,248.080,279.500,557.900,42.193,0,0,0.000,138
+Normal Traffic Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Normal Traffic Scenario,E3HybridRouter,25,1,309.391,299.000,456.100,7.670,0,0,601.242,23
+Normal Traffic Scenario,E3HybridRouter,25,2,300.667,292.000,500.700,5.545,0,0,743.332,18
+Normal Traffic Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Normal Traffic Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.352,0,0,0.000,19
+Normal Traffic Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Normal Traffic Scenario,E3HybridRouter,25,6,273.650,278.500,462.200,7.469,0,0,0.000,20
+Normal Traffic Scenario,E3HybridRouter,25,7,300.600,278.500,557.050,7.439,0,0,0.000,20
+Normal Traffic Scenario,E3HybridRouter,25,8,392.143,422.000,594.000,8.969,0,0,0.000,21
+Normal Traffic Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Normal Traffic Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Normal Traffic Scenario,E3HybridRouter,50,1,319.537,324.000,503.000,14.817,0,0,0.000,41
+Normal Traffic Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Normal Traffic Scenario,E3HybridRouter,50,3,288.649,288.000,520.200,14.037,0,0,0.000,37
+Normal Traffic Scenario,E3HybridRouter,50,4,268.684,283.500,485.350,12.915,0,0,0.000,38
+Normal Traffic Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Normal Traffic Scenario,E3HybridRouter,50,6,313.263,306.500,564.200,15.191,0,0,0.000,38
+Normal Traffic Scenario,E3HybridRouter,50,7,279.718,240.000,551.600,13.709,0,0,0.000,39
+Normal Traffic Scenario,E3HybridRouter,50,8,333.707,377.000,593.000,16.001,0,0,0.000,41
+Normal Traffic Scenario,E3HybridRouter,50,9,285.472,271.500,534.500,14.469,0,0,0.000,36
+Normal Traffic Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Normal Traffic Scenario,E3HybridRouter,100,1,297.551,292.500,548.150,27.753,0,0,0.000,78
+Normal Traffic Scenario,E3HybridRouter,100,2,282.083,277.500,541.500,23.976,0,0,0.000,72
+Normal Traffic Scenario,E3HybridRouter,100,3,287.507,300.000,523.200,26.848,0,0,0.000,73
+Normal Traffic Scenario,E3HybridRouter,100,4,279.312,291.000,509.250,28.302,0,0,0.000,80
+Normal Traffic Scenario,E3HybridRouter,100,5,287.338,296.500,556.750,26.680,0,0,0.000,74
+Normal Traffic Scenario,E3HybridRouter,100,6,304.000,296.000,565.400,27.821,0,0,0.000,75
+Normal Traffic Scenario,E3HybridRouter,100,7,275.530,240.000,550.900,28.212,0,0,0.000,83
+Normal Traffic Scenario,E3HybridRouter,100,8,301.405,347.000,593.100,27.446,0,0,0.000,79
+Normal Traffic Scenario,E3HybridRouter,100,9,269.493,288.000,524.900,26.391,0,0,0.000,75
+Normal Traffic Scenario,E3HybridRouter,100,10,279.568,305.000,559.000,25.170,0,0,0.000,74
+Normal Traffic Scenario,E3HybridRouter,200,1,270.614,292.000,545.000,48.837,0,0,0.000,153
+Normal Traffic Scenario,E3HybridRouter,200,2,263.146,258.000,552.000,45.636,0,0,0.000,151
+Normal Traffic Scenario,E3HybridRouter,200,3,270.289,295.000,533.400,49.883,0,0,0.000,149
+Normal Traffic Scenario,E3HybridRouter,200,4,263.840,284.000,514.550,47.918,0,0,0.000,150
+Normal Traffic Scenario,E3HybridRouter,200,5,279.497,289.000,536.200,55.320,0,0,0.000,157
+Normal Traffic Scenario,E3HybridRouter,200,6,269.943,283.000,564.600,51.734,0,0,0.000,157
+Normal Traffic Scenario,E3HybridRouter,200,7,253.866,235.000,552.200,49.374,0,0,0.000,157
+Normal Traffic Scenario,E3HybridRouter,200,8,276.346,284.000,583.500,54.066,0,0,0.000,162
+Normal Traffic Scenario,E3HybridRouter,200,9,255.370,279.500,542.850,49.942,0,0,0.000,154
+Normal Traffic Scenario,E3HybridRouter,200,10,245.660,261.000,553.200,46.145,0,0,0.000,153
+Single Road Closure Scenario,DijkstraRouter,25,1,310.208,304.500,457.800,7.433,0,0,1.333,24
+Single Road Closure Scenario,DijkstraRouter,25,2,303.909,289.500,546.650,6.591,0,0,1.454,22
+Single Road Closure Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Single Road Closure Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Single Road Closure Scenario,DijkstraRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Single Road Closure Scenario,DijkstraRouter,25,6,316.083,299.500,527.650,9.034,0,0,0.000,24
+Single Road Closure Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Single Road Closure Scenario,DijkstraRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Single Road Closure Scenario,DijkstraRouter,25,9,326.500,356.500,585.900,9.401,0,0,0.000,22
+Single Road Closure Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Single Road Closure Scenario,DijkstraRouter,50,1,307.822,310.000,473.600,14.930,0,0,0.000,45
+Single Road Closure Scenario,DijkstraRouter,50,2,283.103,262.000,549.100,12.122,0,0,0.000,39
+Single Road Closure Scenario,DijkstraRouter,50,3,284.256,288.000,472.300,14.446,0,0,0.000,39
+Single Road Closure Scenario,DijkstraRouter,50,4,302.977,323.000,503.400,15.464,0,0,0.000,43
+Single Road Closure Scenario,DijkstraRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Single Road Closure Scenario,DijkstraRouter,50,6,327.000,323.000,560.500,18.092,0,0,0.000,46
+Single Road Closure Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Single Road Closure Scenario,DijkstraRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Single Road Closure Scenario,DijkstraRouter,50,9,297.935,302.000,521.750,17.798,0,0,0.000,46
+Single Road Closure Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Single Road Closure Scenario,DijkstraRouter,100,1,298.178,309.000,549.100,31.216,0,0,0.000,90
+Single Road Closure Scenario,DijkstraRouter,100,2,272.000,271.000,503.300,26.345,0,0,0.000,83
+Single Road Closure Scenario,DijkstraRouter,100,3,308.817,325.500,556.000,30.886,0,0,0.000,82
+Single Road Closure Scenario,DijkstraRouter,100,4,306.885,323.000,544.200,32.094,0,0,0.000,87
+Single Road Closure Scenario,DijkstraRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Single Road Closure Scenario,DijkstraRouter,100,6,310.581,316.000,552.250,32.080,0,0,0.000,86
+Single Road Closure Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Single Road Closure Scenario,DijkstraRouter,100,8,319.374,338.000,593.500,32.762,0,0,0.000,91
+Single Road Closure Scenario,DijkstraRouter,100,9,288.910,294.000,544.200,32.050,0,0,0.000,89
+Single Road Closure Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Single Road Closure Scenario,DijkstraRouter,200,1,272.650,286.000,548.400,56.603,0,0,0.000,177
+Single Road Closure Scenario,DijkstraRouter,200,2,265.119,279.000,549.000,55.191,0,0,0.000,176
+Single Road Closure Scenario,DijkstraRouter,200,3,285.552,297.500,554.350,57.742,0,0,0.000,172
+Single Road Closure Scenario,DijkstraRouter,200,4,278.200,304.000,520.800,57.937,0,0,0.000,175
+Single Road Closure Scenario,DijkstraRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Single Road Closure Scenario,DijkstraRouter,200,6,272.940,281.000,547.900,59.790,0,0,0.000,183
+Single Road Closure Scenario,DijkstraRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Single Road Closure Scenario,DijkstraRouter,200,8,279.339,293.000,585.050,58.153,0,0,0.000,180
+Single Road Closure Scenario,DijkstraRouter,200,9,262.428,280.000,552.050,57.866,0,0,0.000,180
+Single Road Closure Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Single Road Closure Scenario,AStarRouter,25,1,310.208,304.500,457.800,7.433,0,0,8.764,24
+Single Road Closure Scenario,AStarRouter,25,2,303.909,289.500,546.650,6.591,0,0,1.269,22
+Single Road Closure Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Single Road Closure Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Single Road Closure Scenario,AStarRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Single Road Closure Scenario,AStarRouter,25,6,316.083,299.500,527.650,9.034,0,0,0.000,24
+Single Road Closure Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Single Road Closure Scenario,AStarRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Single Road Closure Scenario,AStarRouter,25,9,326.500,356.500,585.900,9.401,0,0,0.000,22
+Single Road Closure Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Single Road Closure Scenario,AStarRouter,50,1,307.822,310.000,473.600,14.930,0,0,0.000,45
+Single Road Closure Scenario,AStarRouter,50,2,283.103,262.000,549.100,12.122,0,0,0.000,39
+Single Road Closure Scenario,AStarRouter,50,3,284.256,288.000,472.300,14.446,0,0,0.000,39
+Single Road Closure Scenario,AStarRouter,50,4,302.977,323.000,503.400,15.464,0,0,0.000,43
+Single Road Closure Scenario,AStarRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Single Road Closure Scenario,AStarRouter,50,6,327.000,323.000,560.500,18.092,0,0,0.000,46
+Single Road Closure Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Single Road Closure Scenario,AStarRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Single Road Closure Scenario,AStarRouter,50,9,297.935,302.000,521.750,17.798,0,0,0.000,46
+Single Road Closure Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Single Road Closure Scenario,AStarRouter,100,1,298.178,309.000,549.100,31.216,0,0,0.000,90
+Single Road Closure Scenario,AStarRouter,100,2,272.000,271.000,503.300,26.345,0,0,0.000,83
+Single Road Closure Scenario,AStarRouter,100,3,308.817,325.500,556.000,30.886,0,0,0.000,82
+Single Road Closure Scenario,AStarRouter,100,4,306.885,323.000,544.200,32.094,0,0,0.000,87
+Single Road Closure Scenario,AStarRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Single Road Closure Scenario,AStarRouter,100,6,310.581,316.000,552.250,32.080,0,0,0.000,86
+Single Road Closure Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Single Road Closure Scenario,AStarRouter,100,8,319.374,338.000,593.500,32.762,0,0,0.000,91
+Single Road Closure Scenario,AStarRouter,100,9,288.910,294.000,544.200,32.050,0,0,0.000,89
+Single Road Closure Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Single Road Closure Scenario,AStarRouter,200,1,272.650,286.000,548.400,56.603,0,0,0.000,177
+Single Road Closure Scenario,AStarRouter,200,2,265.119,279.000,549.000,55.191,0,0,0.000,176
+Single Road Closure Scenario,AStarRouter,200,3,285.552,297.500,554.350,57.742,0,0,0.000,172
+Single Road Closure Scenario,AStarRouter,200,4,278.200,304.000,520.800,57.937,0,0,0.000,175
+Single Road Closure Scenario,AStarRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Single Road Closure Scenario,AStarRouter,200,6,272.940,281.000,547.900,59.790,0,0,0.000,183
+Single Road Closure Scenario,AStarRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Single Road Closure Scenario,AStarRouter,200,8,279.339,293.000,585.050,58.153,0,0,0.000,180
+Single Road Closure Scenario,AStarRouter,200,9,262.428,280.000,552.050,57.866,0,0,0.000,180
+Single Road Closure Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Single Road Closure Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,10.127,20
+Single Road Closure Scenario,ACORouter,25,2,304.348,298.000,588.700,8.806,0,0,23.293,23
+Single Road Closure Scenario,ACORouter,25,3,284.600,305.500,443.550,7.573,0,0,0.000,20
+Single Road Closure Scenario,ACORouter,25,4,318.773,348.000,577.100,8.890,0,0,0.000,22
+Single Road Closure Scenario,ACORouter,25,5,306.714,302.000,522.000,8.900,0,0,0.000,21
+Single Road Closure Scenario,ACORouter,25,6,267.957,279.000,477.700,8.394,0,0,0.000,23
+Single Road Closure Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Single Road Closure Scenario,ACORouter,25,8,340.421,378.000,594.100,6.918,0,0,0.000,19
+Single Road Closure Scenario,ACORouter,25,9,281.833,296.000,497.350,8.732,0,0,0.000,24
+Single Road Closure Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Single Road Closure Scenario,ACORouter,50,1,355.667,374.000,526.400,15.866,0,0,0.000,39
+Single Road Closure Scenario,ACORouter,50,2,278.558,256.000,591.100,13.775,0,0,0.000,43
+Single Road Closure Scenario,ACORouter,50,3,300.800,324.000,474.850,15.739,0,0,0.000,40
+Single Road Closure Scenario,ACORouter,50,4,327.119,350.500,578.600,16.670,0,0,0.000,42
+Single Road Closure Scenario,ACORouter,50,5,302.359,301.000,526.600,15.422,0,0,0.000,39
+Single Road Closure Scenario,ACORouter,50,6,287.733,288.000,514.200,15.772,0,0,0.000,45
+Single Road Closure Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Single Road Closure Scenario,ACORouter,50,8,350.976,378.000,594.000,15.634,0,0,0.000,41
+Single Road Closure Scenario,ACORouter,50,9,287.021,317.000,495.700,17.198,0,0,0.000,47
+Single Road Closure Scenario,ACORouter,50,10,327.698,333.000,557.900,16.924,0,0,0.000,43
+Single Road Closure Scenario,ACORouter,100,1,299.718,304.000,522.000,30.056,0,0,0.000,85
+Single Road Closure Scenario,ACORouter,100,2,279.455,259.000,565.600,28.956,0,0,0.000,88
+Single Road Closure Scenario,ACORouter,100,3,283.238,292.000,506.800,30.550,0,0,0.000,84
+Single Road Closure Scenario,ACORouter,100,4,284.770,295.000,562.400,31.110,0,0,0.000,87
+Single Road Closure Scenario,ACORouter,100,5,283.024,287.000,560.000,29.575,0,0,0.000,82
+Single Road Closure Scenario,ACORouter,100,6,282.644,279.000,513.100,30.388,0,0,0.000,87
+Single Road Closure Scenario,ACORouter,100,7,249.962,248.000,510.700,25.574,0,0,0.000,79
+Single Road Closure Scenario,ACORouter,100,8,307.850,323.500,562.150,29.629,0,0,0.000,80
+Single Road Closure Scenario,ACORouter,100,9,284.000,313.500,570.800,30.150,0,0,0.000,88
+Single Road Closure Scenario,ACORouter,100,10,312.034,325.000,557.000,33.366,0,0,0.000,89
+Single Road Closure Scenario,ACORouter,200,1,270.111,278.500,547.800,54.029,0,0,0.000,162
+Single Road Closure Scenario,ACORouter,200,2,271.897,277.000,549.300,55.284,0,0,0.000,175
+Single Road Closure Scenario,ACORouter,200,3,268.138,283.000,549.700,56.837,0,0,0.000,167
+Single Road Closure Scenario,ACORouter,200,4,249.953,258.000,520.550,52.292,0,0,0.000,170
+Single Road Closure Scenario,ACORouter,200,5,271.310,280.000,558.300,57.996,0,0,0.000,168
+Single Road Closure Scenario,ACORouter,200,6,263.623,279.000,548.300,56.545,0,0,0.000,175
+Single Road Closure Scenario,ACORouter,200,7,251.857,249.000,517.000,51.379,0,0,0.000,161
+Single Road Closure Scenario,ACORouter,200,8,272.975,279.000,557.200,51.642,0,0,0.000,157
+Single Road Closure Scenario,ACORouter,200,9,258.459,261.500,516.600,53.734,0,0,0.000,172
+Single Road Closure Scenario,ACORouter,200,10,281.814,298.000,550.900,57.461,0,0,0.000,172
+Single Road Closure Scenario,BCORouter,25,1,298.818,296.000,506.050,7.296,0,0,14.591,22
+Single Road Closure Scenario,BCORouter,25,2,318.864,302.000,576.050,7.594,0,0,3.616,22
+Single Road Closure Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Single Road Closure Scenario,BCORouter,25,4,287.211,258.000,491.000,6.299,0,0,0.000,19
+Single Road Closure Scenario,BCORouter,25,5,293.368,306.000,462.700,7.453,0,0,0.000,19
+Single Road Closure Scenario,BCORouter,25,6,303.792,310.000,545.350,8.515,0,0,0.000,24
+Single Road Closure Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Single Road Closure Scenario,BCORouter,25,8,365.095,378.000,557.000,8.843,0,0,0.000,21
+Single Road Closure Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Single Road Closure Scenario,BCORouter,25,10,309.400,331.000,483.000,4.619,0,0,0.000,15
+Single Road Closure Scenario,BCORouter,50,1,334.429,315.000,548.000,15.576,0,0,0.000,42
+Single Road Closure Scenario,BCORouter,50,2,265.214,260.500,460.250,12.470,0,0,0.000,42
+Single Road Closure Scenario,BCORouter,50,3,323.811,330.000,534.200,15.259,0,0,0.000,37
+Single Road Closure Scenario,BCORouter,50,4,283.700,283.000,492.900,13.032,0,0,0.000,40
+Single Road Closure Scenario,BCORouter,50,5,289.842,304.500,524.550,14.625,0,0,0.000,38
+Single Road Closure Scenario,BCORouter,50,6,294.818,279.500,557.650,15.816,0,0,0.000,44
+Single Road Closure Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Single Road Closure Scenario,BCORouter,50,8,341.436,377.000,520.800,15.532,0,0,0.000,39
+Single Road Closure Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Single Road Closure Scenario,BCORouter,50,10,303.171,323.000,550.500,12.415,0,0,0.000,35
+Single Road Closure Scenario,BCORouter,100,1,315.913,314.500,550.100,29.085,0,0,0.000,80
+Single Road Closure Scenario,BCORouter,100,2,264.655,273.000,534.100,26.059,0,0,0.000,84
+Single Road Closure Scenario,BCORouter,100,3,319.436,324.000,580.450,30.766,0,0,0.000,78
+Single Road Closure Scenario,BCORouter,100,4,300.325,328.000,508.900,30.012,0,0,0.000,83
+Single Road Closure Scenario,BCORouter,100,5,287.577,287.500,557.900,26.960,0,0,0.000,78
+Single Road Closure Scenario,BCORouter,100,6,270.224,279.000,507.000,28.039,0,0,0.000,85
+Single Road Closure Scenario,BCORouter,100,7,302.560,307.000,572.950,30.406,0,0,0.000,84
+Single Road Closure Scenario,BCORouter,100,8,313.341,330.000,540.200,30.532,0,0,0.000,85
+Single Road Closure Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Single Road Closure Scenario,BCORouter,100,10,269.373,290.000,532.600,24.872,0,0,0.000,75
+Single Road Closure Scenario,BCORouter,200,1,283.744,293.500,556.050,55.664,0,0,0.000,160
+Single Road Closure Scenario,BCORouter,200,2,250.259,251.500,544.500,48.779,0,0,0.000,170
+Single Road Closure Scenario,BCORouter,200,3,291.928,294.000,554.500,59.077,0,0,0.000,167
+Single Road Closure Scenario,BCORouter,200,4,289.815,304.500,528.700,58.435,0,0,0.000,168
+Single Road Closure Scenario,BCORouter,200,5,275.394,282.000,548.800,55.730,0,0,0.000,165
+Single Road Closure Scenario,BCORouter,200,6,254.897,259.000,549.000,55.175,0,0,0.000,174
+Single Road Closure Scenario,BCORouter,200,7,287.455,280.000,561.800,58.375,0,0,0.000,167
+Single Road Closure Scenario,BCORouter,200,8,274.753,296.500,550.700,57.966,0,0,0.000,174
+Single Road Closure Scenario,BCORouter,200,9,263.163,274.500,567.450,56.151,0,0,0.000,172
+Single Road Closure Scenario,BCORouter,200,10,251.951,253.500,533.850,49.426,0,0,0.000,164
+Single Road Closure Scenario,PSORouter,25,1,359.684,367.000,547.300,7.127,0,0,30.102,19
+Single Road Closure Scenario,PSORouter,25,2,350.250,389.000,563.000,5.220,0,0,91.746,16
+Single Road Closure Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Single Road Closure Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Single Road Closure Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Single Road Closure Scenario,PSORouter,25,6,324.200,322.500,493.050,7.882,0,0,0.000,20
+Single Road Closure Scenario,PSORouter,25,7,357.812,383.500,562.500,6.800,0,0,0.000,16
+Single Road Closure Scenario,PSORouter,25,8,389.882,420.000,582.200,7.248,0,0,0.000,17
+Single Road Closure Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Single Road Closure Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Single Road Closure Scenario,PSORouter,50,1,345.065,331.000,556.000,11.365,0,0,0.000,31
+Single Road Closure Scenario,PSORouter,50,2,363.897,371.000,578.000,10.708,0,0,0.000,29
+Single Road Closure Scenario,PSORouter,50,3,319.000,339.000,575.000,12.548,0,0,0.000,30
+Single Road Closure Scenario,PSORouter,50,4,312.235,327.000,532.100,12.571,0,0,0.000,34
+Single Road Closure Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Single Road Closure Scenario,PSORouter,50,6,318.303,326.000,500.400,13.073,0,0,0.000,33
+Single Road Closure Scenario,PSORouter,50,7,300.514,325.000,500.100,12.935,0,0,0.000,35
+Single Road Closure Scenario,PSORouter,50,8,340.714,379.000,584.200,14.141,0,0,0.000,35
+Single Road Closure Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Single Road Closure Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Single Road Closure Scenario,PSORouter,100,1,304.143,318.000,557.600,21.697,0,0,0.000,63
+Single Road Closure Scenario,PSORouter,100,2,309.444,283.000,553.900,22.164,0,0,0.000,63
+Single Road Closure Scenario,PSORouter,100,3,309.477,353.000,585.000,25.319,0,0,0.000,65
+Single Road Closure Scenario,PSORouter,100,4,301.171,313.500,534.150,26.156,0,0,0.000,70
+Single Road Closure Scenario,PSORouter,100,5,275.966,290.000,565.500,19.793,0,0,0.000,59
+Single Road Closure Scenario,PSORouter,100,6,304.866,295.000,544.900,24.230,0,0,0.000,67
+Single Road Closure Scenario,PSORouter,100,7,289.812,296.000,558.000,24.769,0,0,0.000,69
+Single Road Closure Scenario,PSORouter,100,8,331.667,332.500,592.250,27.913,0,0,0.000,72
+Single Road Closure Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Single Road Closure Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Single Road Closure Scenario,PSORouter,200,1,271.654,282.000,560.600,41.834,0,0,0.000,133
+Single Road Closure Scenario,PSORouter,200,2,264.916,254.000,532.000,39.837,0,0,0.000,131
+Single Road Closure Scenario,PSORouter,200,3,282.496,300.000,554.000,47.172,0,0,0.000,141
+Single Road Closure Scenario,PSORouter,200,4,269.456,291.000,538.000,44.582,0,0,0.000,136
+Single Road Closure Scenario,PSORouter,200,5,262.921,280.000,564.250,41.483,0,0,0.000,126
+Single Road Closure Scenario,PSORouter,200,6,269.043,279.000,550.000,45.565,0,0,0.000,141
+Single Road Closure Scenario,PSORouter,200,7,259.890,279.000,558.800,46.545,0,0,0.000,145
+Single Road Closure Scenario,PSORouter,200,8,279.207,294.000,583.800,48.798,0,0,0.000,145
+Single Road Closure Scenario,PSORouter,200,9,248.507,279.500,558.900,42.086,0,0,0.000,138
+Single Road Closure Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Single Road Closure Scenario,E3HybridRouter,25,1,324.625,320.500,502.500,7.709,0,0,442.283,24
+Single Road Closure Scenario,E3HybridRouter,25,2,302.222,292.000,502.750,5.144,0,0,429.600,18
+Single Road Closure Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Single Road Closure Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.352,0,0,0.000,19
+Single Road Closure Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Single Road Closure Scenario,E3HybridRouter,25,6,284.143,279.000,461.000,7.431,0,0,0.000,21
+Single Road Closure Scenario,E3HybridRouter,25,7,289.526,241.000,557.100,6.708,0,0,0.000,19
+Single Road Closure Scenario,E3HybridRouter,25,8,392.143,422.000,594.000,8.969,0,0,0.000,21
+Single Road Closure Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Single Road Closure Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Single Road Closure Scenario,E3HybridRouter,50,1,322.762,327.000,501.850,14.959,0,0,0.000,42
+Single Road Closure Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Single Road Closure Scenario,E3HybridRouter,50,3,292.132,289.000,519.650,14.175,0,0,0.000,38
+Single Road Closure Scenario,E3HybridRouter,50,4,276.105,283.500,517.550,12.665,0,0,0.000,38
+Single Road Closure Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Single Road Closure Scenario,E3HybridRouter,50,6,317.846,318.000,563.700,15.209,0,0,0.000,39
+Single Road Closure Scenario,E3HybridRouter,50,7,273.658,239.500,551.900,12.969,0,0,0.000,38
+Single Road Closure Scenario,E3HybridRouter,50,8,333.707,377.000,593.000,16.001,0,0,0.000,41
+Single Road Closure Scenario,E3HybridRouter,50,9,292.324,280.000,537.400,14.688,0,0,0.000,37
+Single Road Closure Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Single Road Closure Scenario,E3HybridRouter,100,1,302.526,306.500,549.150,27.466,0,0,0.000,78
+Single Road Closure Scenario,E3HybridRouter,100,2,283.347,278.000,544.250,23.770,0,0,0.000,72
+Single Road Closure Scenario,E3HybridRouter,100,3,293.162,300.000,532.400,26.930,0,0,0.000,74
+Single Road Closure Scenario,E3HybridRouter,100,4,281.785,291.000,514.100,27.705,0,0,0.000,79
+Single Road Closure Scenario,E3HybridRouter,100,5,289.427,305.000,556.500,26.801,0,0,0.000,75
+Single Road Closure Scenario,E3HybridRouter,100,6,303.987,295.000,565.100,27.323,0,0,0.000,75
+Single Road Closure Scenario,E3HybridRouter,100,7,272.659,240.000,550.950,27.480,0,0,0.000,82
+Single Road Closure Scenario,E3HybridRouter,100,8,300.179,349.000,593.150,27.017,0,0,0.000,78
+Single Road Closure Scenario,E3HybridRouter,100,9,273.039,288.500,534.750,26.600,0,0,0.000,76
+Single Road Closure Scenario,E3HybridRouter,100,10,279.568,305.000,559.000,25.170,0,0,0.000,74
+Single Road Closure Scenario,E3HybridRouter,200,1,270.258,290.000,546.000,47.726,0,0,0.000,151
+Single Road Closure Scenario,E3HybridRouter,200,2,262.702,258.000,545.000,45.147,0,0,0.000,151
+Single Road Closure Scenario,E3HybridRouter,200,3,270.477,295.000,532.800,49.481,0,0,0.000,149
+Single Road Closure Scenario,E3HybridRouter,200,4,262.701,278.000,515.400,46.440,0,0,0.000,147
+Single Road Closure Scenario,E3HybridRouter,200,5,280.786,289.000,534.600,55.550,0,0,0.000,159
+Single Road Closure Scenario,E3HybridRouter,200,6,270.885,283.000,564.600,51.370,0,0,0.000,157
+Single Road Closure Scenario,E3HybridRouter,200,7,252.205,235.000,552.500,48.608,0,0,0.000,156
+Single Road Closure Scenario,E3HybridRouter,200,8,273.667,281.000,574.100,52.578,0,0,0.000,159
+Single Road Closure Scenario,E3HybridRouter,200,9,257.174,280.000,542.300,50.333,0,0,0.000,155
+Single Road Closure Scenario,E3HybridRouter,200,10,245.660,261.000,553.200,46.145,0,0,0.000,153
+Progressive Closures Scenario,DijkstraRouter,25,1,310.208,304.500,457.800,7.433,0,0,2.034,24
+Progressive Closures Scenario,DijkstraRouter,25,2,303.909,289.500,546.650,6.591,0,0,1.391,22
+Progressive Closures Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Progressive Closures Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Progressive Closures Scenario,DijkstraRouter,25,5,307.800,341.500,458.050,8.465,0,0,0.000,20
+Progressive Closures Scenario,DijkstraRouter,25,6,316.208,300.000,527.650,9.036,0,0,0.000,24
+Progressive Closures Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Progressive Closures Scenario,DijkstraRouter,25,8,394.130,410.000,593.900,9.510,0,0,0.000,23
+Progressive Closures Scenario,DijkstraRouter,25,9,336.591,357.000,592.800,9.335,0,0,0.000,22
+Progressive Closures Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Progressive Closures Scenario,DijkstraRouter,50,1,307.822,310.000,473.600,14.930,0,0,0.000,45
+Progressive Closures Scenario,DijkstraRouter,50,2,283.103,262.000,549.100,12.122,0,0,0.000,39
+Progressive Closures Scenario,DijkstraRouter,50,3,284.308,288.000,472.400,14.419,0,0,0.000,39
+Progressive Closures Scenario,DijkstraRouter,50,4,302.977,323.000,503.400,15.464,0,0,0.000,43
+Progressive Closures Scenario,DijkstraRouter,50,5,337.474,363.000,515.950,15.261,0,0,0.000,38
+Progressive Closures Scenario,DijkstraRouter,50,6,321.933,323.000,554.400,17.532,0,0,0.000,45
+Progressive Closures Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Progressive Closures Scenario,DijkstraRouter,50,8,352.170,371.000,592.200,18.335,0,0,0.000,47
+Progressive Closures Scenario,DijkstraRouter,50,9,302.761,302.000,548.500,17.743,0,0,0.000,46
+Progressive Closures Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Progressive Closures Scenario,DijkstraRouter,100,1,289.954,299.000,504.600,28.896,0,0,0.000,87
+Progressive Closures Scenario,DijkstraRouter,100,2,271.146,266.500,503.650,25.863,0,0,0.000,82
+Progressive Closures Scenario,DijkstraRouter,100,3,308.817,325.500,556.000,30.886,0,0,0.000,82
+Progressive Closures Scenario,DijkstraRouter,100,4,306.885,323.000,544.200,32.094,0,0,0.000,87
+Progressive Closures Scenario,DijkstraRouter,100,5,291.500,290.500,550.350,28.154,0,0,0.000,80
+Progressive Closures Scenario,DijkstraRouter,100,6,306.940,316.000,555.350,31.122,0,0,0.000,84
+Progressive Closures Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Progressive Closures Scenario,DijkstraRouter,100,8,316.156,334.500,591.200,32.070,0,0,0.000,90
+Progressive Closures Scenario,DijkstraRouter,100,9,290.489,290.500,554.950,31.534,0,0,0.000,88
+Progressive Closures Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Progressive Closures Scenario,DijkstraRouter,200,1,269.197,285.000,533.000,53.875,0,0,0.000,173
+Progressive Closures Scenario,DijkstraRouter,200,2,264.439,280.000,549.800,53.916,0,0,0.000,173
+Progressive Closures Scenario,DijkstraRouter,200,3,283.965,297.500,549.200,56.736,0,0,0.000,170
+Progressive Closures Scenario,DijkstraRouter,200,4,278.709,305.000,521.500,57.839,0,0,0.000,175
+Progressive Closures Scenario,DijkstraRouter,200,5,279.779,285.500,550.350,59.054,0,0,0.000,172
+Progressive Closures Scenario,DijkstraRouter,200,6,268.472,279.500,522.350,58.216,0,0,0.000,180
+Progressive Closures Scenario,DijkstraRouter,200,7,256.135,243.500,555.350,55.443,0,0,0.000,178
+Progressive Closures Scenario,DijkstraRouter,200,8,275.730,291.500,574.150,56.954,0,0,0.000,178
+Progressive Closures Scenario,DijkstraRouter,200,9,257.824,279.000,535.500,55.753,0,0,0.000,176
+Progressive Closures Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Progressive Closures Scenario,AStarRouter,25,1,310.208,304.500,457.800,7.433,0,0,1.956,24
+Progressive Closures Scenario,AStarRouter,25,2,303.909,289.500,546.650,6.591,0,0,1.894,22
+Progressive Closures Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Progressive Closures Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Progressive Closures Scenario,AStarRouter,25,5,307.800,341.500,458.050,8.465,0,0,0.000,20
+Progressive Closures Scenario,AStarRouter,25,6,316.208,300.000,527.650,9.036,0,0,0.000,24
+Progressive Closures Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Progressive Closures Scenario,AStarRouter,25,8,394.130,410.000,593.900,9.510,0,0,0.000,23
+Progressive Closures Scenario,AStarRouter,25,9,336.591,357.000,592.800,9.335,0,0,0.000,22
+Progressive Closures Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Progressive Closures Scenario,AStarRouter,50,1,307.822,310.000,473.600,14.930,0,0,0.000,45
+Progressive Closures Scenario,AStarRouter,50,2,283.103,262.000,549.100,12.122,0,0,0.000,39
+Progressive Closures Scenario,AStarRouter,50,3,284.308,288.000,472.400,14.419,0,0,0.000,39
+Progressive Closures Scenario,AStarRouter,50,4,302.977,323.000,503.400,15.464,0,0,0.000,43
+Progressive Closures Scenario,AStarRouter,50,5,337.474,363.000,515.950,15.261,0,0,0.000,38
+Progressive Closures Scenario,AStarRouter,50,6,321.933,323.000,554.400,17.532,0,0,0.000,45
+Progressive Closures Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Progressive Closures Scenario,AStarRouter,50,8,352.170,371.000,592.200,18.335,0,0,0.000,47
+Progressive Closures Scenario,AStarRouter,50,9,302.761,302.000,548.500,17.743,0,0,0.000,46
+Progressive Closures Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Progressive Closures Scenario,AStarRouter,100,1,289.954,299.000,504.600,28.896,0,0,0.000,87
+Progressive Closures Scenario,AStarRouter,100,2,271.146,266.500,503.650,25.863,0,0,0.000,82
+Progressive Closures Scenario,AStarRouter,100,3,308.817,325.500,556.000,30.886,0,0,0.000,82
+Progressive Closures Scenario,AStarRouter,100,4,306.885,323.000,544.200,32.094,0,0,0.000,87
+Progressive Closures Scenario,AStarRouter,100,5,291.500,290.500,550.350,28.154,0,0,0.000,80
+Progressive Closures Scenario,AStarRouter,100,6,306.940,316.000,555.350,31.122,0,0,0.000,84
+Progressive Closures Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Progressive Closures Scenario,AStarRouter,100,8,316.156,334.500,591.200,32.070,0,0,0.000,90
+Progressive Closures Scenario,AStarRouter,100,9,290.489,290.500,554.950,31.534,0,0,0.000,88
+Progressive Closures Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Progressive Closures Scenario,AStarRouter,200,1,269.197,285.000,533.000,53.875,0,0,0.000,173
+Progressive Closures Scenario,AStarRouter,200,2,264.439,280.000,549.800,53.916,0,0,0.000,173
+Progressive Closures Scenario,AStarRouter,200,3,283.965,297.500,549.200,56.736,0,0,0.000,170
+Progressive Closures Scenario,AStarRouter,200,4,278.709,305.000,521.500,57.839,0,0,0.000,175
+Progressive Closures Scenario,AStarRouter,200,5,279.779,285.500,550.350,59.054,0,0,0.000,172
+Progressive Closures Scenario,AStarRouter,200,6,268.472,279.500,522.350,58.216,0,0,0.000,180
+Progressive Closures Scenario,AStarRouter,200,7,256.135,243.500,555.350,55.443,0,0,0.000,178
+Progressive Closures Scenario,AStarRouter,200,8,275.730,291.500,574.150,56.954,0,0,0.000,178
+Progressive Closures Scenario,AStarRouter,200,9,257.824,279.000,535.500,55.753,0,0,0.000,176
+Progressive Closures Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Progressive Closures Scenario,ACORouter,25,1,334.105,310.000,526.500,7.460,0,0,9.781,19
+Progressive Closures Scenario,ACORouter,25,2,304.348,298.000,588.700,8.806,0,0,14.010,23
+Progressive Closures Scenario,ACORouter,25,3,284.600,305.500,443.550,7.573,0,0,0.000,20
+Progressive Closures Scenario,ACORouter,25,4,318.773,348.000,577.100,8.890,0,0,0.000,22
+Progressive Closures Scenario,ACORouter,25,5,306.714,302.000,522.000,8.900,0,0,0.000,21
+Progressive Closures Scenario,ACORouter,25,6,258.864,264.500,476.050,7.731,0,0,0.000,22
+Progressive Closures Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Progressive Closures Scenario,ACORouter,25,8,339.684,375.000,593.100,6.684,0,0,0.000,19
+Progressive Closures Scenario,ACORouter,25,9,281.833,296.000,497.350,8.732,0,0,0.000,24
+Progressive Closures Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Progressive Closures Scenario,ACORouter,50,1,355.667,374.000,526.400,15.866,0,0,0.000,39
+Progressive Closures Scenario,ACORouter,50,2,278.558,256.000,591.100,13.775,0,0,0.000,43
+Progressive Closures Scenario,ACORouter,50,3,300.800,324.000,474.850,15.736,0,0,0.000,40
+Progressive Closures Scenario,ACORouter,50,4,327.119,350.500,578.600,16.670,0,0,0.000,42
+Progressive Closures Scenario,ACORouter,50,5,302.359,301.000,526.600,15.422,0,0,0.000,39
+Progressive Closures Scenario,ACORouter,50,6,283.682,287.000,514.400,15.125,0,0,0.000,44
+Progressive Closures Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Progressive Closures Scenario,ACORouter,50,8,350.756,375.000,595.000,15.381,0,0,0.000,41
+Progressive Closures Scenario,ACORouter,50,9,287.021,317.000,495.700,17.198,0,0,0.000,47
+Progressive Closures Scenario,ACORouter,50,10,327.698,333.000,557.900,16.924,0,0,0.000,43
+Progressive Closures Scenario,ACORouter,100,1,299.718,304.000,522.000,30.056,0,0,0.000,85
+Progressive Closures Scenario,ACORouter,100,2,277.747,258.000,566.800,28.606,0,0,0.000,87
+Progressive Closures Scenario,ACORouter,100,3,286.905,295.000,521.200,30.661,0,0,0.000,84
+Progressive Closures Scenario,ACORouter,100,4,284.770,295.000,562.400,31.110,0,0,0.000,87
+Progressive Closures Scenario,ACORouter,100,5,282.280,287.000,559.950,29.679,0,0,0.000,82
+Progressive Closures Scenario,ACORouter,100,6,278.624,279.000,514.200,29.334,0,0,0.000,85
+Progressive Closures Scenario,ACORouter,100,7,245.936,244.000,478.700,24.876,0,0,0.000,78
+Progressive Closures Scenario,ACORouter,100,8,308.738,323.500,564.050,29.189,0,0,0.000,80
+Progressive Closures Scenario,ACORouter,100,9,284.000,313.500,570.800,30.150,0,0,0.000,88
+Progressive Closures Scenario,ACORouter,100,10,312.034,325.000,557.000,33.366,0,0,0.000,89
+Progressive Closures Scenario,ACORouter,200,1,268.932,278.000,549.000,53.620,0,0,0.000,161
+Progressive Closures Scenario,ACORouter,200,2,271.063,278.000,550.000,54.941,0,0,0.000,174
+Progressive Closures Scenario,ACORouter,200,3,270.305,289.000,550.000,56.886,0,0,0.000,167
+Progressive Closures Scenario,ACORouter,200,4,249.953,258.000,520.550,52.292,0,0,0.000,170
+Progressive Closures Scenario,ACORouter,200,5,270.527,280.000,558.100,57.528,0,0,0.000,167
+Progressive Closures Scenario,ACORouter,200,6,261.145,279.000,548.400,55.532,0,0,0.000,173
+Progressive Closures Scenario,ACORouter,200,7,248.836,249.000,507.400,50.350,0,0,0.000,159
+Progressive Closures Scenario,ACORouter,200,8,271.692,279.000,557.500,51.149,0,0,0.000,156
+Progressive Closures Scenario,ACORouter,200,9,258.459,261.500,516.600,53.734,0,0,0.000,172
+Progressive Closures Scenario,ACORouter,200,10,280.673,295.000,551.500,56.951,0,0,0.000,171
+Progressive Closures Scenario,BCORouter,25,1,298.818,296.000,506.050,7.296,0,0,6.456,22
+Progressive Closures Scenario,BCORouter,25,2,318.864,302.000,576.050,7.594,0,0,6.842,22
+Progressive Closures Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Progressive Closures Scenario,BCORouter,25,4,287.211,258.000,491.000,6.299,0,0,0.000,19
+Progressive Closures Scenario,BCORouter,25,5,293.368,306.000,462.700,7.453,0,0,0.000,19
+Progressive Closures Scenario,BCORouter,25,6,292.739,280.000,518.100,7.911,0,0,0.000,23
+Progressive Closures Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Progressive Closures Scenario,BCORouter,25,8,364.905,377.000,564.000,8.597,0,0,0.000,21
+Progressive Closures Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Progressive Closures Scenario,BCORouter,25,10,309.400,331.000,483.000,4.619,0,0,0.000,15
+Progressive Closures Scenario,BCORouter,50,1,334.429,315.000,548.000,15.576,0,0,0.000,42
+Progressive Closures Scenario,BCORouter,50,2,265.214,260.500,460.250,12.470,0,0,0.000,42
+Progressive Closures Scenario,BCORouter,50,3,322.722,317.500,536.750,14.759,0,0,0.000,36
+Progressive Closures Scenario,BCORouter,50,4,283.725,283.500,490.050,13.000,0,0,0.000,40
+Progressive Closures Scenario,BCORouter,50,5,289.842,304.500,524.550,14.625,0,0,0.000,38
+Progressive Closures Scenario,BCORouter,50,6,285.667,279.000,548.050,14.881,0,0,0.000,42
+Progressive Closures Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Progressive Closures Scenario,BCORouter,50,8,341.026,374.000,519.900,15.295,0,0,0.000,39
+Progressive Closures Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Progressive Closures Scenario,BCORouter,50,10,303.171,323.000,550.500,12.415,0,0,0.000,35
+Progressive Closures Scenario,BCORouter,100,1,315.913,314.500,550.100,29.085,0,0,0.000,80
+Progressive Closures Scenario,BCORouter,100,2,263.145,273.000,534.400,25.476,0,0,0.000,83
+Progressive Closures Scenario,BCORouter,100,3,317.461,314.500,580.750,29.896,0,0,0.000,76
+Progressive Closures Scenario,BCORouter,100,4,300.434,328.000,509.900,30.008,0,0,0.000,83
+Progressive Closures Scenario,BCORouter,100,5,287.487,287.500,557.900,26.963,0,0,0.000,78
+Progressive Closures Scenario,BCORouter,100,6,262.793,277.500,494.250,26.673,0,0,0.000,82
+Progressive Closures Scenario,BCORouter,100,7,299.193,304.000,566.600,29.800,0,0,0.000,83
+Progressive Closures Scenario,BCORouter,100,8,308.821,330.000,516.000,30.098,0,0,0.000,84
+Progressive Closures Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Progressive Closures Scenario,BCORouter,100,10,269.373,290.000,532.600,24.872,0,0,0.000,75
+Progressive Closures Scenario,BCORouter,200,1,283.057,293.500,561.100,54.108,0,0,0.000,158
+Progressive Closures Scenario,BCORouter,200,2,248.369,246.500,549.000,48.392,0,0,0.000,168
+Progressive Closures Scenario,BCORouter,200,3,287.902,290.000,555.500,57.684,0,0,0.000,163
+Progressive Closures Scenario,BCORouter,200,4,291.232,304.500,537.950,58.282,0,0,0.000,168
+Progressive Closures Scenario,BCORouter,200,5,275.752,281.000,548.800,55.813,0,0,0.000,165
+Progressive Closures Scenario,BCORouter,200,6,248.900,242.500,531.250,53.273,0,0,0.000,170
+Progressive Closures Scenario,BCORouter,200,7,286.331,280.000,562.000,57.826,0,0,0.000,166
+Progressive Closures Scenario,BCORouter,200,8,272.844,294.000,550.800,57.643,0,0,0.000,173
+Progressive Closures Scenario,BCORouter,200,9,263.163,274.500,567.450,56.151,0,0,0.000,172
+Progressive Closures Scenario,BCORouter,200,10,253.732,262.500,533.700,49.409,0,0,0.000,164
+Progressive Closures Scenario,PSORouter,25,1,359.684,367.000,547.300,7.127,0,0,29.691,19
+Progressive Closures Scenario,PSORouter,25,2,350.250,389.000,563.000,5.220,0,0,31.237,16
+Progressive Closures Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Progressive Closures Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Progressive Closures Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Progressive Closures Scenario,PSORouter,25,6,324.200,322.500,493.050,7.882,0,0,0.000,20
+Progressive Closures Scenario,PSORouter,25,7,357.812,383.500,562.500,6.800,0,0,0.000,16
+Progressive Closures Scenario,PSORouter,25,8,389.235,420.000,582.800,7.022,0,0,0.000,17
+Progressive Closures Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Progressive Closures Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Progressive Closures Scenario,PSORouter,50,1,345.065,331.000,556.000,11.365,0,0,0.000,31
+Progressive Closures Scenario,PSORouter,50,2,363.897,371.000,578.000,10.708,0,0,0.000,29
+Progressive Closures Scenario,PSORouter,50,3,319.000,339.000,575.000,12.548,0,0,0.000,30
+Progressive Closures Scenario,PSORouter,50,4,312.324,326.500,532.750,12.589,0,0,0.000,34
+Progressive Closures Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Progressive Closures Scenario,PSORouter,50,6,310.844,324.000,493.450,12.635,0,0,0.000,32
+Progressive Closures Scenario,PSORouter,50,7,300.514,325.000,500.100,12.935,0,0,0.000,35
+Progressive Closures Scenario,PSORouter,50,8,340.143,366.000,584.200,13.897,0,0,0.000,35
+Progressive Closures Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Progressive Closures Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Progressive Closures Scenario,PSORouter,100,1,304.143,318.000,557.600,21.697,0,0,0.000,63
+Progressive Closures Scenario,PSORouter,100,2,309.444,283.000,553.900,22.164,0,0,0.000,63
+Progressive Closures Scenario,PSORouter,100,3,309.477,353.000,585.000,25.319,0,0,0.000,65
+Progressive Closures Scenario,PSORouter,100,4,299.129,314.000,533.600,26.120,0,0,0.000,70
+Progressive Closures Scenario,PSORouter,100,5,275.966,290.000,565.500,19.793,0,0,0.000,59
+Progressive Closures Scenario,PSORouter,100,6,297.477,288.000,513.200,23.231,0,0,0.000,65
+Progressive Closures Scenario,PSORouter,100,7,289.812,296.000,558.000,24.769,0,0,0.000,69
+Progressive Closures Scenario,PSORouter,100,8,330.225,330.000,592.000,27.490,0,0,0.000,71
+Progressive Closures Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Progressive Closures Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Progressive Closures Scenario,PSORouter,200,1,270.182,281.500,560.800,41.427,0,0,0.000,132
+Progressive Closures Scenario,PSORouter,200,2,264.508,257.500,546.850,39.514,0,0,0.000,130
+Progressive Closures Scenario,PSORouter,200,3,284.674,302.000,554.000,46.968,0,0,0.000,141
+Progressive Closures Scenario,PSORouter,200,4,273.500,294.000,537.150,46.127,0,0,0.000,138
+Progressive Closures Scenario,PSORouter,200,5,260.760,280.000,545.200,41.042,0,0,0.000,125
+Progressive Closures Scenario,PSORouter,200,6,265.971,279.000,548.200,44.821,0,0,0.000,139
+Progressive Closures Scenario,PSORouter,200,7,259.231,266.000,574.200,45.465,0,0,0.000,143
+Progressive Closures Scenario,PSORouter,200,8,275.699,288.000,584.600,47.691,0,0,0.000,143
+Progressive Closures Scenario,PSORouter,200,9,243.743,267.500,558.500,40.950,0,0,0.000,136
+Progressive Closures Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Progressive Closures Scenario,E3HybridRouter,25,1,324.625,320.500,502.500,7.709,0,0,394.960,24
+Progressive Closures Scenario,E3HybridRouter,25,2,302.222,292.000,502.750,5.144,0,0,548.351,18
+Progressive Closures Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Progressive Closures Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.353,0,0,0.000,19
+Progressive Closures Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Progressive Closures Scenario,E3HybridRouter,25,6,284.048,279.000,461.000,7.446,0,0,0.000,21
+Progressive Closures Scenario,E3HybridRouter,25,7,289.526,241.000,557.100,6.708,0,0,0.000,19
+Progressive Closures Scenario,E3HybridRouter,25,8,387.286,419.000,594.000,8.706,0,0,0.000,21
+Progressive Closures Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Progressive Closures Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Progressive Closures Scenario,E3HybridRouter,50,1,322.714,327.000,501.850,14.944,0,0,0.000,42
+Progressive Closures Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,50,3,292.132,289.000,519.650,14.175,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,50,4,275.868,283.500,516.350,12.638,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Progressive Closures Scenario,E3HybridRouter,50,6,311.579,306.500,564.200,14.680,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,50,7,273.658,239.500,551.900,12.969,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,50,8,333.415,370.000,594.000,15.774,0,0,0.000,41
+Progressive Closures Scenario,E3HybridRouter,50,9,293.243,280.000,537.400,14.538,0,0,0.000,37
+Progressive Closures Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Progressive Closures Scenario,E3HybridRouter,100,1,305.532,317.000,550.300,27.816,0,0,0.000,79
+Progressive Closures Scenario,E3HybridRouter,100,2,283.347,278.000,544.250,23.770,0,0,0.000,72
+Progressive Closures Scenario,E3HybridRouter,100,3,289.712,300.000,523.200,26.298,0,0,0.000,73
+Progressive Closures Scenario,E3HybridRouter,100,4,281.747,291.000,514.100,27.650,0,0,0.000,79
+Progressive Closures Scenario,E3HybridRouter,100,5,285.716,297.000,524.450,26.261,0,0,0.000,74
+Progressive Closures Scenario,E3HybridRouter,100,6,303.851,295.000,571.000,26.813,0,0,0.000,74
+Progressive Closures Scenario,E3HybridRouter,100,7,272.659,240.000,550.950,27.480,0,0,0.000,82
+Progressive Closures Scenario,E3HybridRouter,100,8,298.299,332.000,593.200,26.637,0,0,0.000,77
+Progressive Closures Scenario,E3HybridRouter,100,9,272.987,290.000,534.000,26.622,0,0,0.000,76
+Progressive Closures Scenario,E3HybridRouter,100,10,279.581,305.000,559.000,25.171,0,0,0.000,74
+Progressive Closures Scenario,E3HybridRouter,200,1,270.272,291.000,545.500,47.638,0,0,0.000,151
+Progressive Closures Scenario,E3HybridRouter,200,2,259.912,256.000,544.000,43.374,0,0,0.000,147
+Progressive Closures Scenario,E3HybridRouter,200,3,273.047,296.000,530.800,49.433,0,0,0.000,149
+Progressive Closures Scenario,E3HybridRouter,200,4,262.592,279.000,514.700,46.424,0,0,0.000,147
+Progressive Closures Scenario,E3HybridRouter,200,5,278.956,288.000,523.800,55.107,0,0,0.000,158
+Progressive Closures Scenario,E3HybridRouter,200,6,269.429,280.500,570.250,50.706,0,0,0.000,156
+Progressive Closures Scenario,E3HybridRouter,200,7,249.981,235.000,553.100,47.834,0,0,0.000,154
+Progressive Closures Scenario,E3HybridRouter,200,8,271.567,276.000,584.000,51.886,0,0,0.000,157
+Progressive Closures Scenario,E3HybridRouter,200,9,254.877,280.000,538.350,49.711,0,0,0.000,154
+Progressive Closures Scenario,E3HybridRouter,200,10,245.647,261.000,553.200,46.136,0,0,0.000,153
+Emergency Incident Scenario,DijkstraRouter,25,1,304.087,298.000,454.600,7.323,0,0,0.910,23
+Emergency Incident Scenario,DijkstraRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.389,22
+Emergency Incident Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Emergency Incident Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Emergency Incident Scenario,DijkstraRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Emergency Incident Scenario,DijkstraRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Emergency Incident Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Emergency Incident Scenario,DijkstraRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Emergency Incident Scenario,DijkstraRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Emergency Incident Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Emergency Incident Scenario,DijkstraRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Emergency Incident Scenario,DijkstraRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Emergency Incident Scenario,DijkstraRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Emergency Incident Scenario,DijkstraRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Emergency Incident Scenario,DijkstraRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Emergency Incident Scenario,DijkstraRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Emergency Incident Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Emergency Incident Scenario,DijkstraRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Emergency Incident Scenario,DijkstraRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Emergency Incident Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Emergency Incident Scenario,DijkstraRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Emergency Incident Scenario,DijkstraRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Emergency Incident Scenario,DijkstraRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Emergency Incident Scenario,DijkstraRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Emergency Incident Scenario,DijkstraRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Emergency Incident Scenario,DijkstraRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Emergency Incident Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Emergency Incident Scenario,DijkstraRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Emergency Incident Scenario,DijkstraRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Emergency Incident Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Emergency Incident Scenario,DijkstraRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Emergency Incident Scenario,DijkstraRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Emergency Incident Scenario,DijkstraRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Emergency Incident Scenario,DijkstraRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Emergency Incident Scenario,DijkstraRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Emergency Incident Scenario,DijkstraRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Emergency Incident Scenario,DijkstraRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Emergency Incident Scenario,DijkstraRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Emergency Incident Scenario,DijkstraRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Emergency Incident Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Emergency Incident Scenario,AStarRouter,25,1,304.087,298.000,454.600,7.323,0,0,9.271,23
+Emergency Incident Scenario,AStarRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.604,22
+Emergency Incident Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Emergency Incident Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Emergency Incident Scenario,AStarRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Emergency Incident Scenario,AStarRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Emergency Incident Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Emergency Incident Scenario,AStarRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Emergency Incident Scenario,AStarRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Emergency Incident Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Emergency Incident Scenario,AStarRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Emergency Incident Scenario,AStarRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Emergency Incident Scenario,AStarRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Emergency Incident Scenario,AStarRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Emergency Incident Scenario,AStarRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Emergency Incident Scenario,AStarRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Emergency Incident Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Emergency Incident Scenario,AStarRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Emergency Incident Scenario,AStarRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Emergency Incident Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Emergency Incident Scenario,AStarRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Emergency Incident Scenario,AStarRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Emergency Incident Scenario,AStarRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Emergency Incident Scenario,AStarRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Emergency Incident Scenario,AStarRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Emergency Incident Scenario,AStarRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Emergency Incident Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Emergency Incident Scenario,AStarRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Emergency Incident Scenario,AStarRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Emergency Incident Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Emergency Incident Scenario,AStarRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Emergency Incident Scenario,AStarRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Emergency Incident Scenario,AStarRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Emergency Incident Scenario,AStarRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Emergency Incident Scenario,AStarRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Emergency Incident Scenario,AStarRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Emergency Incident Scenario,AStarRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Emergency Incident Scenario,AStarRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Emergency Incident Scenario,AStarRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Emergency Incident Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Emergency Incident Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,8.521,20
+Emergency Incident Scenario,ACORouter,25,2,301.478,298.000,588.600,8.999,0,0,7.349,23
+Emergency Incident Scenario,ACORouter,25,3,277.421,301.000,445.100,7.420,0,0,0.000,19
+Emergency Incident Scenario,ACORouter,25,4,327.304,368.000,574.400,9.390,0,0,0.000,23
+Emergency Incident Scenario,ACORouter,25,5,285.750,276.500,524.850,8.731,0,0,0.000,20
+Emergency Incident Scenario,ACORouter,25,6,261.000,264.500,478.350,8.263,0,0,0.000,22
+Emergency Incident Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Emergency Incident Scenario,ACORouter,25,8,340.421,378.000,594.100,6.918,0,0,0.000,19
+Emergency Incident Scenario,ACORouter,25,9,271.870,294.000,486.000,8.578,0,0,0.000,23
+Emergency Incident Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Emergency Incident Scenario,ACORouter,50,1,349.463,371.000,523.000,16.799,0,0,0.000,41
+Emergency Incident Scenario,ACORouter,50,2,274.023,256.000,571.600,13.898,0,0,0.000,43
+Emergency Incident Scenario,ACORouter,50,3,297.564,322.000,476.700,15.534,0,0,0.000,39
+Emergency Incident Scenario,ACORouter,50,4,326.767,332.000,574.500,17.186,0,0,0.000,43
+Emergency Incident Scenario,ACORouter,50,5,293.526,291.500,528.550,15.333,0,0,0.000,38
+Emergency Incident Scenario,ACORouter,50,6,283.907,288.000,514.700,15.628,0,0,0.000,43
+Emergency Incident Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Emergency Incident Scenario,ACORouter,50,8,350.976,378.000,594.000,15.633,0,0,0.000,41
+Emergency Incident Scenario,ACORouter,50,9,281.043,307.500,484.750,16.957,0,0,0.000,46
+Emergency Incident Scenario,ACORouter,50,10,322.791,333.000,556.000,16.992,0,0,0.000,43
+Emergency Incident Scenario,ACORouter,100,1,293.872,301.000,509.750,30.331,0,0,0.000,86
+Emergency Incident Scenario,ACORouter,100,2,277.227,259.000,549.650,29.037,0,0,0.000,88
+Emergency Incident Scenario,ACORouter,100,3,281.566,290.000,508.200,30.555,0,0,0.000,83
+Emergency Incident Scenario,ACORouter,100,4,288.809,301.000,588.200,32.262,0,0,0.000,89
+Emergency Incident Scenario,ACORouter,100,5,280.195,282.500,560.900,30.006,0,0,0.000,82
+Emergency Incident Scenario,ACORouter,100,6,279.400,279.000,514.200,30.097,0,0,0.000,85
+Emergency Incident Scenario,ACORouter,100,7,246.295,244.000,478.700,25.382,0,0,0.000,78
+Emergency Incident Scenario,ACORouter,100,8,312.136,324.000,565.000,30.003,0,0,0.000,81
+Emergency Incident Scenario,ACORouter,100,9,284.273,313.000,570.150,30.534,0,0,0.000,88
+Emergency Incident Scenario,ACORouter,100,10,309.674,325.000,554.400,33.444,0,0,0.000,89
+Emergency Incident Scenario,ACORouter,200,1,270.994,279.000,550.600,55.557,0,0,0.000,165
+Emergency Incident Scenario,ACORouter,200,2,269.886,278.000,546.500,55.451,0,0,0.000,175
+Emergency Incident Scenario,ACORouter,200,3,267.452,282.500,549.500,57.067,0,0,0.000,166
+Emergency Incident Scenario,ACORouter,200,4,248.515,258.000,517.500,53.015,0,0,0.000,171
+Emergency Incident Scenario,ACORouter,200,5,268.060,279.000,553.900,57.895,0,0,0.000,167
+Emergency Incident Scenario,ACORouter,200,6,262.231,279.000,549.000,56.317,0,0,0.000,173
+Emergency Incident Scenario,ACORouter,200,7,250.037,249.000,511.300,51.299,0,0,0.000,160
+Emergency Incident Scenario,ACORouter,200,8,273.956,279.000,549.900,52.178,0,0,0.000,158
+Emergency Incident Scenario,ACORouter,200,9,258.924,261.000,522.350,53.959,0,0,0.000,172
+Emergency Incident Scenario,ACORouter,200,10,282.555,301.000,550.400,57.956,0,0,0.000,173
+Emergency Incident Scenario,BCORouter,25,1,300.318,296.000,506.050,7.576,0,0,4.633,22
+Emergency Incident Scenario,BCORouter,25,2,305.727,294.000,575.100,7.793,0,0,5.082,22
+Emergency Incident Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Emergency Incident Scenario,BCORouter,25,4,288.550,266.500,490.950,6.631,0,0,0.000,20
+Emergency Incident Scenario,BCORouter,25,5,281.611,304.500,424.850,7.215,0,0,0.000,18
+Emergency Incident Scenario,BCORouter,25,6,300.583,309.500,545.350,8.641,0,0,0.000,24
+Emergency Incident Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Emergency Incident Scenario,BCORouter,25,8,365.095,378.000,557.000,8.843,0,0,0.000,21
+Emergency Incident Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Emergency Incident Scenario,BCORouter,25,10,310.733,331.000,496.600,4.888,0,0,0.000,15
+Emergency Incident Scenario,BCORouter,50,1,334.071,314.500,548.050,15.722,0,0,0.000,42
+Emergency Incident Scenario,BCORouter,50,2,272.419,263.000,548.300,12.874,0,0,0.000,43
+Emergency Incident Scenario,BCORouter,50,3,318.472,317.000,536.750,15.073,0,0,0.000,36
+Emergency Incident Scenario,BCORouter,50,4,284.610,292.000,491.000,13.532,0,0,0.000,41
+Emergency Incident Scenario,BCORouter,50,5,283.973,302.000,527.200,14.368,0,0,0.000,37
+Emergency Incident Scenario,BCORouter,50,6,293.068,279.500,557.650,15.948,0,0,0.000,44
+Emergency Incident Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Emergency Incident Scenario,BCORouter,50,8,341.282,378.000,519.200,15.502,0,0,0.000,39
+Emergency Incident Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Emergency Incident Scenario,BCORouter,50,10,303.686,323.000,549.800,12.627,0,0,0.000,35
+Emergency Incident Scenario,BCORouter,100,1,315.738,315.500,549.150,29.328,0,0,0.000,80
+Emergency Incident Scenario,BCORouter,100,2,266.541,273.000,534.000,26.567,0,0,0.000,85
+Emergency Incident Scenario,BCORouter,100,3,316.195,306.000,579.800,30.548,0,0,0.000,77
+Emergency Incident Scenario,BCORouter,100,4,297.190,319.500,508.350,30.618,0,0,0.000,84
+Emergency Incident Scenario,BCORouter,100,5,282.750,283.500,559.250,26.575,0,0,0.000,76
+Emergency Incident Scenario,BCORouter,100,6,270.929,279.000,506.800,28.586,0,0,0.000,85
+Emergency Incident Scenario,BCORouter,100,7,299.783,305.000,573.300,30.050,0,0,0.000,83
+Emergency Incident Scenario,BCORouter,100,8,310.941,331.000,526.600,30.971,0,0,0.000,85
+Emergency Incident Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Emergency Incident Scenario,BCORouter,100,10,266.405,288.500,532.350,25.026,0,0,0.000,74
+Emergency Incident Scenario,BCORouter,200,1,283.637,293.000,556.050,55.898,0,0,0.000,160
+Emergency Incident Scenario,BCORouter,200,2,253.442,253.500,558.000,50.605,0,0,0.000,172
+Emergency Incident Scenario,BCORouter,200,3,291.373,292.000,554.750,59.122,0,0,0.000,166
+Emergency Incident Scenario,BCORouter,200,4,291.193,307.000,537.000,60.031,0,0,0.000,171
+Emergency Incident Scenario,BCORouter,200,5,273.720,279.500,549.000,55.762,0,0,0.000,164
+Emergency Incident Scenario,BCORouter,200,6,252.439,248.000,547.400,55.130,0,0,0.000,173
+Emergency Incident Scenario,BCORouter,200,7,286.681,280.000,566.000,58.138,0,0,0.000,166
+Emergency Incident Scenario,BCORouter,200,8,274.577,299.000,550.900,58.390,0,0,0.000,175
+Emergency Incident Scenario,BCORouter,200,9,265.040,278.000,565.800,57.100,0,0,0.000,173
+Emergency Incident Scenario,BCORouter,200,10,250.485,249.000,534.700,49.546,0,0,0.000,163
+Emergency Incident Scenario,PSORouter,25,1,354.667,349.500,548.600,6.991,0,0,44.529,18
+Emergency Incident Scenario,PSORouter,25,2,341.533,376.000,564.300,5.219,0,0,31.271,15
+Emergency Incident Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Emergency Incident Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Emergency Incident Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Emergency Incident Scenario,PSORouter,25,6,313.056,285.000,493.150,7.696,0,0,0.000,18
+Emergency Incident Scenario,PSORouter,25,7,366.882,397.000,561.600,7.544,0,0,0.000,17
+Emergency Incident Scenario,PSORouter,25,8,389.882,420.000,582.200,7.248,0,0,0.000,17
+Emergency Incident Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Emergency Incident Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Emergency Incident Scenario,PSORouter,50,1,341.667,327.500,558.100,11.216,0,0,0.000,30
+Emergency Incident Scenario,PSORouter,50,2,359.571,355.500,577.650,10.668,0,0,0.000,28
+Emergency Incident Scenario,PSORouter,50,3,315.345,321.000,577.000,12.391,0,0,0.000,29
+Emergency Incident Scenario,PSORouter,50,4,299.844,323.500,515.350,11.907,0,0,0.000,32
+Emergency Incident Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Emergency Incident Scenario,PSORouter,50,6,311.548,323.000,502.500,12.852,0,0,0.000,31
+Emergency Incident Scenario,PSORouter,50,7,306.333,328.000,506.500,13.684,0,0,0.000,36
+Emergency Incident Scenario,PSORouter,50,8,340.714,379.000,584.200,14.141,0,0,0.000,35
+Emergency Incident Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Emergency Incident Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Emergency Incident Scenario,PSORouter,100,1,299.419,303.000,558.300,21.701,0,0,0.000,62
+Emergency Incident Scenario,PSORouter,100,2,306.629,281.000,555.750,22.131,0,0,0.000,62
+Emergency Incident Scenario,PSORouter,100,3,307.719,340.000,587.000,25.155,0,0,0.000,64
+Emergency Incident Scenario,PSORouter,100,4,299.391,311.000,535.200,26.061,0,0,0.000,69
+Emergency Incident Scenario,PSORouter,100,5,273.086,289.000,566.950,19.625,0,0,0.000,58
+Emergency Incident Scenario,PSORouter,100,6,304.545,291.000,547.750,24.410,0,0,0.000,66
+Emergency Incident Scenario,PSORouter,100,7,292.971,302.500,558.000,25.515,0,0,0.000,70
+Emergency Incident Scenario,PSORouter,100,8,330.254,331.000,592.500,27.667,0,0,0.000,71
+Emergency Incident Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Emergency Incident Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Emergency Incident Scenario,PSORouter,200,1,269.061,281.000,560.350,41.827,0,0,0.000,132
+Emergency Incident Scenario,PSORouter,200,2,263.523,254.000,532.750,39.723,0,0,0.000,130
+Emergency Incident Scenario,PSORouter,200,3,278.813,300.000,555.200,46.842,0,0,0.000,139
+Emergency Incident Scenario,PSORouter,200,4,268.385,290.000,523.300,44.831,0,0,0.000,135
+Emergency Incident Scenario,PSORouter,200,5,258.540,279.500,546.400,41.148,0,0,0.000,124
+Emergency Incident Scenario,PSORouter,200,6,269.504,279.000,550.000,46.213,0,0,0.000,141
+Emergency Incident Scenario,PSORouter,200,7,261.603,279.500,558.000,47.293,0,0,0.000,146
+Emergency Incident Scenario,PSORouter,200,8,276.182,288.000,584.500,47.761,0,0,0.000,143
+Emergency Incident Scenario,PSORouter,200,9,248.080,279.500,557.900,42.193,0,0,0.000,138
+Emergency Incident Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Emergency Incident Scenario,E3HybridRouter,25,1,309.391,299.000,456.100,7.670,0,0,460.451,23
+Emergency Incident Scenario,E3HybridRouter,25,2,300.667,292.000,500.700,5.545,0,0,468.879,18
+Emergency Incident Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Emergency Incident Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.352,0,0,0.000,19
+Emergency Incident Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Emergency Incident Scenario,E3HybridRouter,25,6,273.650,278.500,462.200,7.469,0,0,0.000,20
+Emergency Incident Scenario,E3HybridRouter,25,7,300.600,278.500,557.050,7.439,0,0,0.000,20
+Emergency Incident Scenario,E3HybridRouter,25,8,392.143,422.000,594.000,8.969,0,0,0.000,21
+Emergency Incident Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Emergency Incident Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Emergency Incident Scenario,E3HybridRouter,50,1,319.537,324.000,503.000,14.817,0,0,0.000,41
+Emergency Incident Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Emergency Incident Scenario,E3HybridRouter,50,3,288.649,288.000,520.200,14.037,0,0,0.000,37
+Emergency Incident Scenario,E3HybridRouter,50,4,268.684,283.500,485.350,12.915,0,0,0.000,38
+Emergency Incident Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Emergency Incident Scenario,E3HybridRouter,50,6,313.263,306.500,564.200,15.191,0,0,0.000,38
+Emergency Incident Scenario,E3HybridRouter,50,7,279.718,240.000,551.600,13.709,0,0,0.000,39
+Emergency Incident Scenario,E3HybridRouter,50,8,333.707,377.000,593.000,16.001,0,0,0.000,41
+Emergency Incident Scenario,E3HybridRouter,50,9,285.472,271.500,534.500,14.469,0,0,0.000,36
+Emergency Incident Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Emergency Incident Scenario,E3HybridRouter,100,1,297.551,292.500,548.150,27.753,0,0,0.000,78
+Emergency Incident Scenario,E3HybridRouter,100,2,282.083,277.500,541.500,23.976,0,0,0.000,72
+Emergency Incident Scenario,E3HybridRouter,100,3,287.507,300.000,523.200,26.848,0,0,0.000,73
+Emergency Incident Scenario,E3HybridRouter,100,4,279.312,291.000,509.250,28.302,0,0,0.000,80
+Emergency Incident Scenario,E3HybridRouter,100,5,287.338,296.500,556.750,26.680,0,0,0.000,74
+Emergency Incident Scenario,E3HybridRouter,100,6,304.000,296.000,565.400,27.821,0,0,0.000,75
+Emergency Incident Scenario,E3HybridRouter,100,7,275.530,240.000,550.900,28.212,0,0,0.000,83
+Emergency Incident Scenario,E3HybridRouter,100,8,301.405,347.000,593.100,27.446,0,0,0.000,79
+Emergency Incident Scenario,E3HybridRouter,100,9,269.493,288.000,524.900,26.391,0,0,0.000,75
+Emergency Incident Scenario,E3HybridRouter,100,10,279.568,305.000,559.000,25.170,0,0,0.000,74
+Emergency Incident Scenario,E3HybridRouter,200,1,270.614,292.000,545.000,48.837,0,0,0.000,153
+Emergency Incident Scenario,E3HybridRouter,200,2,263.146,258.000,552.000,45.636,0,0,0.000,151
+Emergency Incident Scenario,E3HybridRouter,200,3,270.289,295.000,533.400,49.883,0,0,0.000,149
+Emergency Incident Scenario,E3HybridRouter,200,4,263.840,284.000,514.550,47.918,0,0,0.000,150
+Emergency Incident Scenario,E3HybridRouter,200,5,279.497,289.000,536.200,55.320,0,0,0.000,157
+Emergency Incident Scenario,E3HybridRouter,200,6,269.943,283.000,564.600,51.734,0,0,0.000,157
+Emergency Incident Scenario,E3HybridRouter,200,7,253.866,235.000,552.200,49.374,0,0,0.000,157
+Emergency Incident Scenario,E3HybridRouter,200,8,276.346,284.000,583.500,54.066,0,0,0.000,162
+Emergency Incident Scenario,E3HybridRouter,200,9,255.370,279.500,542.850,49.942,0,0,0.000,154
+Emergency Incident Scenario,E3HybridRouter,200,10,245.660,261.000,553.200,46.145,0,0,0.000,153
+Infrastructure Failure Scenario,DijkstraRouter,25,1,304.087,298.000,454.600,7.323,0,0,1.728,23
+Infrastructure Failure Scenario,DijkstraRouter,25,2,303.045,289.500,546.650,7.013,0,0,0.786,22
+Infrastructure Failure Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Infrastructure Failure Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Infrastructure Failure Scenario,DijkstraRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Infrastructure Failure Scenario,DijkstraRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Infrastructure Failure Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Infrastructure Failure Scenario,DijkstraRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Infrastructure Failure Scenario,DijkstraRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Infrastructure Failure Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Infrastructure Failure Scenario,DijkstraRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Infrastructure Failure Scenario,DijkstraRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Infrastructure Failure Scenario,DijkstraRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Infrastructure Failure Scenario,DijkstraRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Infrastructure Failure Scenario,DijkstraRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Infrastructure Failure Scenario,DijkstraRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Infrastructure Failure Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Infrastructure Failure Scenario,DijkstraRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Infrastructure Failure Scenario,DijkstraRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Infrastructure Failure Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Infrastructure Failure Scenario,DijkstraRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Infrastructure Failure Scenario,DijkstraRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Infrastructure Failure Scenario,DijkstraRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Infrastructure Failure Scenario,DijkstraRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Infrastructure Failure Scenario,DijkstraRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Infrastructure Failure Scenario,DijkstraRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Infrastructure Failure Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Infrastructure Failure Scenario,DijkstraRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Infrastructure Failure Scenario,DijkstraRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Infrastructure Failure Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Infrastructure Failure Scenario,DijkstraRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Infrastructure Failure Scenario,DijkstraRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Infrastructure Failure Scenario,DijkstraRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Infrastructure Failure Scenario,DijkstraRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Infrastructure Failure Scenario,DijkstraRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Infrastructure Failure Scenario,DijkstraRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Infrastructure Failure Scenario,DijkstraRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Infrastructure Failure Scenario,DijkstraRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Infrastructure Failure Scenario,DijkstraRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Infrastructure Failure Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Infrastructure Failure Scenario,AStarRouter,25,1,304.087,298.000,454.600,7.323,0,0,1.136,23
+Infrastructure Failure Scenario,AStarRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.310,22
+Infrastructure Failure Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Infrastructure Failure Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Infrastructure Failure Scenario,AStarRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Infrastructure Failure Scenario,AStarRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Infrastructure Failure Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Infrastructure Failure Scenario,AStarRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Infrastructure Failure Scenario,AStarRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Infrastructure Failure Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Infrastructure Failure Scenario,AStarRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Infrastructure Failure Scenario,AStarRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Infrastructure Failure Scenario,AStarRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Infrastructure Failure Scenario,AStarRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Infrastructure Failure Scenario,AStarRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Infrastructure Failure Scenario,AStarRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Infrastructure Failure Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Infrastructure Failure Scenario,AStarRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Infrastructure Failure Scenario,AStarRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Infrastructure Failure Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Infrastructure Failure Scenario,AStarRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Infrastructure Failure Scenario,AStarRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Infrastructure Failure Scenario,AStarRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Infrastructure Failure Scenario,AStarRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Infrastructure Failure Scenario,AStarRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Infrastructure Failure Scenario,AStarRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Infrastructure Failure Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Infrastructure Failure Scenario,AStarRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Infrastructure Failure Scenario,AStarRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Infrastructure Failure Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Infrastructure Failure Scenario,AStarRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Infrastructure Failure Scenario,AStarRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Infrastructure Failure Scenario,AStarRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Infrastructure Failure Scenario,AStarRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Infrastructure Failure Scenario,AStarRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Infrastructure Failure Scenario,AStarRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Infrastructure Failure Scenario,AStarRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Infrastructure Failure Scenario,AStarRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Infrastructure Failure Scenario,AStarRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Infrastructure Failure Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Infrastructure Failure Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,10.736,20
+Infrastructure Failure Scenario,ACORouter,25,2,301.478,298.000,588.600,8.999,0,0,13.828,23
+Infrastructure Failure Scenario,ACORouter,25,3,277.421,301.000,445.100,7.420,0,0,0.000,19
+Infrastructure Failure Scenario,ACORouter,25,4,327.304,368.000,574.400,9.390,0,0,0.000,23
+Infrastructure Failure Scenario,ACORouter,25,5,285.750,276.500,524.850,8.731,0,0,0.000,20
+Infrastructure Failure Scenario,ACORouter,25,6,261.000,264.500,478.350,8.263,0,0,0.000,22
+Infrastructure Failure Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Infrastructure Failure Scenario,ACORouter,25,8,340.421,378.000,594.100,6.918,0,0,0.000,19
+Infrastructure Failure Scenario,ACORouter,25,9,271.870,294.000,486.000,8.578,0,0,0.000,23
+Infrastructure Failure Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Infrastructure Failure Scenario,ACORouter,50,1,349.463,371.000,523.000,16.799,0,0,0.000,41
+Infrastructure Failure Scenario,ACORouter,50,2,274.023,256.000,571.600,13.898,0,0,0.000,43
+Infrastructure Failure Scenario,ACORouter,50,3,297.564,322.000,476.700,15.534,0,0,0.000,39
+Infrastructure Failure Scenario,ACORouter,50,4,326.767,332.000,574.500,17.186,0,0,0.000,43
+Infrastructure Failure Scenario,ACORouter,50,5,293.526,291.500,528.550,15.333,0,0,0.000,38
+Infrastructure Failure Scenario,ACORouter,50,6,283.907,288.000,514.700,15.628,0,0,0.000,43
+Infrastructure Failure Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Infrastructure Failure Scenario,ACORouter,50,8,350.976,378.000,594.000,15.633,0,0,0.000,41
+Infrastructure Failure Scenario,ACORouter,50,9,281.043,307.500,484.750,16.957,0,0,0.000,46
+Infrastructure Failure Scenario,ACORouter,50,10,322.791,333.000,556.000,16.992,0,0,0.000,43
+Infrastructure Failure Scenario,ACORouter,100,1,293.872,301.000,509.750,30.331,0,0,0.000,86
+Infrastructure Failure Scenario,ACORouter,100,2,277.227,259.000,549.650,29.037,0,0,0.000,88
+Infrastructure Failure Scenario,ACORouter,100,3,281.566,290.000,508.200,30.555,0,0,0.000,83
+Infrastructure Failure Scenario,ACORouter,100,4,288.809,301.000,588.200,32.262,0,0,0.000,89
+Infrastructure Failure Scenario,ACORouter,100,5,280.195,282.500,560.900,30.006,0,0,0.000,82
+Infrastructure Failure Scenario,ACORouter,100,6,279.400,279.000,514.200,30.097,0,0,0.000,85
+Infrastructure Failure Scenario,ACORouter,100,7,246.295,244.000,478.700,25.382,0,0,0.000,78
+Infrastructure Failure Scenario,ACORouter,100,8,312.136,324.000,565.000,30.003,0,0,0.000,81
+Infrastructure Failure Scenario,ACORouter,100,9,284.273,313.000,570.150,30.534,0,0,0.000,88
+Infrastructure Failure Scenario,ACORouter,100,10,309.674,325.000,554.400,33.444,0,0,0.000,89
+Infrastructure Failure Scenario,ACORouter,200,1,270.994,279.000,550.600,55.557,0,0,0.000,165
+Infrastructure Failure Scenario,ACORouter,200,2,269.886,278.000,546.500,55.451,0,0,0.000,175
+Infrastructure Failure Scenario,ACORouter,200,3,267.452,282.500,549.500,57.067,0,0,0.000,166
+Infrastructure Failure Scenario,ACORouter,200,4,248.515,258.000,517.500,53.015,0,0,0.000,171
+Infrastructure Failure Scenario,ACORouter,200,5,268.060,279.000,553.900,57.895,0,0,0.000,167
+Infrastructure Failure Scenario,ACORouter,200,6,262.231,279.000,549.000,56.317,0,0,0.000,173
+Infrastructure Failure Scenario,ACORouter,200,7,250.037,249.000,511.300,51.299,0,0,0.000,160
+Infrastructure Failure Scenario,ACORouter,200,8,273.956,279.000,549.900,52.178,0,0,0.000,158
+Infrastructure Failure Scenario,ACORouter,200,9,258.924,261.000,522.350,53.959,0,0,0.000,172
+Infrastructure Failure Scenario,ACORouter,200,10,282.555,301.000,550.400,57.956,0,0,0.000,173
+Infrastructure Failure Scenario,BCORouter,25,1,300.318,296.000,506.050,7.576,0,0,5.271,22
+Infrastructure Failure Scenario,BCORouter,25,2,305.727,294.000,575.100,7.793,0,0,4.681,22
+Infrastructure Failure Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Infrastructure Failure Scenario,BCORouter,25,4,288.550,266.500,490.950,6.631,0,0,0.000,20
+Infrastructure Failure Scenario,BCORouter,25,5,281.611,304.500,424.850,7.215,0,0,0.000,18
+Infrastructure Failure Scenario,BCORouter,25,6,300.583,309.500,545.350,8.641,0,0,0.000,24
+Infrastructure Failure Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Infrastructure Failure Scenario,BCORouter,25,8,365.095,378.000,557.000,8.843,0,0,0.000,21
+Infrastructure Failure Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Infrastructure Failure Scenario,BCORouter,25,10,310.733,331.000,496.600,4.888,0,0,0.000,15
+Infrastructure Failure Scenario,BCORouter,50,1,334.071,314.500,548.050,15.722,0,0,0.000,42
+Infrastructure Failure Scenario,BCORouter,50,2,272.419,263.000,548.300,12.874,0,0,0.000,43
+Infrastructure Failure Scenario,BCORouter,50,3,318.472,317.000,536.750,15.073,0,0,0.000,36
+Infrastructure Failure Scenario,BCORouter,50,4,284.610,292.000,491.000,13.532,0,0,0.000,41
+Infrastructure Failure Scenario,BCORouter,50,5,283.973,302.000,527.200,14.368,0,0,0.000,37
+Infrastructure Failure Scenario,BCORouter,50,6,293.068,279.500,557.650,15.948,0,0,0.000,44
+Infrastructure Failure Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Infrastructure Failure Scenario,BCORouter,50,8,341.282,378.000,519.200,15.502,0,0,0.000,39
+Infrastructure Failure Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Infrastructure Failure Scenario,BCORouter,50,10,303.686,323.000,549.800,12.627,0,0,0.000,35
+Infrastructure Failure Scenario,BCORouter,100,1,315.738,315.500,549.150,29.328,0,0,0.000,80
+Infrastructure Failure Scenario,BCORouter,100,2,266.541,273.000,534.000,26.567,0,0,0.000,85
+Infrastructure Failure Scenario,BCORouter,100,3,316.195,306.000,579.800,30.548,0,0,0.000,77
+Infrastructure Failure Scenario,BCORouter,100,4,297.190,319.500,508.350,30.618,0,0,0.000,84
+Infrastructure Failure Scenario,BCORouter,100,5,282.750,283.500,559.250,26.575,0,0,0.000,76
+Infrastructure Failure Scenario,BCORouter,100,6,270.929,279.000,506.800,28.586,0,0,0.000,85
+Infrastructure Failure Scenario,BCORouter,100,7,299.783,305.000,573.300,30.050,0,0,0.000,83
+Infrastructure Failure Scenario,BCORouter,100,8,310.941,331.000,526.600,30.971,0,0,0.000,85
+Infrastructure Failure Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Infrastructure Failure Scenario,BCORouter,100,10,266.405,288.500,532.350,25.026,0,0,0.000,74
+Infrastructure Failure Scenario,BCORouter,200,1,283.637,293.000,556.050,55.898,0,0,0.000,160
+Infrastructure Failure Scenario,BCORouter,200,2,253.442,253.500,558.000,50.605,0,0,0.000,172
+Infrastructure Failure Scenario,BCORouter,200,3,291.373,292.000,554.750,59.122,0,0,0.000,166
+Infrastructure Failure Scenario,BCORouter,200,4,291.193,307.000,537.000,60.031,0,0,0.000,171
+Infrastructure Failure Scenario,BCORouter,200,5,273.720,279.500,549.000,55.762,0,0,0.000,164
+Infrastructure Failure Scenario,BCORouter,200,6,252.439,248.000,547.400,55.130,0,0,0.000,173
+Infrastructure Failure Scenario,BCORouter,200,7,286.681,280.000,566.000,58.138,0,0,0.000,166
+Infrastructure Failure Scenario,BCORouter,200,8,274.577,299.000,550.900,58.390,0,0,0.000,175
+Infrastructure Failure Scenario,BCORouter,200,9,265.040,278.000,565.800,57.100,0,0,0.000,173
+Infrastructure Failure Scenario,BCORouter,200,10,250.485,249.000,534.700,49.546,0,0,0.000,163
+Infrastructure Failure Scenario,PSORouter,25,1,354.667,349.500,548.600,6.991,0,0,25.865,18
+Infrastructure Failure Scenario,PSORouter,25,2,341.533,376.000,564.300,5.219,0,0,27.672,15
+Infrastructure Failure Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Infrastructure Failure Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Infrastructure Failure Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Infrastructure Failure Scenario,PSORouter,25,6,313.056,285.000,493.150,7.696,0,0,0.000,18
+Infrastructure Failure Scenario,PSORouter,25,7,366.882,397.000,561.600,7.544,0,0,0.000,17
+Infrastructure Failure Scenario,PSORouter,25,8,389.882,420.000,582.200,7.248,0,0,0.000,17
+Infrastructure Failure Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Infrastructure Failure Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Infrastructure Failure Scenario,PSORouter,50,1,341.667,327.500,558.100,11.216,0,0,0.000,30
+Infrastructure Failure Scenario,PSORouter,50,2,359.571,355.500,577.650,10.668,0,0,0.000,28
+Infrastructure Failure Scenario,PSORouter,50,3,315.345,321.000,577.000,12.391,0,0,0.000,29
+Infrastructure Failure Scenario,PSORouter,50,4,299.844,323.500,515.350,11.907,0,0,0.000,32
+Infrastructure Failure Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Infrastructure Failure Scenario,PSORouter,50,6,311.548,323.000,502.500,12.852,0,0,0.000,31
+Infrastructure Failure Scenario,PSORouter,50,7,306.333,328.000,506.500,13.684,0,0,0.000,36
+Infrastructure Failure Scenario,PSORouter,50,8,340.714,379.000,584.200,14.141,0,0,0.000,35
+Infrastructure Failure Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Infrastructure Failure Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Infrastructure Failure Scenario,PSORouter,100,1,299.419,303.000,558.300,21.701,0,0,0.000,62
+Infrastructure Failure Scenario,PSORouter,100,2,306.629,281.000,555.750,22.131,0,0,0.000,62
+Infrastructure Failure Scenario,PSORouter,100,3,307.719,340.000,587.000,25.155,0,0,0.000,64
+Infrastructure Failure Scenario,PSORouter,100,4,299.391,311.000,535.200,26.061,0,0,0.000,69
+Infrastructure Failure Scenario,PSORouter,100,5,273.086,289.000,566.950,19.625,0,0,0.000,58
+Infrastructure Failure Scenario,PSORouter,100,6,304.545,291.000,547.750,24.410,0,0,0.000,66
+Infrastructure Failure Scenario,PSORouter,100,7,292.971,302.500,558.000,25.515,0,0,0.000,70
+Infrastructure Failure Scenario,PSORouter,100,8,330.254,331.000,592.500,27.667,0,0,0.000,71
+Infrastructure Failure Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Infrastructure Failure Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Infrastructure Failure Scenario,PSORouter,200,1,269.061,281.000,560.350,41.827,0,0,0.000,132
+Infrastructure Failure Scenario,PSORouter,200,2,263.523,254.000,532.750,39.723,0,0,0.000,130
+Infrastructure Failure Scenario,PSORouter,200,3,278.813,300.000,555.200,46.842,0,0,0.000,139
+Infrastructure Failure Scenario,PSORouter,200,4,268.385,290.000,523.300,44.831,0,0,0.000,135
+Infrastructure Failure Scenario,PSORouter,200,5,258.540,279.500,546.400,41.148,0,0,0.000,124
+Infrastructure Failure Scenario,PSORouter,200,6,269.504,279.000,550.000,46.213,0,0,0.000,141
+Infrastructure Failure Scenario,PSORouter,200,7,261.603,279.500,558.000,47.293,0,0,0.000,146
+Infrastructure Failure Scenario,PSORouter,200,8,276.182,288.000,584.500,47.761,0,0,0.000,143
+Infrastructure Failure Scenario,PSORouter,200,9,248.080,279.500,557.900,42.193,0,0,0.000,138
+Infrastructure Failure Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Infrastructure Failure Scenario,E3HybridRouter,25,1,309.391,299.000,456.100,7.670,0,0,345.747,23
+Infrastructure Failure Scenario,E3HybridRouter,25,2,300.667,292.000,500.700,5.545,0,0,570.388,18
+Infrastructure Failure Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Infrastructure Failure Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.352,0,0,0.000,19
+Infrastructure Failure Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Infrastructure Failure Scenario,E3HybridRouter,25,6,273.650,278.500,462.200,7.469,0,0,0.000,20
+Infrastructure Failure Scenario,E3HybridRouter,25,7,300.600,278.500,557.050,7.439,0,0,0.000,20
+Infrastructure Failure Scenario,E3HybridRouter,25,8,392.143,422.000,594.000,8.969,0,0,0.000,21
+Infrastructure Failure Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Infrastructure Failure Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Infrastructure Failure Scenario,E3HybridRouter,50,1,319.537,324.000,503.000,14.817,0,0,0.000,41
+Infrastructure Failure Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Infrastructure Failure Scenario,E3HybridRouter,50,3,288.649,288.000,520.200,14.037,0,0,0.000,37
+Infrastructure Failure Scenario,E3HybridRouter,50,4,268.684,283.500,485.350,12.915,0,0,0.000,38
+Infrastructure Failure Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Infrastructure Failure Scenario,E3HybridRouter,50,6,313.263,306.500,564.200,15.191,0,0,0.000,38
+Infrastructure Failure Scenario,E3HybridRouter,50,7,279.718,240.000,551.600,13.709,0,0,0.000,39
+Infrastructure Failure Scenario,E3HybridRouter,50,8,333.707,377.000,593.000,16.001,0,0,0.000,41
+Infrastructure Failure Scenario,E3HybridRouter,50,9,285.472,271.500,534.500,14.469,0,0,0.000,36
+Infrastructure Failure Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Infrastructure Failure Scenario,E3HybridRouter,100,1,297.551,292.500,548.150,27.753,0,0,0.000,78
+Infrastructure Failure Scenario,E3HybridRouter,100,2,282.083,277.500,541.500,23.976,0,0,0.000,72
+Infrastructure Failure Scenario,E3HybridRouter,100,3,287.507,300.000,523.200,26.848,0,0,0.000,73
+Infrastructure Failure Scenario,E3HybridRouter,100,4,279.312,291.000,509.250,28.302,0,0,0.000,80
+Infrastructure Failure Scenario,E3HybridRouter,100,5,287.338,296.500,556.750,26.680,0,0,0.000,74
+Infrastructure Failure Scenario,E3HybridRouter,100,6,304.000,296.000,565.400,27.821,0,0,0.000,75
+Infrastructure Failure Scenario,E3HybridRouter,100,7,275.530,240.000,550.900,28.212,0,0,0.000,83
+Infrastructure Failure Scenario,E3HybridRouter,100,8,301.405,347.000,593.100,27.446,0,0,0.000,79
+Infrastructure Failure Scenario,E3HybridRouter,100,9,269.493,288.000,524.900,26.391,0,0,0.000,75
+Infrastructure Failure Scenario,E3HybridRouter,100,10,279.568,305.000,559.000,25.170,0,0,0.000,74
+Infrastructure Failure Scenario,E3HybridRouter,200,1,270.614,292.000,545.000,48.837,0,0,0.000,153
+Infrastructure Failure Scenario,E3HybridRouter,200,2,263.146,258.000,552.000,45.636,0,0,0.000,151
+Infrastructure Failure Scenario,E3HybridRouter,200,3,270.289,295.000,533.400,49.883,0,0,0.000,149
+Infrastructure Failure Scenario,E3HybridRouter,200,4,263.840,284.000,514.550,47.918,0,0,0.000,150
+Infrastructure Failure Scenario,E3HybridRouter,200,5,279.497,289.000,536.200,55.320,0,0,0.000,157
+Infrastructure Failure Scenario,E3HybridRouter,200,6,269.943,283.000,564.600,51.734,0,0,0.000,157
+Infrastructure Failure Scenario,E3HybridRouter,200,7,253.866,235.000,552.200,49.374,0,0,0.000,157
+Infrastructure Failure Scenario,E3HybridRouter,200,8,276.346,284.000,583.500,54.066,0,0,0.000,162
+Infrastructure Failure Scenario,E3HybridRouter,200,9,255.370,279.500,542.850,49.942,0,0,0.000,154
+Infrastructure Failure Scenario,E3HybridRouter,200,10,245.660,261.000,553.200,46.145,0,0,0.000,153
+Communication Blackout Scenario,DijkstraRouter,25,1,304.087,298.000,454.600,7.323,0,0,1.068,23
+Communication Blackout Scenario,DijkstraRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.298,22
+Communication Blackout Scenario,DijkstraRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Communication Blackout Scenario,DijkstraRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Communication Blackout Scenario,DijkstraRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Communication Blackout Scenario,DijkstraRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Communication Blackout Scenario,DijkstraRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Communication Blackout Scenario,DijkstraRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Communication Blackout Scenario,DijkstraRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Communication Blackout Scenario,DijkstraRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Communication Blackout Scenario,DijkstraRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Communication Blackout Scenario,DijkstraRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Communication Blackout Scenario,DijkstraRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Communication Blackout Scenario,DijkstraRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Communication Blackout Scenario,DijkstraRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Communication Blackout Scenario,DijkstraRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Communication Blackout Scenario,DijkstraRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Communication Blackout Scenario,DijkstraRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Communication Blackout Scenario,DijkstraRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Communication Blackout Scenario,DijkstraRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Communication Blackout Scenario,DijkstraRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Communication Blackout Scenario,DijkstraRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Communication Blackout Scenario,DijkstraRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Communication Blackout Scenario,DijkstraRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Communication Blackout Scenario,DijkstraRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Communication Blackout Scenario,DijkstraRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Communication Blackout Scenario,DijkstraRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Communication Blackout Scenario,DijkstraRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Communication Blackout Scenario,DijkstraRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Communication Blackout Scenario,DijkstraRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Communication Blackout Scenario,DijkstraRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Communication Blackout Scenario,DijkstraRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Communication Blackout Scenario,DijkstraRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Communication Blackout Scenario,DijkstraRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Communication Blackout Scenario,DijkstraRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Communication Blackout Scenario,DijkstraRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Communication Blackout Scenario,DijkstraRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Communication Blackout Scenario,DijkstraRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Communication Blackout Scenario,DijkstraRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Communication Blackout Scenario,DijkstraRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Communication Blackout Scenario,AStarRouter,25,1,304.087,298.000,454.600,7.323,0,0,0.750,23
+Communication Blackout Scenario,AStarRouter,25,2,303.045,289.500,546.650,7.013,0,0,1.482,22
+Communication Blackout Scenario,AStarRouter,25,3,270.278,277.000,434.450,6.899,0,0,0.000,18
+Communication Blackout Scenario,AStarRouter,25,4,285.571,278.000,485.000,7.531,0,0,0.000,21
+Communication Blackout Scenario,AStarRouter,25,5,312.810,345.000,458.000,9.061,0,0,0.000,21
+Communication Blackout Scenario,AStarRouter,25,6,308.391,287.000,528.100,9.085,0,0,0.000,23
+Communication Blackout Scenario,AStarRouter,25,7,280.261,280.000,473.700,8.286,0,0,0.000,23
+Communication Blackout Scenario,AStarRouter,25,8,394.739,410.000,594.000,9.719,0,0,0.000,23
+Communication Blackout Scenario,AStarRouter,25,9,315.955,341.500,586.850,9.528,0,0,0.000,22
+Communication Blackout Scenario,AStarRouter,25,10,315.111,332.000,519.700,7.291,0,0,0.000,18
+Communication Blackout Scenario,AStarRouter,50,1,304.591,306.000,474.350,14.856,0,0,0.000,44
+Communication Blackout Scenario,AStarRouter,50,2,282.333,262.000,548.200,12.551,0,0,0.000,39
+Communication Blackout Scenario,AStarRouter,50,3,280.658,286.000,472.950,14.336,0,0,0.000,38
+Communication Blackout Scenario,AStarRouter,50,4,296.209,307.000,488.600,15.480,0,0,0.000,43
+Communication Blackout Scenario,AStarRouter,50,5,339.385,372.000,512.300,15.856,0,0,0.000,39
+Communication Blackout Scenario,AStarRouter,50,6,323.400,323.000,559.800,18.174,0,0,0.000,45
+Communication Blackout Scenario,AStarRouter,50,7,285.500,270.500,537.750,16.506,0,0,0.000,46
+Communication Blackout Scenario,AStarRouter,50,8,352.277,375.000,592.200,18.535,0,0,0.000,47
+Communication Blackout Scenario,AStarRouter,50,9,292.304,290.500,521.250,17.898,0,0,0.000,46
+Communication Blackout Scenario,AStarRouter,50,10,329.872,339.000,556.200,14.862,0,0,0.000,39
+Communication Blackout Scenario,AStarRouter,100,1,294.135,299.000,549.200,31.297,0,0,0.000,89
+Communication Blackout Scenario,AStarRouter,100,2,270.927,269.500,503.900,26.622,0,0,0.000,82
+Communication Blackout Scenario,AStarRouter,100,3,303.840,313.000,518.000,30.626,0,0,0.000,81
+Communication Blackout Scenario,AStarRouter,100,4,297.920,321.000,509.700,32.034,0,0,0.000,87
+Communication Blackout Scenario,AStarRouter,100,5,295.244,300.500,547.800,29.279,0,0,0.000,82
+Communication Blackout Scenario,AStarRouter,100,6,306.329,302.000,553.600,31.947,0,0,0.000,85
+Communication Blackout Scenario,AStarRouter,100,7,282.720,262.000,549.800,32.177,0,0,0.000,93
+Communication Blackout Scenario,AStarRouter,100,8,319.231,339.000,593.500,32.769,0,0,0.000,91
+Communication Blackout Scenario,AStarRouter,100,9,286.292,287.000,544.200,32.065,0,0,0.000,89
+Communication Blackout Scenario,AStarRouter,100,10,270.837,301.000,545.050,25.373,0,0,0.000,80
+Communication Blackout Scenario,AStarRouter,200,1,271.843,285.500,549.000,57.260,0,0,0.000,178
+Communication Blackout Scenario,AStarRouter,200,2,265.120,280.000,549.600,55.339,0,0,0.000,175
+Communication Blackout Scenario,AStarRouter,200,3,282.731,296.000,551.500,57.582,0,0,0.000,171
+Communication Blackout Scenario,AStarRouter,200,4,276.920,302.000,521.000,58.435,0,0,0.000,176
+Communication Blackout Scenario,AStarRouter,200,5,282.184,291.000,549.350,60.231,0,0,0.000,174
+Communication Blackout Scenario,AStarRouter,200,6,270.199,283.000,529.000,59.131,0,0,0.000,181
+Communication Blackout Scenario,AStarRouter,200,7,254.832,244.000,549.200,55.802,0,0,0.000,179
+Communication Blackout Scenario,AStarRouter,200,8,279.944,292.500,584.100,58.474,0,0,0.000,180
+Communication Blackout Scenario,AStarRouter,200,9,260.867,280.000,552.000,58.535,0,0,0.000,181
+Communication Blackout Scenario,AStarRouter,200,10,244.169,253.500,519.500,47.971,0,0,0.000,166
+Communication Blackout Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,12.822,20
+Communication Blackout Scenario,ACORouter,25,2,301.478,298.000,588.600,8.999,0,0,9.270,23
+Communication Blackout Scenario,ACORouter,25,3,277.421,301.000,445.100,7.420,0,0,0.000,19
+Communication Blackout Scenario,ACORouter,25,4,327.304,368.000,574.400,9.390,0,0,0.000,23
+Communication Blackout Scenario,ACORouter,25,5,285.750,276.500,524.850,8.731,0,0,0.000,20
+Communication Blackout Scenario,ACORouter,25,6,261.000,264.500,478.350,8.263,0,0,0.000,22
+Communication Blackout Scenario,ACORouter,25,7,289.714,280.000,459.000,7.520,0,0,0.000,21
+Communication Blackout Scenario,ACORouter,25,8,340.421,378.000,594.100,6.918,0,0,0.000,19
+Communication Blackout Scenario,ACORouter,25,9,271.870,294.000,486.000,8.578,0,0,0.000,23
+Communication Blackout Scenario,ACORouter,25,10,298.684,331.000,469.700,6.750,0,0,0.000,19
+Communication Blackout Scenario,ACORouter,50,1,349.463,371.000,523.000,16.799,0,0,0.000,41
+Communication Blackout Scenario,ACORouter,50,2,274.023,256.000,571.600,13.898,0,0,0.000,43
+Communication Blackout Scenario,ACORouter,50,3,297.564,322.000,476.700,15.534,0,0,0.000,39
+Communication Blackout Scenario,ACORouter,50,4,326.767,332.000,574.500,17.186,0,0,0.000,43
+Communication Blackout Scenario,ACORouter,50,5,293.526,291.500,528.550,15.333,0,0,0.000,38
+Communication Blackout Scenario,ACORouter,50,6,283.907,288.000,514.700,15.628,0,0,0.000,43
+Communication Blackout Scenario,ACORouter,50,7,277.195,279.000,473.000,14.164,0,0,0.000,41
+Communication Blackout Scenario,ACORouter,50,8,350.976,378.000,594.000,15.633,0,0,0.000,41
+Communication Blackout Scenario,ACORouter,50,9,281.043,307.500,484.750,16.957,0,0,0.000,46
+Communication Blackout Scenario,ACORouter,50,10,322.791,333.000,556.000,16.992,0,0,0.000,43
+Communication Blackout Scenario,ACORouter,100,1,293.872,301.000,509.750,30.331,0,0,0.000,86
+Communication Blackout Scenario,ACORouter,100,2,277.227,259.000,549.650,29.037,0,0,0.000,88
+Communication Blackout Scenario,ACORouter,100,3,281.566,290.000,508.200,30.555,0,0,0.000,83
+Communication Blackout Scenario,ACORouter,100,4,288.809,301.000,588.200,32.262,0,0,0.000,89
+Communication Blackout Scenario,ACORouter,100,5,280.195,282.500,560.900,30.006,0,0,0.000,82
+Communication Blackout Scenario,ACORouter,100,6,279.400,279.000,514.200,30.097,0,0,0.000,85
+Communication Blackout Scenario,ACORouter,100,7,246.295,244.000,478.700,25.382,0,0,0.000,78
+Communication Blackout Scenario,ACORouter,100,8,312.136,324.000,565.000,30.003,0,0,0.000,81
+Communication Blackout Scenario,ACORouter,100,9,284.273,313.000,570.150,30.534,0,0,0.000,88
+Communication Blackout Scenario,ACORouter,100,10,309.674,325.000,554.400,33.444,0,0,0.000,89
+Communication Blackout Scenario,ACORouter,200,1,270.994,279.000,550.600,55.557,0,0,0.000,165
+Communication Blackout Scenario,ACORouter,200,2,269.886,278.000,546.500,55.451,0,0,0.000,175
+Communication Blackout Scenario,ACORouter,200,3,267.452,282.500,549.500,57.067,0,0,0.000,166
+Communication Blackout Scenario,ACORouter,200,4,248.515,258.000,517.500,53.015,0,0,0.000,171
+Communication Blackout Scenario,ACORouter,200,5,268.060,279.000,553.900,57.895,0,0,0.000,167
+Communication Blackout Scenario,ACORouter,200,6,262.231,279.000,549.000,56.317,0,0,0.000,173
+Communication Blackout Scenario,ACORouter,200,7,250.037,249.000,511.300,51.299,0,0,0.000,160
+Communication Blackout Scenario,ACORouter,200,8,273.956,279.000,549.900,52.178,0,0,0.000,158
+Communication Blackout Scenario,ACORouter,200,9,258.924,261.000,522.350,53.959,0,0,0.000,172
+Communication Blackout Scenario,ACORouter,200,10,282.555,301.000,550.400,57.956,0,0,0.000,173
+Communication Blackout Scenario,BCORouter,25,1,300.318,296.000,506.050,7.576,0,0,4.541,22
+Communication Blackout Scenario,BCORouter,25,2,305.727,294.000,575.100,7.793,0,0,9.694,22
+Communication Blackout Scenario,BCORouter,25,3,293.471,289.000,406.200,6.202,0,0,0.000,17
+Communication Blackout Scenario,BCORouter,25,4,288.550,266.500,490.950,6.631,0,0,0.000,20
+Communication Blackout Scenario,BCORouter,25,5,281.611,304.500,424.850,7.215,0,0,0.000,18
+Communication Blackout Scenario,BCORouter,25,6,300.583,309.500,545.350,8.641,0,0,0.000,24
+Communication Blackout Scenario,BCORouter,25,7,343.650,368.000,576.150,8.100,0,0,0.000,20
+Communication Blackout Scenario,BCORouter,25,8,365.095,378.000,557.000,8.843,0,0,0.000,21
+Communication Blackout Scenario,BCORouter,25,9,296.647,199.000,571.000,7.723,0,0,0.000,17
+Communication Blackout Scenario,BCORouter,25,10,310.733,331.000,496.600,4.888,0,0,0.000,15
+Communication Blackout Scenario,BCORouter,50,1,334.071,314.500,548.050,15.722,0,0,0.000,42
+Communication Blackout Scenario,BCORouter,50,2,272.419,263.000,548.300,12.874,0,0,0.000,43
+Communication Blackout Scenario,BCORouter,50,3,318.472,317.000,536.750,15.073,0,0,0.000,36
+Communication Blackout Scenario,BCORouter,50,4,284.610,292.000,491.000,13.532,0,0,0.000,41
+Communication Blackout Scenario,BCORouter,50,5,283.973,302.000,527.200,14.368,0,0,0.000,37
+Communication Blackout Scenario,BCORouter,50,6,293.068,279.500,557.650,15.948,0,0,0.000,44
+Communication Blackout Scenario,BCORouter,50,7,298.368,326.500,569.650,13.265,0,0,0.000,38
+Communication Blackout Scenario,BCORouter,50,8,341.282,378.000,519.200,15.502,0,0,0.000,39
+Communication Blackout Scenario,BCORouter,50,9,291.200,285.500,566.450,15.594,0,0,0.000,40
+Communication Blackout Scenario,BCORouter,50,10,303.686,323.000,549.800,12.627,0,0,0.000,35
+Communication Blackout Scenario,BCORouter,100,1,315.738,315.500,549.150,29.328,0,0,0.000,80
+Communication Blackout Scenario,BCORouter,100,2,266.541,273.000,534.000,26.567,0,0,0.000,85
+Communication Blackout Scenario,BCORouter,100,3,316.195,306.000,579.800,30.548,0,0,0.000,77
+Communication Blackout Scenario,BCORouter,100,4,297.190,319.500,508.350,30.618,0,0,0.000,84
+Communication Blackout Scenario,BCORouter,100,5,282.750,283.500,559.250,26.575,0,0,0.000,76
+Communication Blackout Scenario,BCORouter,100,6,270.929,279.000,506.800,28.586,0,0,0.000,85
+Communication Blackout Scenario,BCORouter,100,7,299.783,305.000,573.300,30.050,0,0,0.000,83
+Communication Blackout Scenario,BCORouter,100,8,310.941,331.000,526.600,30.971,0,0,0.000,85
+Communication Blackout Scenario,BCORouter,100,9,286.548,281.000,566.700,31.162,0,0,0.000,84
+Communication Blackout Scenario,BCORouter,100,10,266.405,288.500,532.350,25.026,0,0,0.000,74
+Communication Blackout Scenario,BCORouter,200,1,283.637,293.000,556.050,55.898,0,0,0.000,160
+Communication Blackout Scenario,BCORouter,200,2,253.442,253.500,558.000,50.605,0,0,0.000,172
+Communication Blackout Scenario,BCORouter,200,3,291.373,292.000,554.750,59.122,0,0,0.000,166
+Communication Blackout Scenario,BCORouter,200,4,291.193,307.000,537.000,60.031,0,0,0.000,171
+Communication Blackout Scenario,BCORouter,200,5,273.720,279.500,549.000,55.762,0,0,0.000,164
+Communication Blackout Scenario,BCORouter,200,6,252.439,248.000,547.400,55.130,0,0,0.000,173
+Communication Blackout Scenario,BCORouter,200,7,286.681,280.000,566.000,58.138,0,0,0.000,166
+Communication Blackout Scenario,BCORouter,200,8,274.577,299.000,550.900,58.390,0,0,0.000,175
+Communication Blackout Scenario,BCORouter,200,9,265.040,278.000,565.800,57.100,0,0,0.000,173
+Communication Blackout Scenario,BCORouter,200,10,250.485,249.000,534.700,49.546,0,0,0.000,163
+Communication Blackout Scenario,PSORouter,25,1,354.667,349.500,548.600,6.991,0,0,16.548,18
+Communication Blackout Scenario,PSORouter,25,2,341.533,376.000,564.300,5.219,0,0,35.062,15
+Communication Blackout Scenario,PSORouter,25,3,302.385,321.000,443.400,5.194,0,0,0.000,13
+Communication Blackout Scenario,PSORouter,25,4,283.176,280.000,410.800,6.310,0,0,0.000,17
+Communication Blackout Scenario,PSORouter,25,5,314.429,325.500,495.100,6.479,0,0,0.000,14
+Communication Blackout Scenario,PSORouter,25,6,313.056,285.000,493.150,7.696,0,0,0.000,18
+Communication Blackout Scenario,PSORouter,25,7,366.882,397.000,561.600,7.544,0,0,0.000,17
+Communication Blackout Scenario,PSORouter,25,8,389.882,420.000,582.200,7.248,0,0,0.000,17
+Communication Blackout Scenario,PSORouter,25,9,291.091,348.000,526.000,4.383,0,0,0.000,11
+Communication Blackout Scenario,PSORouter,25,10,316.214,289.500,524.250,6.180,0,0,0.000,14
+Communication Blackout Scenario,PSORouter,50,1,341.667,327.500,558.100,11.216,0,0,0.000,30
+Communication Blackout Scenario,PSORouter,50,2,359.571,355.500,577.650,10.668,0,0,0.000,28
+Communication Blackout Scenario,PSORouter,50,3,315.345,321.000,577.000,12.391,0,0,0.000,29
+Communication Blackout Scenario,PSORouter,50,4,299.844,323.500,515.350,11.907,0,0,0.000,32
+Communication Blackout Scenario,PSORouter,50,5,339.000,338.000,574.600,10.731,0,0,0.000,25
+Communication Blackout Scenario,PSORouter,50,6,311.548,323.000,502.500,12.852,0,0,0.000,31
+Communication Blackout Scenario,PSORouter,50,7,306.333,328.000,506.500,13.684,0,0,0.000,36
+Communication Blackout Scenario,PSORouter,50,8,340.714,379.000,584.200,14.141,0,0,0.000,35
+Communication Blackout Scenario,PSORouter,50,9,310.970,332.000,539.200,13.568,0,0,0.000,33
+Communication Blackout Scenario,PSORouter,50,10,332.767,335.000,554.250,12.841,0,0,0.000,30
+Communication Blackout Scenario,PSORouter,100,1,299.419,303.000,558.300,21.701,0,0,0.000,62
+Communication Blackout Scenario,PSORouter,100,2,306.629,281.000,555.750,22.131,0,0,0.000,62
+Communication Blackout Scenario,PSORouter,100,3,307.719,340.000,587.000,25.155,0,0,0.000,64
+Communication Blackout Scenario,PSORouter,100,4,299.391,311.000,535.200,26.061,0,0,0.000,69
+Communication Blackout Scenario,PSORouter,100,5,273.086,289.000,566.950,19.625,0,0,0.000,58
+Communication Blackout Scenario,PSORouter,100,6,304.545,291.000,547.750,24.410,0,0,0.000,66
+Communication Blackout Scenario,PSORouter,100,7,292.971,302.500,558.000,25.515,0,0,0.000,70
+Communication Blackout Scenario,PSORouter,100,8,330.254,331.000,592.500,27.667,0,0,0.000,71
+Communication Blackout Scenario,PSORouter,100,9,286.970,326.000,553.300,24.319,0,0,0.000,67
+Communication Blackout Scenario,PSORouter,100,10,281.318,295.500,557.500,22.899,0,0,0.000,66
+Communication Blackout Scenario,PSORouter,200,1,269.061,281.000,560.350,41.827,0,0,0.000,132
+Communication Blackout Scenario,PSORouter,200,2,263.523,254.000,532.750,39.723,0,0,0.000,130
+Communication Blackout Scenario,PSORouter,200,3,278.813,300.000,555.200,46.842,0,0,0.000,139
+Communication Blackout Scenario,PSORouter,200,4,268.385,290.000,523.300,44.831,0,0,0.000,135
+Communication Blackout Scenario,PSORouter,200,5,258.540,279.500,546.400,41.148,0,0,0.000,124
+Communication Blackout Scenario,PSORouter,200,6,269.504,279.000,550.000,46.213,0,0,0.000,141
+Communication Blackout Scenario,PSORouter,200,7,261.603,279.500,558.000,47.293,0,0,0.000,146
+Communication Blackout Scenario,PSORouter,200,8,276.182,288.000,584.500,47.761,0,0,0.000,143
+Communication Blackout Scenario,PSORouter,200,9,248.080,279.500,557.900,42.193,0,0,0.000,138
+Communication Blackout Scenario,PSORouter,200,10,241.978,265.000,561.000,40.104,0,0,0.000,136
+Communication Blackout Scenario,E3HybridRouter,25,1,309.391,299.000,456.100,7.670,0,0,219.474,23
+Communication Blackout Scenario,E3HybridRouter,25,2,300.667,292.000,500.700,5.545,0,0,234.334,18
+Communication Blackout Scenario,E3HybridRouter,25,3,299.316,289.000,505.200,7.411,0,0,0.000,19
+Communication Blackout Scenario,E3HybridRouter,25,4,254.053,278.000,434.600,6.352,0,0,0.000,19
+Communication Blackout Scenario,E3HybridRouter,25,5,299.263,313.000,431.900,8.359,0,0,0.000,19
+Communication Blackout Scenario,E3HybridRouter,25,6,273.650,278.500,462.200,7.469,0,0,0.000,20
+Communication Blackout Scenario,E3HybridRouter,25,7,300.600,278.500,557.050,7.439,0,0,0.000,20
+Communication Blackout Scenario,E3HybridRouter,25,8,392.143,422.000,594.000,8.969,0,0,0.000,21
+Communication Blackout Scenario,E3HybridRouter,25,9,301.133,394.000,526.400,6.783,0,0,0.000,15
+Communication Blackout Scenario,E3HybridRouter,25,10,364.368,370.000,558.100,8.684,0,0,0.000,19
+Communication Blackout Scenario,E3HybridRouter,50,1,319.537,324.000,503.000,14.817,0,0,0.000,41
+Communication Blackout Scenario,E3HybridRouter,50,2,312.105,288.000,549.500,13.799,0,0,0.000,38
+Communication Blackout Scenario,E3HybridRouter,50,3,288.649,288.000,520.200,14.037,0,0,0.000,37
+Communication Blackout Scenario,E3HybridRouter,50,4,268.684,283.500,485.350,12.915,0,0,0.000,38
+Communication Blackout Scenario,E3HybridRouter,50,5,333.091,343.000,527.000,14.807,0,0,0.000,33
+Communication Blackout Scenario,E3HybridRouter,50,6,313.263,306.500,564.200,15.191,0,0,0.000,38
+Communication Blackout Scenario,E3HybridRouter,50,7,279.718,240.000,551.600,13.709,0,0,0.000,39
+Communication Blackout Scenario,E3HybridRouter,50,8,333.707,377.000,593.000,16.001,0,0,0.000,41
+Communication Blackout Scenario,E3HybridRouter,50,9,285.472,271.500,534.500,14.469,0,0,0.000,36
+Communication Blackout Scenario,E3HybridRouter,50,10,347.868,368.500,562.900,15.683,0,0,0.000,38
+Communication Blackout Scenario,E3HybridRouter,100,1,297.551,292.500,548.150,27.753,0,0,0.000,78
+Communication Blackout Scenario,E3HybridRouter,100,2,282.083,277.500,541.500,23.976,0,0,0.000,72
+Communication Blackout Scenario,E3HybridRouter,100,3,287.507,300.000,523.200,26.848,0,0,0.000,73
+Communication Blackout Scenario,E3HybridRouter,100,4,279.312,291.000,509.250,28.302,0,0,0.000,80
+Communication Blackout Scenario,E3HybridRouter,100,5,287.338,296.500,556.750,26.680,0,0,0.000,74
+Communication Blackout Scenario,E3HybridRouter,100,6,304.000,296.000,565.400,27.821,0,0,0.000,75
+Communication Blackout Scenario,E3HybridRouter,100,7,275.530,240.000,550.900,28.212,0,0,0.000,83
+Communication Blackout Scenario,E3HybridRouter,100,8,301.405,347.000,593.100,27.446,0,0,0.000,79
+Communication Blackout Scenario,E3HybridRouter,100,9,269.493,288.000,524.900,26.391,0,0,0.000,75
+Communication Blackout Scenario,E3HybridRouter,100,10,279.568,305.000,559.000,25.170,0,0,0.000,74
+Communication Blackout Scenario,E3HybridRouter,200,1,270.614,292.000,545.000,48.837,0,0,0.000,153
+Communication Blackout Scenario,E3HybridRouter,200,2,263.146,258.000,552.000,45.636,0,0,0.000,151
+Communication Blackout Scenario,E3HybridRouter,200,3,270.289,295.000,533.400,49.883,0,0,0.000,149
+Communication Blackout Scenario,E3HybridRouter,200,4,263.840,284.000,514.550,47.918,0,0,0.000,150
+Communication Blackout Scenario,E3HybridRouter,200,5,279.497,289.000,536.200,55.320,0,0,0.000,157
+Communication Blackout Scenario,E3HybridRouter,200,6,269.943,283.000,564.600,51.734,0,0,0.000,157
+Communication Blackout Scenario,E3HybridRouter,200,7,253.866,235.000,552.200,49.374,0,0,0.000,157
+Communication Blackout Scenario,E3HybridRouter,200,8,276.346,284.000,583.500,54.066,0,0,0.000,162
+Communication Blackout Scenario,E3HybridRouter,200,9,255.370,279.500,542.850,49.942,0,0,0.000,154
+Communication Blackout Scenario,E3HybridRouter,200,10,245.660,261.000,553.200,46.145,0,0,0.000,153

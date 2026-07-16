@@ -1,0 +1,85 @@
+{
+  "reproducibility_metadata": {
+    "git_commit": "d05b376fab3ee2779e95b54a69b4b5692b695bb2",
+    "git_tag": "v1.0-thesis-baseline",
+    "python_version": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "sumo_version": "Eclipse SUMO sumo 1.27.1",
+    "os_info": "Linux-6.17.0-35-generic-x86_64-with-glibc2.39",
+    "cpu_info": "x86_64 (4 cores)",
+    "network_file_sha256": "c2f5702163acf3377f74e03e4bce9598f17aeab54f245edc3daf12de8bf63275"
+  },
+  "benchmark_parameters": {
+    "random_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "vehicle_counts": [
+      25,
+      50,
+      100,
+      200
+    ],
+    "scenarios": [
+      "normal_traffic",
+      "road_closure",
+      "progressive_closures",
+      "emergency_incident",
+      "infrastructure_failure",
+      "communication_blackout"
+    ],
+    "objective_weights": {
+      "weight_travel_time": 0.7,
+      "weight_distance": 0.0,
+      "weight_energy_consumption": 0.2,
+      "weight_congestion": 0.0,
+      "weight_safety": 0.1
+    },
+    "algorithms": {
+      "aco": {
+        "alpha": 1.0,
+        "beta": 2.0,
+        "evaporation_rate": 0.1,
+        "num_ants_override": 5,
+        "max_iterations_override": 5
+      },
+      "bco": {
+        "colony_size_override": 5,
+        "scout_ratio": 0.2,
+        "recruitment_factor": 0.5,
+        "abandonment_threshold": 0.2,
+        "max_iterations_override": 5
+      },
+      "pso": {
+        "cognitive_weight": 1.5,
+        "social_weight": 1.5,
+        "inertia_weight": 0.7,
+        "swarm_size_override": 5,
+        "max_iterations_override": 5
+      },
+      "e3_hybrid": {
+        "max_iterations_override": 15
+      }
+    }
+  },
+  "dependency_versions": {
+    "pyyaml": "6.0.3",
+    "numpy": "1.26.4",
+    "pydantic": "2.13.4",
+    "matplotlib": "3.11.0",
+    "sumolib": "1.27.1",
+    "traci": "1.27.1",
+    "scipy": "1.17.1",
+    "pytest": "9.1.1",
+    "pytest-cov": "7.1.0",
+    "mypy": "2.1.0",
+    "ruff": "0.15.20"
+  }
+}

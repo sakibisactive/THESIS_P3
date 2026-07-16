@@ -1,0 +1,36 @@
+{
+  "algorithms": [
+    "ACO",
+    "E3-Hybrid"
+  ],
+  "scenarios": [
+    "normal_traffic",
+    "progressive_closures"
+  ],
+  "vehicle_counts": [
+    25
+  ],
+  "seeds": [
+    1,
+    2
+  ],
+  "timestamp": "2026-07-14T08:28:50Z",
+  "git_commit": "f8b23bf850ab797cfaef24097183abff3fc7f3fd",
+  "parameters": {
+    "aco": {
+      "num_ants": 5,
+      "max_iterations": 5
+    },
+    "bco": {
+      "colony_size": 5,
+      "max_iterations": 5
+    },
+    "pso": {
+      "swarm_size": 5,
+      "max_iterations": 5
+    },
+    "e3_hybrid": {
+      "max_iterations": 5
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-07-13T17:29:24Z",
+  "network_file": "data/networks/midtown_manhattan.net.xml",
+  "parameters": {
+    "evaluation_overrides": {
+      "aco": {
+        "num_ants": 5,
+        "max_iterations": 5
+      },
+      "bco": {
+        "colony_size": 5,
+        "max_iterations": 5
+      },
+      "pso": {
+        "swarm_size": 5,
+        "max_iterations": 5
+      },
+      "e3_hybrid": {
+        "max_iterations": 5
+      }
+    }
+  },
+  "profiling_results": [
+    {
+      "algorithm": "Dijkstra",
+      "avg_latency_ms": 0.00247955322265625,
+      "p95_latency_ms": 0.002753734588623046,
+      "routes_per_second": 323634.56790123455,
+      "peak_memory_maxrss_mb": 69.07421875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    },
+    {
+      "algorithm": "A*",
+      "avg_latency_ms": 0.0025224685668945312,
+      "p95_latency_ms": 0.002384185791015625,
+      "routes_per_second": 322638.76923076925,
+      "peak_memory_maxrss_mb": 69.4921875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    },
+    {
+      "algorithm": "ACO",
+      "avg_latency_ms": 0.0019741058349609375,
+      "p95_latency_ms": 0.0021696090698242174,
+      "routes_per_second": 406424.8062015504,
+      "peak_memory_maxrss_mb": 69.4921875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    },
+    {
+      "algorithm": "BCO",
+      "avg_latency_ms": 0.0020360946655273438,
+      "p95_latency_ms": 0.0019073486328125,
+      "routes_per_second": 396437.05103969754,
+      "peak_memory_maxrss_mb": 69.4921875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    },
+    {
+      "algorithm": "PSO",
+      "avg_latency_ms": 0.0016880035400390625,
+      "p95_latency_ms": 0.001931190490722655,
+      "routes_per_second": 484330.71593533485,
+      "peak_memory_maxrss_mb": 69.4921875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    },
+    {
+      "algorithm": "E3-Hybrid",
+      "avg_latency_ms": 0.0021457672119140625,
+      "p95_latency_ms": 0.0021457672119140625,
+      "routes_per_second": 351871.14093959733,
+      "peak_memory_maxrss_mb": 69.4921875,
+      "memory_delta_mb": 0.0,
+      "total_queries": 50
+    }
+  ]
+}

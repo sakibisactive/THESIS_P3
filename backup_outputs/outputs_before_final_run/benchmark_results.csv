@@ -1,0 +1,9 @@
+scenario,algorithm,vehicles,seed,avg_travel_time,median_travel_time,p95_travel_time,total_energy_kwh,stranded_vehicles,total_reroutes,avg_execution_time_ms,throughput
+Normal Traffic Scenario,ACORouter,25,1,347.150,318.000,568.400,8.170,0,0,0.000,20
+Normal Traffic Scenario,ACORouter,25,2,301.478,298.000,588.600,8.999,0,0,0.000,23
+Normal Traffic Scenario,E3HybridRouter,25,1,307.818,321.000,420.950,7.476,0,0,0.000,22
+Normal Traffic Scenario,E3HybridRouter,25,2,332.278,297.000,566.100,6.709,0,0,0.000,18
+Progressive Closures Scenario,ACORouter,25,1,334.105,310.000,526.500,7.460,0,0,0.000,19
+Progressive Closures Scenario,ACORouter,25,2,304.348,298.000,588.700,8.806,0,0,0.000,23
+Progressive Closures Scenario,E3HybridRouter,25,1,314.000,324.000,448.900,7.602,0,0,0.000,23
+Progressive Closures Scenario,E3HybridRouter,25,2,320.235,292.000,566.800,5.878,0,0,0.000,17
