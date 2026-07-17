@@ -8,10 +8,10 @@ This report summarizes details and trip statistics on the **Midtown Manhattan** 
 * **Valid Passenger Vehicle Edges:** **1130**
 
 ## 2. Vehicle Trip Performance
-* **Total Trips Scheduled:** **150**
-* **Vehicles Completed All Trips:** **150**
+* **Total Trips Scheduled:** **2000**
+* **Vehicles Completed All Trips:** **2000**
 * **Trip Completion Percentage:** **100.00%**
-* **Average Completed Trip Distance:** **1.581 km** (1580.72 meters)
+* **Average Completed Trip Distance:** **1.606 km** (1605.81 meters)
 
 ---
 *Note: Trip routes were generated randomly across valid passenger roads and simulated using SUMO's built-in shortest-path router.*

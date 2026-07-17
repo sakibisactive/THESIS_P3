@@ -78,6 +78,12 @@ def main():
     
     # 2. Generate Random Trips
     num_trips = 150
+    if len(sys.argv) > 1:
+        try:
+            num_trips = int(sys.argv[1])
+        except ValueError:
+            print(f"Warning: Could not parse '{sys.argv[1]}' as an integer. Using default of 150 vehicles.")
+            
     print(f"\nGenerating {num_trips} random passenger trips...")
     
     random.seed(42)  # For reproducibility
@@ -85,13 +91,16 @@ def main():
     trips_content = '<routes>\n'
     trips_content += '    <vType id="passenger_car" vClass="passenger" accel="2.6" decel="4.5" sigma="0.5" length="5.0" minGap="2.5" maxSpeed="13.89"/>\n'
     
+    # Scale departure intervals so all vehicles are spawned within the first 1800 seconds (30 minutes)
+    depart_interval = 1800.0 / num_trips if num_trips > 0 else 1.0
+    
     for i in range(num_trips):
         start_edge = random.choice(passenger_edges)
         end_edge = random.choice(passenger_edges)
         while start_edge == end_edge:
             end_edge = random.choice(passenger_edges)
             
-        trips_content += f'    <trip id="veh_{i}" type="passenger_car" depart="{i * 2.0:.1f}" from="{start_edge}" to="{end_edge}"/>\n'
+        trips_content += f'    <trip id="veh_{i}" type="passenger_car" depart="{i * depart_interval:.2f}" from="{start_edge}" to="{end_edge}"/>\n'
     trips_content += '</routes>\n'
     
     with open(route_file, "w") as rf:
